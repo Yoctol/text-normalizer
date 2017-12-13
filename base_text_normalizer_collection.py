@@ -6,14 +6,18 @@ class BaseTextNormalizerCollection(object):
     def __init__(self):
         self.text_normalizers = []
 
-    def add_text_normalizer(
+    def add_text_normalizers(
             self,
-            text_normalizer: object,
+            text_normalizers: List[object],
         ) -> None:
         '''
         TODO: Ensure text normalizer is a subclass of BaseTextNormalizer
         '''
-        self.text_normalizers.append(text_normalizer)
+        if not isinstance(text_normalizers, list):
+            self.text_normalizers.append(text_normalizers)
+        else:
+            for text_normalizer in text_normalizers:
+                self.text_normalizers.append(text_normalizer)
 
     def clear_text_normalizers(self):
         self.text_normalizers = []
@@ -21,8 +25,11 @@ class BaseTextNormalizerCollection(object):
     def normalize(
             self,
             sentence: str,
+            lowercase: bool = False,
         )-> (str, List[dict]):
         sentence = sentence.strip()
+        if lowercase:
+            sentence = sentence.lower()
         history = []
         for text_normalizer in self.text_normalizers:
             sentence, meta_data = text_normalizer.normalize(sentence=sentence)
