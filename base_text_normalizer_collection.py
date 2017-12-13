@@ -11,7 +11,7 @@ class BaseTextNormalizerCollection(object):
             text_normalizer: object,
         ) -> None:
         '''
-        TODO: Ensure str_filter is a subclass of BaseFilter
+        TODO: Ensure text normalizer is a subclass of BaseTextNormalizer
         '''
         self.text_normalizers.append(text_normalizer)
 

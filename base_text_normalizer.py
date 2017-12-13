@@ -26,12 +26,12 @@ class BaseTextNormalizer(object):
             meta: dict = None,
         ) -> str:
         '''
-        If the filter is refillable, then this method should be implemented.
+        If the text normalizer is denormalizable, then this method should be implemented.
         '''
         if not self.denormalizable:
             return sentence
 
-    # def lfill(
+    # def ldenormalize(
     #         self,
     #         sentence: List[str],
     #         meta: dict = None,
