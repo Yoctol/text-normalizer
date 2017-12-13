@@ -5,7 +5,8 @@ from ..basic_text_normalizers import (
     whitespace_char_text_normalizer,
     chinese_punctuation_text_normalizer,
     english_punctuation_text_normalizer,
-    num_text_normalizer,
+    int_text_normalizer,
+    float_text_normalizer,
 )
 
 
@@ -31,7 +32,7 @@ class BasicTextNormalizersTestCase(TestCase):
     def test_chinese_punctuation_text_normalizer_normalize(self):
         test_cases = [
             ('勤彥大大喜歡吃《變態》糖果！！！', ('勤彥大大喜歡吃 變態 糖果', None)),
-            ('～﹁？。？﹂～、', ('', None)),
+            ('。「」﹁﹂『 』、‧（ ）《》〈〉 ﹏﹏﹏……—～，？；：［］【 】！', ('', None)),
             ('家豪大大亂入', ('家豪大大亂入', None)),
         ]
         for test_case in test_cases:
@@ -44,7 +45,7 @@ class BasicTextNormalizersTestCase(TestCase):
     def test_english_punctuation_text_normalizer_normalize(self):
         test_cases = [
             ('勤彥大大喜歡吃<變態>糖果!!!', ('勤彥大大喜歡吃 變態 糖果', None)),
-            ('~>??<,==++', ('', None)),
+            ('.,<>(){}[]*^!?=+-~', ('', None)),
             ('家豪大大亂入', ('家豪大大亂入', None)),
         ]
         for test_case in test_cases:
@@ -54,47 +55,89 @@ class BasicTextNormalizersTestCase(TestCase):
                     english_punctuation_text_normalizer.normalize(sentence=test_case[0]),
                 )
 
-    def test_num_text_normalizer_normalize(self):
+    def test_int_text_normalizer_normalize(self):
         test_cases = [
-            ('100', ('_num_', {'_num_': ['100']})),
-            ('340分', ('_num_分', {'_num_': ['340']})),
-            ('薄餡大大1個打10個', ('薄餡大大_num_個打_num_個', {'_num_': ['1', '10']})),
-            ('0800-22-44-66', ('_num_-_num_-_num_-_num_',
-                               {'_num_': ['0800', '22', '44', '66']})),
-            ('家豪大大亂入', ('家豪大大亂入', {'_num_': []})),
+            ('100', ('_int_', {'_int_': ['100']})),
+            ('340分', ('_int_分', {'_int_': ['340']})),
+            ('薄餡大大1個打10個', ('薄餡大大_int_個打_int_個', {'_int_': ['1', '10']})),
+            ('0800-22-44-66', ('_int_-_int_-_int_-_int_',
+                               {'_int_': ['0800', '22', '44', '66']})),
+            ('家豪大大亂入', ('家豪大大亂入', {'_int_': []})),
         ]
         for test_case in test_cases:
             with self.subTest(test_case=test_case):
                 self.assertEqual(
                     test_case[1],
-                    num_text_normalizer.normalize(sentence=test_case[0]),
+                    int_text_normalizer.normalize(sentence=test_case[0]),
                 )
 
-    def test_num_text_normalizer_denormalize(self):
+    def test_int_text_normalizer_denormalize(self):
         normal_test_cases = [
-            ('_num_', {'_num_': ['100']}, '100'),
-            ('_num_分', {'_num_': ['340']}, '340分'),
-            ('薄餡大大_num_個打_num_個', {'_num_': ['1', '10']}, '薄餡大大1個打10個'),
-            ('_num_-_num_-_num_-_num_',
-             {'_num_': ['0800', '22', '44', '66']}, '0800-22-44-66'),
-            ('家豪大大亂入', {'_num_': []}, '家豪大大亂入'),
+            ('_int_', {'_int_': ['100']}, '100'),
+            ('_int_分', {'_int_': ['340']}, '340分'),
+            ('薄餡大大_int_個打_int_個', {'_int_': ['1', '10']}, '薄餡大大1個打10個'),
+            ('_int_-_int_-_int_-_int_',
+             {'_int_': ['0800', '22', '44', '66']}, '0800-22-44-66'),
+            ('家豪大大亂入', {'_int_': []}, '家豪大大亂入'),
         ]
         for test_case in normal_test_cases:
             with self.subTest(test_case=test_case):
                 self.assertEqual(
                     test_case[2],
-                    num_text_normalizer.denormalize(
+                    int_text_normalizer.denormalize(
                         sentence=test_case[0],
                         meta=test_case[1],
                     ),
                 )
         with self.assertRaises(KeyError):
-            num_text_normalizer.denormalize(
+            int_text_normalizer.denormalize(
                 sentence='家豪大大亂入',
                 meta={'_雞排_': ['大雞排']},
             ),
         with self.assertRaises(ValueError):
-            num_text_normalizer.denormalize(
-                sentence='_num_和_num_這兩個日期都沒有雞排',
-                meta={'_num_': ['12']},
+            int_text_normalizer.denormalize(
+                sentence='_int_和_int_這兩個日期都沒有雞排',
+                meta={'_int_': ['12']},
+            )
+
+    def test_float_text_normalizer_normalize(self):
+        test_cases = [
+            ('100.000', ('_float_', {'_float_': ['100.000']})),
+            ('94.87分', ('_float_分', {'_float_': ['94.87']})),
+            ('薄餡大大1.5個打10.7個', ('薄餡大大_float_個打_float_個', {'_float_': ['1.5', '10.7']})),
+            ('123.456.789', ('123.456.789', {'_float_': []})),
+            ('家豪大大亂入', ('家豪大大亂入', {'_float_': []})),
+        ]
+        for test_case in test_cases:
+            with self.subTest(test_case=test_case):
+                self.assertEqual(
+                    test_case[1],
+                    float_text_normalizer.normalize(sentence=test_case[0]),
+                )
+
+    def test_float_text_normalizer_denormalize(self):
+        normal_test_cases = [
+            ('_float_', {'_float_': ['100.000']}, '100.000'),
+            ('_float_分', {'_float_': ['340.87']}, '340.87分'),
+            ('薄餡大大_float_個打_float_個', {'_float_': ['1.5', '10.7']}, '薄餡大大1.5個打10.7個'),
+            ('家豪大大亂入', {'_float_': []}, '家豪大大亂入'),
+        ]
+        for test_case in normal_test_cases:
+            with self.subTest(test_case=test_case):
+                self.assertEqual(
+                    test_case[2],
+                    float_text_normalizer.denormalize(
+                        sentence=test_case[0],
+                        meta=test_case[1],
+                    ),
+                )
+        with self.assertRaises(KeyError):
+            float_text_normalizer.denormalize(
+                sentence='家豪大大亂入',
+                meta={'_雞排_': ['大雞排']},
+            ),
+        with self.assertRaises(ValueError):
+            float_text_normalizer.denormalize(
+                sentence='_float_和_float_這兩個價錢都買不到雞排',
+                meta={'_float_': ['12']},
             )

@@ -28,11 +28,20 @@ english_punctuation_text_normalizer = ReplacePatternWithToken(
     token=' ',
 )
 
-num_text_normalizer = ReplacePatternWithToken(
-    name='number',
+int_text_normalizer = ReplacePatternWithToken(
+    name='int',
     denormalizable=True,
     target_pattern=r'[0-9]+',
     prefix_pattern=None,
     suffix_pattern=None,
-    token='_num_',
+    token='_int_',
+)
+
+float_text_normalizer = ReplacePatternWithToken(
+    name='float',
+    denormalizable=True,
+    target_pattern=r'[0-9]+\.[0-9]+',
+    prefix_pattern=r'[^\.\d]{1}|\A',
+    suffix_pattern=r'[^\.\d]{1}|\Z',
+    token='_float_',
 )
