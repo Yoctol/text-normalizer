@@ -13,11 +13,8 @@ class BaseTextNormalizerCollection(object):
         '''
         TODO: Ensure text normalizer is a subclass of BaseTextNormalizer
         '''
-        if not isinstance(text_normalizers, list):
-            self.text_normalizers.append(text_normalizers)
-        else:
-            for text_normalizer in text_normalizers:
-                self.text_normalizers.append(text_normalizer)
+        for text_normalizer in text_normalizers:
+            self.text_normalizers.append(text_normalizer)
 
     def clear_text_normalizers(self):
         self.text_normalizers = []

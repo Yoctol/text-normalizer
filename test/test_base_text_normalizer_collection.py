@@ -35,17 +35,17 @@ class TestBaseTextNormalizerCollection(TestCase):
         )
 
     def test_add_text_normalizers(self):
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_0)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_0])
         self.assertEqual(
             [self.text_normalizer_0],
             self.base_text_normalizer_collection.text_normalizers,
         )
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_1)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_1])
         self.assertEqual(
             [self.text_normalizer_0, self.text_normalizer_1],
             self.base_text_normalizer_collection.text_normalizers,
         )
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_2)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_2])
         self.assertEqual(
             [self.text_normalizer_0, self.text_normalizer_1, self.text_normalizer_2],
             self.base_text_normalizer_collection.text_normalizers,
@@ -60,7 +60,7 @@ class TestBaseTextNormalizerCollection(TestCase):
         )
 
     def test_call(self):
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_0)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_0])
         self.base_text_normalizer_collection.normalize(
             sentence=self.example_sentence,
         )
@@ -68,7 +68,7 @@ class TestBaseTextNormalizerCollection(TestCase):
             [call.f0.normalize(sentence=self.example_sentence)],
         )
 
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_1)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_1])
         self.base_text_normalizer_collection.normalize(
             sentence=self.example_sentence,
         )
@@ -78,7 +78,7 @@ class TestBaseTextNormalizerCollection(TestCase):
                 call.f1.normalize(sentence="我123456789"),
             ],
         )
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_2)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_2])
         self.base_text_normalizer_collection.normalize(
             sentence=self.example_sentence,
         )
@@ -91,7 +91,7 @@ class TestBaseTextNormalizerCollection(TestCase):
         )
 
     def test_denormalize(self):
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_0)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_0])
         self.base_text_normalizer_collection.denormalize(
             sentence="我123456789",
             meta=[
@@ -111,7 +111,7 @@ class TestBaseTextNormalizerCollection(TestCase):
             ],
         )
 
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_1)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_1])
         self.base_text_normalizer_collection.denormalize(
             sentence="我123456789",
             meta=[
@@ -140,7 +140,7 @@ class TestBaseTextNormalizerCollection(TestCase):
             ],
         )
 
-        self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_2)
+        self.base_text_normalizer_collection.add_text_normalizers([self.text_normalizer_2])
         self.base_text_normalizer_collection.denormalize(
             sentence="我要3456789",
             meta=[
