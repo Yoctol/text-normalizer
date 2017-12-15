@@ -9,7 +9,6 @@ class BasicNormalizerCollectionTestCase(TestCase):
     def test_basic_text_normalizer_collection(self):
         revised_sentence, history = basic_text_normalizer_collection.normalize(
             sentence='2017-01-01我在85.33度C買了一杯(*999*)的咖啡--10:30',
-            lowercase=True,
         )
         self.assertEqual(
             '_date_我在_float_度c買了一杯 _int_ 的咖啡 _time_',

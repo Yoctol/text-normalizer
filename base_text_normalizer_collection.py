@@ -25,11 +25,8 @@ class BaseTextNormalizerCollection(object):
     def normalize(
             self,
             sentence: str,
-            lowercase: bool = False,
         )-> (str, List[dict]):
-        sentence = sentence.strip()
-        if lowercase:
-            sentence = sentence.lower()
+        sentence = sentence.strip().lower()
         history = []
         for text_normalizer in self.text_normalizers:
             sentence, meta_data = text_normalizer.normalize(sentence=sentence)
