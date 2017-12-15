@@ -27,24 +27,24 @@ class BaseTextNormalizerCollection(object):
             sentence: str,
         )-> (str, List[dict]):
         sentence = sentence.strip().lower()
-        history = []
+        meta = []
         for text_normalizer in self.text_normalizers:
             sentence, meta_data = text_normalizer.normalize(sentence=sentence)
-            history.append({
+            meta.append({
                 'name': text_normalizer.name,
                 'revised_sentence': sentence,
                 'meta_data': meta_data,
             })
-        return sentence.strip(), history
+        return sentence.strip(), meta
 
     def denormalize(
             self,
             sentence: str,
-            history: List[dict],
+            meta: List[dict],
         ) -> str:
         for text_normalizer, record in zip(
                 self.text_normalizers[::-1],
-                history[::-1],
+                meta[::-1],
             ):
             if record['name'] == text_normalizer.name:
                 sentence = text_normalizer.denormalize(
@@ -56,11 +56,11 @@ class BaseTextNormalizerCollection(object):
     # def ldenormalize(
     #         self,
     #         sentence: List[str],
-    #         history: List[dict],
+    #         meta: List[dict],
     #     ):
-    #     for str_filter, record in zip(self.filters[::-1], history[::-1]):
-    #         if record['name'] == str_filter.name:
-    #             sentence = str_filter.lretrieve(
+    #     for text_normalizer, record in zip(self.text_normalizers[::-1], meta[::-1]):
+    #         if record['name'] == text_normalizer.name:
+    #             sentence = text_normalizer.lretrieve(
     #                 sentence=sentence,
     #                 meta=record['meta_data'],
     #             )

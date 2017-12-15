@@ -94,7 +94,7 @@ class TestBaseTextNormalizerCollection(TestCase):
         self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_0)
         self.base_text_normalizer_collection.denormalize(
             sentence="我123456789",
-            history=[
+            meta=[
                 {
                     'name': "text_normalizer_0",
                     'revised_sentence': "XDDD",
@@ -114,7 +114,7 @@ class TestBaseTextNormalizerCollection(TestCase):
         self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_1)
         self.base_text_normalizer_collection.denormalize(
             sentence="我123456789",
-            history=[
+            meta=[
                 {
                     'name': "text_normalizer_0",
                     'revised_sentence': "XDDD",
@@ -143,7 +143,7 @@ class TestBaseTextNormalizerCollection(TestCase):
         self.base_text_normalizer_collection.add_text_normalizers(self.text_normalizer_2)
         self.base_text_normalizer_collection.denormalize(
             sentence="我要3456789",
-            history=[
+            meta=[
                 {
                     'name': "text_normalizer_0",
                     'revised_sentence': "XDDD",
