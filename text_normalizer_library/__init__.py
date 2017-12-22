@@ -11,3 +11,4 @@ from .date_text_normalizers import (
 from .time_text_normalizers import (
     time_text_normalizer_hhmm,
 )
+from .identity_text_normalizer import identity_text_normalizer
