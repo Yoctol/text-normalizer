@@ -40,6 +40,5 @@ class EngLowercaseTextNormalizer(BaseTextNormalizer):
                 output.append(single_meta['before'])
                 begin_index += len(single_meta['before'])
         if begin_index != len(sentence):
-            output.append(sentence[begin_index: ])
+            output.append(sentence[begin_index:])
         return ''.join(output)
-

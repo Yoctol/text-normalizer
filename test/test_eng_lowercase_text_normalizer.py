@@ -16,12 +16,15 @@ class EngLowercaseTextNormalizerTestCase(TestCase):
             ('哈囉 aab 123 cddef 哈囉 >< ???',
              [
                  {
-                     'before': 'AAB', 'after': 'aab',
+                     'before': 'AAB',
+                     'after': 'aab',
                  },
                  {
-                     'before': 'Cddef', 'after': 'cddef',
+                     'before': 'Cddef',
+                     'after': 'cddef',
                  },
-             ]),
+             ],
+             ),
             result,
         )
         result = self.eng_lowercase_text_normalizer.denormalize(
@@ -41,16 +44,19 @@ class EngLowercaseTextNormalizerTestCase(TestCase):
             ('aab 123 哈囉 cddef 456 ffeci',
              [
                  {
-                     'before': 'AAB', 'after': 'aab',
+                     'before': 'AAB',
+                     'after': 'aab',
                  },
                  {
-                     'before': 'Cddef', 'after': 'cddef',
+                     'before': 'Cddef',
+                     'after': 'cddef',
                  },
                  {
-                     'before': 'ffecI', 'after': 'ffeci',
+                     'before': 'ffecI',
+                     'after': 'ffeci',
                  },
              ],
-            ),
+             ),
             result,
         )
         result = self.eng_lowercase_text_normalizer.denormalize(
