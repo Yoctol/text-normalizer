@@ -12,3 +12,4 @@ from .time_text_normalizers import (
     time_text_normalizer_hhmm,
 )
 from .identity_text_normalizer import identity_text_normalizer
+from .eng_lowercase_text_normalizer import eng_lowercase_text_normalizer
