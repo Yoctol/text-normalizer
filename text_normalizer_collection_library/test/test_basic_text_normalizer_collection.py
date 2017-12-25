@@ -19,6 +19,6 @@ class BasicNormalizerCollectionTestCase(TestCase):
             meta=meta,
         )
         self.assertEqual(
-            '2017-01-01我在85.33度c買了一杯999的咖啡10:30',
+            '2017-01-01我在85.33度C買了一杯999的咖啡10:30',
             recovered_sentence,
         )

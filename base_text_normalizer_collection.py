@@ -23,7 +23,6 @@ class BaseTextNormalizerCollection(object):
             self,
             sentence: str,
         )-> (str, List[dict]):
-        sentence = sentence.strip().lower()
         meta = []
         for text_normalizer in self.text_normalizers:
             sentence, meta_data = text_normalizer.normalize(sentence=sentence)
@@ -32,7 +31,7 @@ class BaseTextNormalizerCollection(object):
                 'revised_sentence': sentence,
                 'meta_data': meta_data,
             })
-        return sentence.strip(), meta
+        return sentence, meta
 
     def denormalize(
             self,
