@@ -67,3 +67,20 @@ class EngLowercaseTextNormalizerTestCase(TestCase):
             'AAB 123 哈囉 Cddef 456 ffecI',
             result,
         )
+
+    def test_normalize_n_denormalize_2(self):
+        result = self.eng_lowercase_text_normalizer.normalize(
+            '家豪大大亂入吃雞排',
+        )
+        self.assertEqual(
+            ('家豪大大亂入吃雞排', None),
+            result,
+        )
+        result = self.eng_lowercase_text_normalizer.denormalize(
+            sentence=result[0],
+            meta=result[1],
+        )
+        self.assertEqual(
+            '家豪大大亂入吃雞排',
+            result,
+        )

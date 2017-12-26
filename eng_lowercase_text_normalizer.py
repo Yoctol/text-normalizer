@@ -29,16 +29,19 @@ class EngLowercaseTextNormalizer(BaseTextNormalizer):
             sentence: str,
             meta: List[dict] = None,
         ):
-        begin_index = 0
-        output = []
-        for single_meta in meta:
-            start = sentence.find(single_meta['after'], begin_index)
-            if start != -1:
-                if begin_index != start:
-                    output.append(sentence[begin_index: start])
-                    begin_index = start
-                output.append(single_meta['before'])
-                begin_index += len(single_meta['before'])
-        if begin_index != len(sentence):
-            output.append(sentence[begin_index:])
-        return ''.join(output)
+        if meta is None:
+            return sentence
+        else:
+            begin_index = 0
+            output = []
+            for single_meta in meta:
+                start = sentence.find(single_meta['after'], begin_index)
+                if start != -1:
+                    if begin_index != start:
+                        output.append(sentence[begin_index: start])
+                        begin_index = start
+                    output.append(single_meta['before'])
+                    begin_index += len(single_meta['before'])
+            if begin_index != len(sentence):
+                output.append(sentence[begin_index:])
+            return ''.join(output)
