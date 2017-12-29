@@ -11,11 +11,11 @@ class BasicNormalizerCollectionTestCase(TestCase):
             sentence='2017-01-01我在85.33度C買了一杯(*999*)的咖啡--10:30',
         )
         self.assertEqual(
-            '_date_我在_float_度c買了一杯 _int_ 的咖啡 _time_',
+            '_date_ 我在 _float_ 度c買了一杯 _int_ 的咖啡 _time_',
             revised_sentence,
         )
         recovered_sentence = basic_text_normalizer_collection.denormalize(
-            sentence='_date_我在_float_度c買了一杯_int_的咖啡_time_',
+            sentence='_date_ 我在 _float_ 度c買了一杯 _int_ 的咖啡 _time_',
             meta=meta,
         )
         self.assertEqual(

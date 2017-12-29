@@ -7,5 +7,5 @@ date_text_normalizer_yymmdd = ReplacePatternWithToken(
     target_pattern=r'[0-2]*\d\d\d-[0-1]*\d-[0-3]*\d',
     prefix_pattern=r'[^\d-]{1}|\A',
     suffix_pattern=r'[^\d-]{1}|\Z',
-    token='_date_',
+    token=' _date_ ',
 )

@@ -34,7 +34,7 @@ int_text_normalizer = ReplacePatternWithToken(
     target_pattern=r'[0-9]+',
     prefix_pattern=None,
     suffix_pattern=None,
-    token='_int_',
+    token=' _int_ ',
 )
 
 float_text_normalizer = ReplacePatternWithToken(
@@ -43,5 +43,5 @@ float_text_normalizer = ReplacePatternWithToken(
     target_pattern=r'[0-9]+\.[0-9]+',
     prefix_pattern=r'[^\.\d]{1}|\A',
     suffix_pattern=r'[^\.\d]{1}|\Z',
-    token='_float_',
+    token=' _float_ ',
 )

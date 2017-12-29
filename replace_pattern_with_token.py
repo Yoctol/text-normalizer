@@ -36,6 +36,13 @@ class ReplacePatternWithToken(BaseTextNormalizer):
 
         self.findall_prog = re.compile(self.findall_pattern)
         self.sub_prog = re.compile(self.sub_pattern)
+        self.split_prog = re.compile(
+            '{}|{}|{}'.format(
+                self.token,
+                self.token.rstrip(),
+                self.token.lstrip(),
+            ),
+        )
 
     def normalize(
             self,
@@ -49,9 +56,9 @@ class ReplacePatternWithToken(BaseTextNormalizer):
             meta = self.findall_prog.findall(
                 string=sentence,
             )
-            return revised_sentence.strip(), {self.token: meta}
+            return revised_sentence, {self.token: meta}
         else:
-            return revised_sentence.strip(), None
+            return revised_sentence, None
 
     def denormalize(
             self,
@@ -69,7 +76,7 @@ class ReplacePatternWithToken(BaseTextNormalizer):
                 'Meta should be { %s: [...]}.' % self.token,
             )
 
-        splited_sentence = sentence.split(self.token)
+        splited_sentence = self.split_prog.split(sentence)
         if (len(splited_sentence) == 1) and (len(meta[self.token]) == 0):
             # Case3: no token in sentence and meta is empty
             return sentence
@@ -88,7 +95,7 @@ class ReplacePatternWithToken(BaseTextNormalizer):
                 if s_idx != len(splited_sentence):
                     output_sentence += meta[self.token][idx]
                     idx += 1
-            return output_sentence.strip()
+            return output_sentence
 
     # def ldenormalize(
     #         self,
