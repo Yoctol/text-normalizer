@@ -37,10 +37,11 @@ class ReplacePatternWithToken(BaseTextNormalizer):
         self.findall_prog = re.compile(self.findall_pattern)
         self.sub_prog = re.compile(self.sub_pattern)
         self.split_prog = re.compile(
-            '{}|{}|{}'.format(
+            '{}|{}|{}|{}'.format(
                 self.token,
                 self.token.rstrip(),
                 self.token.lstrip(),
+                self.token.strip(),
             ),
         )
 
