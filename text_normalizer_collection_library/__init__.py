@@ -1,1 +1,2 @@
 from .basic_text_normalizer_collection import basic_text_normalizer_collection
+from .eng_basic_text_normalizer_collection import eng_basic_text_normalizer_collection
