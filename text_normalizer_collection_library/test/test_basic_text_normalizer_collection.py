@@ -8,17 +8,17 @@ class BasicNormalizerCollectionTestCase(TestCase):
 
     def test_basic_text_normalizer_collection(self):
         revised_sentence, meta = basic_text_normalizer_collection.normalize(
-            sentence='2017-01-01我在85.33度C買了一杯(*999*)的咖啡--10:30',
+            sentence='我在85.33度C買了一杯(*999*)的咖啡--',
         )
         self.assertEqual(
-            '_date_ 我在 _float_ 度c買了一杯 _int_ 的咖啡 _time_',
+            '我在 _float_ 度c買了一杯 _int_ 的咖啡',
             revised_sentence,
         )
         recovered_sentence = basic_text_normalizer_collection.denormalize(
-            sentence='_date_ 我在 _float_ 度c買了一杯 _int_ 的咖啡 _time_',
+            sentence='我在 _float_ 度c買了一杯 _int_ 的咖啡',
             meta=meta,
         )
         self.assertEqual(
-            '2017-01-01我在85.33度C買了一杯999的咖啡10:30',
+            '我在85.33度C買了一杯999的咖啡',
             recovered_sentence,
         )

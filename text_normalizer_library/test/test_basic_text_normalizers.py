@@ -3,8 +3,6 @@
 from unittest import TestCase
 from ..basic_text_normalizers import (
     whitespace_char_text_normalizer,
-    chinese_punctuation_text_normalizer,
-    english_punctuation_text_normalizer,
     int_text_normalizer,
     float_text_normalizer,
 )
@@ -27,32 +25,6 @@ class BasicTextNormalizersTestCase(TestCase):
                 self.assertEqual(
                     test_case[1],
                     whitespace_char_text_normalizer.normalize(sentence=test_case[0]),
-                )
-
-    def test_chinese_punctuation_text_normalizer_normalize(self):
-        test_cases = [
-            ('勤彥大大喜歡吃《變態》糖果！！！', ('勤彥大大喜歡吃 變態 糖果 ', None)),
-            ('。「」﹁﹂『 』、‧（ ）《》〈〉 ﹏﹏﹏……—～，？；：［］【 】！', (' ', None)),
-            ('家豪大大亂入', ('家豪大大亂入', None)),
-        ]
-        for test_case in test_cases:
-            with self.subTest(test_case=test_case):
-                self.assertEqual(
-                    test_case[1],
-                    chinese_punctuation_text_normalizer.normalize(sentence=test_case[0]),
-                )
-
-    def test_english_punctuation_text_normalizer_normalize(self):
-        test_cases = [
-            ('勤彥大大喜歡吃<變態>糖果!!!', ('勤彥大大喜歡吃 變態 糖果 ', None)),
-            ('.,<>(){}[]*^!?=+-~', (' ', None)),
-            ('家豪大大亂入', ('家豪大大亂入', None)),
-        ]
-        for test_case in test_cases:
-            with self.subTest(test_case=test_case):
-                self.assertEqual(
-                    test_case[1],
-                    english_punctuation_text_normalizer.normalize(sentence=test_case[0]),
                 )
 
     def test_int_text_normalizer_normalize(self):

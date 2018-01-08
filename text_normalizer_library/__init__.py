@@ -1,9 +1,14 @@
 from .basic_text_normalizers import (
     whitespace_char_text_normalizer,
-    chinese_punctuation_text_normalizer,
-    english_punctuation_text_normalizer,
     int_text_normalizer,
     float_text_normalizer,
+)
+from .punctuation_text_normalizers import (
+    chinese_punctuation_text_normalizer,
+    english_punctuation_text_normalizer,
+    all_punctuation_text_normalizer,
+    all_punctuation_without_endpoint_text_normalizer,
+    all_punctuation_without_underscore_text_normalizer
 )
 from .date_text_normalizers import (
     date_text_normalizer_yymmdd,

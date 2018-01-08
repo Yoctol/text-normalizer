@@ -4,14 +4,10 @@ from ..text_normalizer_library.basic_text_normalizers import (
     whitespace_char_text_normalizer,
     float_text_normalizer,
     int_text_normalizer,
-    chinese_punctuation_text_normalizer,
-    english_punctuation_text_normalizer,
 )
-from ..text_normalizer_library.date_text_normalizers import (
-    date_text_normalizer_yymmdd,
-)
-from ..text_normalizer_library.time_text_normalizers import (
-    time_text_normalizer_hhmm,
+from ..text_normalizer_library.punctuation_text_normalizers import (
+    all_punctuation_without_endpoint_text_normalizer,
+    all_punctuation_without_underscore_text_normalizer,
 )
 from ..text_normalizer_library.strip_text_normalizers import (
     pure_strip_text_normalizer,
@@ -25,14 +21,10 @@ basic_text_normalizer_collection = BaseTextNormalizerCollection()
 basic_text_normalizer_collection.add_text_normalizers(
     text_normalizers=[
         eng_lowercase_text_normalizer,
-        pure_strip_text_normalizer,
-        whitespace_char_text_normalizer,
+        all_punctuation_without_endpoint_text_normalizer,
         float_text_normalizer,
-        date_text_normalizer_yymmdd,
-        time_text_normalizer_hhmm,
         int_text_normalizer,
-        chinese_punctuation_text_normalizer,
-        english_punctuation_text_normalizer,
+        all_punctuation_without_underscore_text_normalizer,
         whitespace_char_text_normalizer,
         pure_strip_text_normalizer,
     ],

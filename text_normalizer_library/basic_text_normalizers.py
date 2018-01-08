@@ -10,24 +10,6 @@ whitespace_char_text_normalizer = ReplacePatternWithToken(
     token=' ',
 )
 
-chinese_punctuation_text_normalizer = ReplacePatternWithToken(
-    name='chinese_punctuation',
-    denormalizable=False,
-    target_pattern=r'[。「」﹁﹂『 』、‧（ ）《》〈〉 ﹏﹏﹏……—～，？；：［］【 】！]+',
-    prefix_pattern=None,
-    suffix_pattern=None,
-    token=' ',
-)
-
-english_punctuation_text_normalizer = ReplacePatternWithToken(
-    name='english_punctuation',
-    denormalizable=False,
-    target_pattern=r'[\.,\<\>\(\)\"\'\{\}\[\]\*\^\!\?\=\+\-\~]+',
-    prefix_pattern=None,
-    suffix_pattern=None,
-    token=' ',
-)
-
 int_text_normalizer = ReplacePatternWithToken(
     name='int',
     denormalizable=True,
