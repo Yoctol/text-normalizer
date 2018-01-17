@@ -29,7 +29,7 @@ class BasicTextNormalizersTestCase(TestCase):
 
     def test_int_text_normalizer_normalize(self):
         test_cases = [
-            ('100', (' _int_ ', {' _int_ ': ['100']})),
+            ('12345678900', (' _int_ ', {' _int_ ': ['12345678900']})),
             ('340分', (' _int_ 分', {' _int_ ': ['340']})),
             ('薄餡大大1個打10個', ('薄餡大大 _int_ 個打 _int_ 個', {' _int_ ': ['1', '10']})),
             ('0800-22-44-66', (' _int_ - _int_ - _int_ - _int_ ',
