@@ -8,6 +8,8 @@ SpecialCases = {
     '\\': '\\\\',
 }
 
+RevSpecialCases = {v: k for k, v in SpecialCases.items()}
+
 
 class PunctuationMappingTextNormalizer(BaseTextNormalizer):
 
@@ -52,8 +54,7 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
         for pattern in self.patterns:
             if pattern["replacement"] in SpecialCases:
                 pattern["replacement"] = SpecialCases[pattern["replacement"]]
-            # if pattern["replacement"] == '"':
-            #     pattern["replacement"] = '\"'
+
             revised_sentence = pattern["normalization_pattern"].sub(
                 repl=pattern["replacement"],
                 string=revised_sentence,
@@ -84,25 +85,44 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
                     "The AFTER token should be the same as REPLACEMENT in patterns",
                     "Now, AFTER token is {} and REPLACEMENT is {}".format(
                         single_meta["after"],
-                        self.pattern["replacement"],
+                        pattern["replacement"],
                     )
                 )
+
+            if pattern["replacement"] in RevSpecialCases:
+                pattern["replacement"] = RevSpecialCases[pattern["replacement"]]
+
             punct_to_be_denormalized = pattern["denormalization_pattern"].findall(
                 string=sentence,
             )
             if len(punct_to_be_denormalized) != len(single_meta["before"]):
                 raise KeyError(
                     "The number of punctuation to be denormalized is not equal to",
-                    "the number of that in meta data \n",
-                    "# of punctuations to be denormalized = {}\n".format(
-                        len(punct_to_be_denormalized)
+                    "the number of that in meta data",
+                    "# of punctuations to be denormalized = {}".format(
+                        len(punct_to_be_denormalized),
+                    ),
+                    "punctuations to be denormalized = {}".format(
+                        punct_to_be_denormalized,
                     ),
                     "punctuations in meta = {}".format(single_meta["before"]),
                 )
+
+            begin_index = 0
+            output_sent = []
             for punct in single_meta["before"]:
-                sentence = pattern["denormalization_pattern"].sub(
-                    repl=punct,
-                    string=sentence,
-                    count=1,
+                m_obj = pattern["denormalization_pattern"].search(
+                    sentence[begin_index:],
                 )
+                recovered_sentence = pattern["denormalization_pattern"].sub(
+                    repl=punct,
+                    string=sentence[begin_index:],
+                    count=1,
+                )[: m_obj.start() + len(punct)]
+                output_sent.append(recovered_sentence)
+                begin_index += m_obj.start() + len(pattern["replacement"])
+            if begin_index != len(sentence):
+                output_sent.append(sentence[begin_index:])
+            sentence = ''.join(output_sent)
+
         return sentence

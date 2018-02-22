@@ -13,6 +13,11 @@ class PunctuationKeepingTextNormalizerCollectionTestCase(TestCase):
             (
                 "我在85.33度C買了一杯900-1000元的咖啡{ohoh}",
                 "我在 _float_ 度c買了一杯 _int_ - _int_ 元的咖啡(ohoh)",
+            ),
+            (
+                "買5-8年五門車~",
+                "買 _int_ - _int_ 年五門車-",
+
             )
         ]
         for test_case in test_cases:

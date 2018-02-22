@@ -17,13 +17,13 @@ class PunctMappingTextNormalizerTestCase(TestCase):
 
     def test_normalize_n_denormalize(self):
         result = self.punct_normalizer.normalize(
-            "❨哈囉❩，（（❩） ） ,,,﹙﹚()",
+            "❨哈囉❩，（（❩） ） ,,,﹙﹚() ❨",
         )
         self.assertEqual(
-            ("(哈囉),(()) ) ,,,()()",
+            ("(哈囉),(()) ) ,,,()() (",
              [
                  {
-                     "before": ["❨", "（", "（", "﹙", "("],
+                     "before": ["❨", "（", "（", "﹙", "(", "❨"],
                      "after": "(",
                  },
                  {
@@ -43,6 +43,6 @@ class PunctMappingTextNormalizerTestCase(TestCase):
             meta=result[1],
         )
         self.assertEqual(
-            "❨哈囉❩，（（❩） ） ,,,﹙﹚()",
+            "❨哈囉❩，（（❩） ） ,,,﹙﹚() ❨",
             result,
         )
