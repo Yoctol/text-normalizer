@@ -67,6 +67,8 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
                     "after": pattern["replacement"],
                 },
             )
+        if not self.denormalizable:
+            return revised_sentence, None
         return revised_sentence, meta
 
     def denormalize(
@@ -108,21 +110,11 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
                     "punctuations in meta = {}".format(single_meta["before"]),
                 )
 
-            begin_index = 0
-            output_sent = []
-            for punct in single_meta["before"]:
-                m_obj = pattern["denormalization_pattern"].search(
-                    sentence[begin_index:],
-                )
-                recovered_sentence = pattern["denormalization_pattern"].sub(
-                    repl=punct,
-                    string=sentence[begin_index:],
-                    count=1,
-                )[: m_obj.start() + len(punct)]
-                output_sent.append(recovered_sentence)
-                begin_index += m_obj.start() + len(pattern["replacement"])
-            if begin_index != len(sentence):
-                output_sent.append(sentence[begin_index:])
-            sentence = ''.join(output_sent)
-
+            splited_sentence = pattern["denormalization_pattern"].split(sentence)
+            output_sentence = []
+            for idx, segment in enumerate(splited_sentence):
+                output_sentence.append(segment)
+                if idx != len(splited_sentence) - 1:
+                    output_sentence.append(single_meta["before"][idx])
+            sentence = ''.join(output_sentence)
         return sentence
