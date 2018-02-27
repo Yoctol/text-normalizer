@@ -1,0 +1,7 @@
+from ..number_token_text_normalizer import NumberTokenTextNormalizer
+
+
+int_text_normalizer = NumberTokenTextNormalizer(token="_int_")
+float_text_normalizer = NumberTokenTextNormalizer(token="_float_")
+int_with_digit_text_normalizer = NumberTokenTextNormalizer(token="_{}int_")
+float_with_digit_text_normalizer = NumberTokenTextNormalizer(token="_{}float{}_")
