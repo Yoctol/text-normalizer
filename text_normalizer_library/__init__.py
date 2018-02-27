@@ -18,3 +18,7 @@ from .time_text_normalizers import (
 )
 from .identity_text_normalizer import identity_text_normalizer
 from .eng_lowercase_text_normalizer import eng_lowercase_text_normalizer
+from .punctuation_mapping_text_normalizers import (
+    full_punctuation_mapping_text_normalizer,
+    simplified_punctuation_mapping_text_normalizer,
+)
