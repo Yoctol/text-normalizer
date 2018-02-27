@@ -8,12 +8,12 @@ full_punctuation_mapping_text_normalizer = PunctuationMappingTextNormalizer(
     normalization_table_path=join(
         ROOT_DIR,
         'data/punctuation/punctuation_mapping_0221.csv',
-    )
+    ),
 )
 
 simplified_punctuation_mapping_text_normalizer = PunctuationMappingTextNormalizer(
     normalization_table_path=join(
         ROOT_DIR,
         'data/punctuation/punctuation_mapping_0221_simplified.csv',
-    )
+    ),
 )

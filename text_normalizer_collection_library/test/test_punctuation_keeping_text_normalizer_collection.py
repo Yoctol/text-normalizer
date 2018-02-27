@@ -19,7 +19,7 @@ class PunctuationKeepingTextNormalizerCollectionTestCase(TestCase):
             (
                 "買5──8年五門車～～",
                 "買 _int_ - _int_ 年五門車~~",
-            )
+            ),
         ]
         for test_case in test_cases:
             with self.subTest(test_case=test_case):
@@ -49,7 +49,7 @@ class PunctuationKeepingTextNormalizerCollectionTestCase(TestCase):
             (
                 "買5-8年五門車~",
                 "買 _int_ - _int_ 年五門車-",
-            )
+            ),
         ]
         for test_case in test_cases:
             with self.subTest(test_case=test_case):

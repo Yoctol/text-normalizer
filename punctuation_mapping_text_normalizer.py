@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 import re
 
 import pandas as pd
@@ -27,7 +27,7 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
         table_dict = table_df.to_dict(orient='index')
 
         self.patterns = []
-        for idx, mapping in table_dict.items():
+        for _, mapping in table_dict.items():
             cleaned_before_pattern = remove_space.sub(" ", mapping["before"])
             before_pattern_list = cleaned_before_pattern.split(" ")
             escaped_before_pattern_list = [
@@ -48,7 +48,7 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
     def normalize(
             self,
             sentence: str,
-        ) -> (str, List[dict]):
+        ) -> (str, List[Dict[str, List[str]]]):
         revised_sentence = sentence
         meta = []
         for pattern in self.patterns:
@@ -65,16 +65,16 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
                         string=sentence,
                     ),
                     "after": pattern["replacement"],
-                }
+                },
             )
         return revised_sentence, meta
 
     def denormalize(
             self,
             sentence: str,
-            meta: List[List[str]],
+            meta: List[Dict[str, List[str]]] = None,
         ) -> str:
-        if super().denormalize(sentence=sentence):
+        if (super().denormalize(sentence=sentence)) or (meta is None):
             # Case1: self.denormalizable = False
             return sentence
 
@@ -86,7 +86,7 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
                     "Now, AFTER token is {} and REPLACEMENT is {}".format(
                         single_meta["after"],
                         pattern["replacement"],
-                    )
+                    ),
                 )
 
             if pattern["replacement"] in RevSpecialCases:
