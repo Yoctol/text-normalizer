@@ -99,7 +99,9 @@ class NumberTokenTextNormalizerTestCase(TestCase):
             ("來亂的", ("來亂的", {"_int_": []})),
         ]
         self.run_test_denormalizable(
-            normalizer=int_text_normalizer, test_cases=test_cases)
+            normalizer=int_text_normalizer,
+            test_cases=test_cases,
+        )
 
     def test_pure_int_not_denormalizable(self):
         int_text_normalizer_not_denormalizable = NumberTokenTextNormalizer(
@@ -271,4 +273,110 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         self.run_test_not_denormalizable(
             test_cases=test_cases,
             normalizer=floatd_text_normalizer,
+        )
+
+    def test_int_text_normalizer_with_space(self):
+        int_text_normalizer_with_space = NumberTokenTextNormalizer(token=" _int_ ")
+        test_cases = [
+            ("12345678900", (" _int_ ", {" _int_ ": ["12345678900"]})),
+            ("340分", (" _int_ 分", {" _int_ ": ["340"]})),
+            ("薄餡大大1個打10個", ("薄餡大大 _int_ 個打 _int_ 個", {" _int_ ": ["1", "10"]})),
+            ("0800-22-44-66", (" _int_ - _int_ - _int_ - _int_ ",
+                               {" _int_ ": ["0800", "22", "44", "66"]})),
+            ("１００", (" _int_ ", {" _int_ ": ["１００"]})),
+            ("3４0分", (" _int_ 分", {" _int_ ": ["3４0"]})),
+            ("薄餡大大１個打10個", ("薄餡大大 _int_ 個打 _int_ 個", {" _int_ ": ["１", "10"]})),
+            ("0８00-２２-44-６６", (" _int_ - _int_ - _int_ - _int_ ",
+                               {" _int_ ": ["0８00", "２２", "44", "６６"]})),
+            ("家豪大大亂入", ("家豪大大亂入", {" _int_ ": []})),
+        ]
+        self.run_test_denormalizable(
+            test_cases=test_cases,
+            normalizer=int_text_normalizer_with_space,
+        )
+        with self.assertRaises(ValueError):
+            int_text_normalizer_with_space.denormalize(
+                sentence=" _int_ 和 _int_ 這兩個日期都沒有雞排",
+                meta={" _int_ ": ["12"]},
+            )
+
+    def test_float_text_normalizer_with_space(self):
+        float_text_normalizer_with_space = NumberTokenTextNormalizer(token=" _float_ ")
+        test_cases = [
+            ("100.000", (" _float_ ", {" _float_ ": ["100.000"]})),
+            ("94.87分", (" _float_ 分", {" _float_ ": ["94.87"]})),
+            ("薄餡大大1.5個打10.7個", ("薄餡大大 _float_ 個打 _float_ 個", {" _float_ ": ["1.5", "10.7"]})),
+            ("123.456.789", ("123.456.789", {" _float_ ": []})),
+            ("1０0.0００", (" _float_ ", {" _float_ ": ["1０0.0００"]})),
+            ("９4.87分", (" _float_ 分", {" _float_ ": ["９4.87"]})),
+            ("薄餡大大1.5個打１０.７個", ("薄餡大大 _float_ 個打 _float_ 個", {" _float_ ": ["1.5", "１０.７"]})),
+            ("１２３.４５６.７８９", ("１２３.４５６.７８９", {" _float_ ": []})),
+            ("家豪大大亂入", ("家豪大大亂入", {" _float_ ": []})),
+        ]
+        self.run_test_denormalizable(
+            test_cases=test_cases,
+            normalizer=float_text_normalizer_with_space,
+        )
+
+    def test_int_with_digit_n_space(self):
+        intd_text_normalizer_with_space = NumberTokenTextNormalizer(token=" _{}int_ ")
+        test_cases = [
+            ("123", (" _3int_ ", {" _3int_ ": ["123"]})),
+            ("098765431389", (" _12int_ ", {" _12int_ ": ["098765431389"]})),
+            ("1 4567890103",
+                (" _1int_   _10int_ ",
+                    {" _1int_ ": ["1"], " _10int_ ": ["4567890103"]})),
+            ("_12float733_", ("_12float733_", {})),
+            ("ohoh 000 _33float0_ 1",
+                ("ohoh  _3int_  _33float0_  _1int_ ",
+                    {" _3int_ ": ["000"], " _1int_ ": ["1"]})),
+            ("123 345 678 901",
+                (" _3int_   _3int_   _3int_   _3int_ ",
+                    {" _3int_ ": ["123", "345", "678", "901"]})),
+            ("１００", (" _3int_ ", {" _3int_ ": ["１００"]})),
+            ("3４0分", (" _3int_ 分", {" _3int_ ": ["3４0"]})),
+            ("薄餡大大１個打10個",
+                ("薄餡大大 _1int_ 個打 _2int_ 個",
+                    {" _1int_ ": ["１"], " _2int_ ": ["10"]})),
+            ("0８00-２２-44-６６",
+                (" _4int_ - _2int_ - _2int_ - _2int_ ",
+                    {" _4int_ ": ["0８00"], " _2int_ ": ["２２", "44", "６６"]})),
+            ("來亂的", ("來亂的", {})),
+        ]
+        self.run_test_denormalizable(
+            test_cases=test_cases,
+            normalizer=intd_text_normalizer_with_space,
+        )
+
+    def test_float_with_digit_n_space(self):
+        floatd_text_normalizer_with_space = NumberTokenTextNormalizer(
+            token=" _{}float{}_ ",
+        )
+        test_cases = [
+            ("123.33", (" _3float2_ ", {" _3float2_ ": ["123.33"]})),
+            ("123", ("123", {})),
+            ("1234567890.123456789011",
+             (" _10float12_ ", {" _10float12_ ": ["1234567890.123456789011"]})),
+            ("1.3 224.00", (" _1float1_   _3float2_ ",
+                            {" _1float1_ ": ["1.3"], " _3float2_ ": ["224.00"]})),
+            ("12.3 34.5 67.8 90.1",
+                (" _2float1_   _2float1_   _2float1_   _2float1_ ",
+                    {" _2float1_ ": ["12.3", "34.5", "67.8", "90.1"]})),
+            ("_3int_", ("_3int_", {})),
+            ("94.87分", (" _2float2_ 分", {" _2float2_ ": ["94.87"]})),
+            ("薄餡大大1.5個打10.7個",
+                ("薄餡大大 _1float1_ 個打 _2float1_ 個",
+                    {" _1float1_ ": ["1.5"], " _2float1_ ": ["10.7"]})),
+            ("123.456.789", ("123.456.789", {})),
+            ("1０0.0００", (" _3float3_ ", {" _3float3_ ": ["1０0.0００"]})),
+            ("９4.87分", (" _2float2_ 分", {" _2float2_ ": ["９4.87"]})),
+            ("薄餡大大1.5個打１０.７個",
+                ("薄餡大大 _1float1_ 個打 _2float1_ 個",
+                    {" _1float1_ ": ["1.5"], " _2float1_ ": ["１０.７"]})),
+            ("１２３.４５６.７８９", ("１２３.４５６.７８９", {})),
+            ("來亂的", ("來亂的", {})),
+        ]
+        self.run_test_denormalizable(
+            test_cases=test_cases,
+            normalizer=floatd_text_normalizer_with_space,
         )

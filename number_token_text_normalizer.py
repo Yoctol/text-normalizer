@@ -32,7 +32,13 @@ def sub_token_with_value_sequentially(
         token: str,
         value_list: List[str],
     ) -> str:
-    splited_sentence = sentence.split(token)
+    split_prog = re.compile(
+        '{}|{}'.format(
+            token,
+            token.strip(),
+        ),
+    )
+    splited_sentence = split_prog.split(sentence)
     if len(splited_sentence) != len(value_list) + 1:
         raise ValueError(
             "Number of tokens in sentence should be equal to that of values",
@@ -40,6 +46,7 @@ def sub_token_with_value_sequentially(
             "token = {}".format(token),
             "value_list = {}".format(value_list),
         )
+
     output_sent = []
     for i, segment in enumerate(splited_sentence):
         output_sent.append(segment)
@@ -60,6 +67,20 @@ CASES = {
         "gen_token_with_digit": gen_int_token_with_digit,
     },
     "_{}float{}_": {
+        "pattern": FLOAT_PATTERN,
+        "gen_token_with_digit": gen_float_token_with_digit,
+    },
+    " _int_ ": {
+        "pattern": INT_PATTERN,
+    },
+    " _float_ ": {
+        "pattern": FLOAT_PATTERN,
+    },
+    " _{}int_ ": {
+        "pattern": INT_PATTERN,
+        "gen_token_with_digit": gen_int_token_with_digit,
+    },
+    " _{}float{}_ ": {
         "pattern": FLOAT_PATTERN,
         "gen_token_with_digit": gen_float_token_with_digit,
     },
@@ -97,7 +118,10 @@ class NumberTokenTextNormalizer(BaseTextNormalizer):
             return revised_sentence, {self.token: value_list}
 
         #### token with digits ####
-        tokens_with_digit = CASES[self.token]["gen_token_with_digit"](value_list)
+        tokens_with_digit = CASES[self.token]["gen_token_with_digit"](
+            value_list,
+            token=self.token,
+        )
         revised_sentence = sub_token_with_value_sequentially(
             sentence=revised_sentence,
             token=self.token,
@@ -112,7 +136,6 @@ class NumberTokenTextNormalizer(BaseTextNormalizer):
                 meta[token].append(value)
             else:
                 meta[token] = [value]
-
         return revised_sentence, meta
 
     def denormalize(
