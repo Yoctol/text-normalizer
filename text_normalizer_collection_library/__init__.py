@@ -8,3 +8,9 @@ from .punctuation_keeping_text_normalizer_collection import (
     simplified_punctuation_keeping_text_normalizer_collection,
     number_with_digits_n_simplified_punctuation_text_normalizer_collection,
 )
+from .charactor_text_normalizer_collection import (
+    chinese_charactor_text_normalizer_collection_1,
+    chinese_charactor_text_normalizer_collection_2,
+    chinese_charactor_text_normalizer_collection_3,
+    chinese_charactor_text_normalizer_collection_4,
+)
