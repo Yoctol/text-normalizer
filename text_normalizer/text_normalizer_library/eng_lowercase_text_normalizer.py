@@ -1,4 +1,4 @@
-from ..eng_lowercase_text_normalizer import EngLowercaseTextNormalizer
+from text_normalizer.text_normalizer_factory import EngLowercaseTextNormalizer
 
 
 eng_lowercase_text_normalizer = EngLowercaseTextNormalizer()
