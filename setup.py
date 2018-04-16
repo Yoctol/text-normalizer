@@ -22,6 +22,8 @@ setup(
     author="Solumilken",
     packages=find_packages(),
     install_requires=[
+        'pandas;python_version>="3.5"',
+        'pandas<0.21;python_version<"3.5"',
     ],
     long_description=long_description,
     classifiers=[

@@ -1,7 +1,7 @@
 from os.path import join
 
 from ..punctuation_mapping_text_normalizer import PunctuationMappingTextNormalizer
-from nlu.text_normalizers import ROOT_DIR
+from text_normalizer import ROOT_DIR
 
 
 full_punctuation_mapping_text_normalizer = PunctuationMappingTextNormalizer(

@@ -6,7 +6,7 @@ from .punctuation_text_normalizers import (  # noqa
     english_punctuation_text_normalizer,
     all_punctuation_text_normalizer,
     all_punctuation_without_endpoint_text_normalizer,
-    all_punctuation_without_underscore_text_normalizer
+    all_punctuation_without_underscore_text_normalizer,
 )
 from .date_text_normalizers import (  # noqa
     date_text_normalizer_yymmdd,
