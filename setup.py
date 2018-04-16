@@ -22,6 +22,7 @@ setup(
     author="Solumilken",
     packages=find_packages(),
     install_requires=[
+        "pandas==0.22.0",
     ],
     long_description=long_description,
     classifiers=[
