@@ -1,4 +1,4 @@
-from ..replace_pattern_with_token import ReplacePatternWithToken
+from text_normalizer.text_normalizer_factory import ReplacePatternWithToken
 
 CHINESE_PUNCTUATIONS = r"。「」﹁﹂『 』、‧（ ）《》〈〉 ﹏﹏﹏……—～，？；：［］【 】！"
 ENGLISH_PUNCTUATIONS = \

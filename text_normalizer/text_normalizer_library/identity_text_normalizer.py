@@ -1,4 +1,4 @@
-from ..identity_text_normalizer import IdentityTextNormalizer
+from text_normalizer.text_normalizer_factory import IdentityTextNormalizer
 
 
 identity_text_normalizer = IdentityTextNormalizer()

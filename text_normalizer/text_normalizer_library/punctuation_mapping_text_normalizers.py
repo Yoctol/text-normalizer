@@ -1,6 +1,6 @@
 from os.path import join
 
-from ..punctuation_mapping_text_normalizer import PunctuationMappingTextNormalizer
+from text_normalizer.text_normalizer_factory import PunctuationMappingTextNormalizer
 from text_normalizer import ROOT_DIR
 
 
