@@ -1,4 +1,4 @@
-# UTTUT
+# text-normalizer
 
 [![travis][travis-image]][travis-url]
 [![pypi][pypi-image]][pypi-url]
