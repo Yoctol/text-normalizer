@@ -145,7 +145,7 @@ class NumberTokenTextNormalizer(BaseTextNormalizer):
         ) -> str:
         if meta is None:
             meta = {}
-        if (super().denormalize(sentence=sentence)) or (len(meta) == 0):
+        if (not self.denormalizable) or (len(meta) == 0):
             # Case1: self.denormalizable = False
             return sentence
 

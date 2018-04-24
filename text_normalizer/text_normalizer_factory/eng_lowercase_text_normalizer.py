@@ -28,8 +28,9 @@ class EngLowercaseTextNormalizer(BaseTextNormalizer):
             self,
             sentence: str,
             meta: List[dict] = None,
-        ):
-        if meta is None:
+        ) -> str:
+        if (not self.denormalizable) or (meta is None):
+            # Case1: self.denormalizable = False
             return sentence
         else:
             begin_index = 0

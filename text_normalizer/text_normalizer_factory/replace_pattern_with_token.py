@@ -66,7 +66,7 @@ class ReplacePatternWithToken(BaseTextNormalizer):
             sentence: str,
             meta: dict = None,
         ) -> str:
-        if super().denormalize(sentence=sentence):
+        if not self.denormalizable:
             # Case1: self.denormalizable = False
             return sentence
 

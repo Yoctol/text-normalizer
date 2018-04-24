@@ -76,7 +76,7 @@ class PunctuationMappingTextNormalizer(BaseTextNormalizer):
             sentence: str,
             meta: List[Dict[str, List[str]]] = None,
         ) -> str:
-        if (super().denormalize(sentence=sentence)) or (meta is None):
+        if (not self.denormalizable) or (meta is None):
             # Case1: self.denormalizable = False
             return sentence
 

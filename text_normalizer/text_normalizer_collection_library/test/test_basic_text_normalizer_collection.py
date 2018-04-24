@@ -17,6 +17,11 @@ class BasicNormalizerCollectionTestCase(TestCase):
                 '我在 _float_ 度c買了一杯 _int_ 的咖啡',
                 '我在85.33度C買了一杯999的咖啡',
             ),
+            (
+                '++',
+                '',
+                '',
+            ),
         ]
         for test_case in test_cases:
             with self.subTest(test_case=test_case):
@@ -43,6 +48,11 @@ class BasicNormalizerCollectionTestCase(TestCase):
                 '我在85.33度C買了一杯(*999*)的咖啡--',
                 '我在 _2float2_ 度c買了一杯 _3int_ 的咖啡',
                 '我在85.33度C買了一杯999的咖啡',
+            ),
+            (
+                '++??',
+                '',
+                '',
             ),
         ]
         for test_case in test_cases:
