@@ -14,3 +14,16 @@ from .charactor_text_normalizer_collection import (  # noqa
     chinese_charactor_text_normalizer_collection_3,
     chinese_charactor_text_normalizer_collection_4,
 )
+from .unicode_text_normalizer_collection import (  # noqa
+    u_zh_text_normalizer_collection_1,
+    u_zh_text_normalizer_collection_2,
+    u_zh_text_normalizer_collection_3,
+    u_zh_text_normalizer_collection_4,
+    u_en_text_normalizer_collection_1,
+    u_en_text_normalizer_collection_2,
+    u_en_text_normalizer_collection_3,
+    u_zh_en_text_normalizer_collection_1,
+    u_zh_en_text_normalizer_collection_2,
+    u_zh_en_text_normalizer_collection_3,
+    u_zh_en_text_normalizer_collection_4,
+)

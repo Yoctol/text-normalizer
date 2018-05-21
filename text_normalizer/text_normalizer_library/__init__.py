@@ -1,6 +1,6 @@
 from .basic_text_normalizers import (  # noqa
     whitespace_char_text_normalizer,
-    # whitespace_reduction_text_normalizer,
+    whitespace_reduction_text_normalizer,
 )
 from .punctuation_text_normalizers import (  # noqa
     chinese_punctuation_text_normalizer,

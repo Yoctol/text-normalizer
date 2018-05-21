@@ -9,3 +9,12 @@ whitespace_char_text_normalizer = ReplacePatternWithToken(
     suffix_pattern=None,
     token=' ',
 )
+
+whitespace_reduction_text_normalizer = ReplacePatternWithToken(
+    name='whitespaces2one',
+    denormalizable=True,
+    target_pattern=r'\s+',
+    prefix_pattern=None,
+    suffix_pattern=None,
+    token=' ',
+)
