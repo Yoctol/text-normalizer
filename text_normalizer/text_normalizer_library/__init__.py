@@ -33,3 +33,10 @@ from .number_text_normalizers import (  # noqa
 from .strip_text_normalizers import (  # noqa
     pure_strip_text_normalizer,
 )
+from .unicode_text_normalizers import (  # noqa
+    unicode__chinese_characters_and_digits_text_normalizer,
+    unicode__english_characters_and_digits_text_normalizer,
+    unicode__english_digits_and_full_punctuations_text_normalizer,
+    unicode__chinese_english_digits_and_full_punctuations_text_normalizer,
+    unicode__chinese_english_digits_and_simplified_punctuations_1_text_normalizer,
+)
