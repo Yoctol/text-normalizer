@@ -1,0 +1,2 @@
+4E00-9FFF:one2one(CJK Unified Ideographs)
+F900-FAFF:one2one(CJK Compatibility Ideographs)
