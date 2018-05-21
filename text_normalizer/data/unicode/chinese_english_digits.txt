@@ -1,0 +1,8 @@
+0030-0039:one2one(HalfWidth Numbers)
+0041-005A:one2one(HalfWidth Uppercase English Characters)
+0061-007A:one2one(HalfWidth Lower English Characters)
+FF10-FF19:one2one(FullWidth Numbers)
+FF21-FF2A:one2one(FullWidth Uppercase English Characters)
+FF41-FF5A:one2one(FullWidth Lower English Characters)
+4E00-9FFF:one2one(CJK Unified Ideographs)
+F900-FAFF:one2one(CJK Compatibility Ideographs)
