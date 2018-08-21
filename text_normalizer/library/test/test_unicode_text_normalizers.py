@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from unittest import TestCase
-from ..unicode_text_normalizers import (
+from ..unicode import (
     unicode__chinese_characters_text_normalizer,
     unicode__chinese_characters_and_digits_text_normalizer,
     unicode__english_characters_and_digits_text_normalizer,

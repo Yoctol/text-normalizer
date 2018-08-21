@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
-from ..number_token_text_normalizer import (
+from ..number_token import (
     gen_float_token_with_digit,
     gen_int_token_with_digit,
     sub_token_with_value_sequentially,
-    NumberTokenTextNormalizer,
+    NumberToken,
 )
 
 
-class NumberTokenTextNormalizerTestCase(TestCase):
+class NumberTokenTestCase(TestCase):
 
     def run_test_denormalizable(self, test_cases, normalizer):
         for test_case in test_cases:
@@ -81,10 +81,10 @@ class NumberTokenTextNormalizerTestCase(TestCase):
 
     def test_unhandle_case(self):
         with self.assertRaises(KeyError):
-            NumberTokenTextNormalizer(token="_ohoh_")
+            NumberToken(token="_ohoh_")
 
     def test_pure_int(self):
-        int_text_normalizer = NumberTokenTextNormalizer(token="_int_")
+        int_text_normalizer = NumberToken(token="_int_")
         test_cases = [
             ("123", ("_int_", {"_int_": ["123"]})),
             ("23.35", ("_int_._int_", {"_int_": ["23", "35"]})),
@@ -104,7 +104,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_pure_int_not_denormalizable(self):
-        int_text_normalizer_not_denormalizable = NumberTokenTextNormalizer(
+        int_text_normalizer_not_denormalizable = NumberToken(
             token="_int_",
             denormalizable=False,
         )
@@ -126,7 +126,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_pure_float(self):
-        float_text_normalizer = NumberTokenTextNormalizer(token="_float_")
+        float_text_normalizer = NumberToken(token="_float_")
         test_cases = [
             ("49.3", ("_float_", {"_float_": ["49.3"]})),
             ("12.33 456.0", ("_float_ _float_", {"_float_": ["12.33", "456.0"]})),
@@ -148,7 +148,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_pure_float_not_denormalizable(self):
-        float_text_normalizer = NumberTokenTextNormalizer(
+        float_text_normalizer = NumberToken(
             token="_float_",
             denormalizable=False,
         )
@@ -171,7 +171,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_int_with_digit(self):
-        intd_text_normalizer = NumberTokenTextNormalizer(token="_{}int_")
+        intd_text_normalizer = NumberToken(token="_{}int_")
         test_cases = [
             ("123", ("_3int_", {"_3int_": ["123"]})),
             ("098765431389", ("_12int_", {"_12int_": ["098765431389"]})),
@@ -196,7 +196,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_int_with_digit_not_denormalizable(self):
-        intd_text_normalizer = NumberTokenTextNormalizer(
+        intd_text_normalizer = NumberToken(
             token="_{}int_",
             denormalizable=False,
         )
@@ -218,7 +218,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_float_with_digit(self):
-        floatd_text_normalizer = NumberTokenTextNormalizer(
+        floatd_text_normalizer = NumberToken(
             token="_{}float{}_",
         )
         test_cases = [
@@ -251,7 +251,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_float_with_digit_not_denrmalizable(self):
-        floatd_text_normalizer = NumberTokenTextNormalizer(
+        floatd_text_normalizer = NumberToken(
             token="_{}float{}_",
             denormalizable=False,
         )
@@ -276,7 +276,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_int_text_normalizer_with_space(self):
-        int_text_normalizer_with_space = NumberTokenTextNormalizer(token=" _int_ ")
+        int_text_normalizer_with_space = NumberToken(token=" _int_ ")
         test_cases = [
             ("12345678900", (" _int_ ", {" _int_ ": ["12345678900"]})),
             ("340分", (" _int_ 分", {" _int_ ": ["340"]})),
@@ -301,7 +301,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
             )
 
     def test_float_text_normalizer_with_space(self):
-        float_text_normalizer_with_space = NumberTokenTextNormalizer(token=" _float_ ")
+        float_text_normalizer_with_space = NumberToken(token=" _float_ ")
         test_cases = [
             ("100.000", (" _float_ ", {" _float_ ": ["100.000"]})),
             ("94.87分", (" _float_ 分", {" _float_ ": ["94.87"]})),
@@ -319,7 +319,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_int_with_digit_n_space(self):
-        intd_text_normalizer_with_space = NumberTokenTextNormalizer(token=" _{}int_ ")
+        intd_text_normalizer_with_space = NumberToken(token=" _{}int_ ")
         test_cases = [
             ("123", (" _3int_ ", {" _3int_ ": ["123"]})),
             ("098765431389", (" _12int_ ", {" _12int_ ": ["098765431389"]})),
@@ -349,7 +349,7 @@ class NumberTokenTextNormalizerTestCase(TestCase):
         )
 
     def test_float_with_digit_n_space(self):
-        floatd_text_normalizer_with_space = NumberTokenTextNormalizer(
+        floatd_text_normalizer_with_space = NumberToken(
             token=" _{}float{}_ ",
         )
         test_cases = [

@@ -1,27 +1,27 @@
-from .basic_text_normalizers import (  # noqa
+from .basic import (  # noqa
     whitespace_char_text_normalizer,
     whitespace_reduction_text_normalizer,
 )
-from .punctuation_text_normalizers import (  # noqa
+from .punctuation import (  # noqa
     chinese_punctuation_text_normalizer,
     english_punctuation_text_normalizer,
     all_punctuation_text_normalizer,
     all_punctuation_without_endpoint_text_normalizer,
     all_punctuation_without_underscore_text_normalizer,
 )
-from .date_text_normalizers import (  # noqa
+from .date import (  # noqa
     date_text_normalizer_yymmdd,
 )
-from .time_text_normalizers import (  # noqa
+from .time import (  # noqa
     time_text_normalizer_hhmm,
 )
-from .identity_text_normalizer import identity_text_normalizer  # noqa
-from .eng_lowercase_text_normalizer import eng_lowercase_text_normalizer  # noqa
-from .punctuation_mapping_text_normalizers import (  # noqa
+from .identity import identity_text_normalizer  # noqa
+from .eng_lowercase import eng_lowercase_text_normalizer  # noqa
+from .punctuation_mapping import (  # noqa
     full_punctuation_mapping_text_normalizer,
     simplified_punctuation_mapping_text_normalizer,
 )
-from .number_text_normalizers import (  # noqa
+from .number import (  # noqa
     int_text_normalizer,
     float_text_normalizer,
     int_with_digit_text_normalizer,
@@ -31,10 +31,10 @@ from .number_text_normalizers import (  # noqa
     int_with_digit_n_space_text_normalizer,
     float_with_digit_n_space_text_normalizer,
 )
-from .strip_text_normalizers import (  # noqa
+from .strip import (  # noqa
     pure_strip_text_normalizer,
 )
-from .unicode_text_normalizers import (  # noqa
+from .unicode import (  # noqa
     unicode__chinese_characters_text_normalizer,
     unicode__chinese_characters_and_digits_text_normalizer,
     unicode__english_characters_and_digits_text_normalizer,
