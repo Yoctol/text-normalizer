@@ -1,9 +1,9 @@
 from typing import List
 
-from .base_text_normalizer import BaseTextNormalizer
+from .base_factory import BaseFactory
 
 
-class IdentityTextNormalizer(BaseTextNormalizer):
+class IdentityTextNormalizer(BaseFactory):
 
     def __init__(self):
         super().__init__(name='identity', denormalizable=False)

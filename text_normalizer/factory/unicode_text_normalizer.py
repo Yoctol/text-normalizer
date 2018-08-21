@@ -1,14 +1,14 @@
 from typing import List, Dict, Tuple
 import re
 
-from .base_text_normalizer import BaseTextNormalizer
+from .base_factory import BaseFactory
 
 
 PROG = re.compile(r"([0-9A-Z\s\-]+)\:([0-9A-Za-z]+)")
 PROG_DASH = re.compile(r"([0-9A-Z]+)\-([0-9A-Z]+)")
 
 
-class UnicodeTextNormalizer(BaseTextNormalizer):
+class UnicodeTextNormalizer(BaseFactory):
 
     def __init__(
             self,

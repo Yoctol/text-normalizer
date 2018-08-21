@@ -1,10 +1,10 @@
 from typing import List, Dict, Tuple
 import re
 
-from .base_text_normalizer import BaseTextNormalizer
+from .base_factory import BaseFactory
 
 
-class EngLowercaseTextNormalizer(BaseTextNormalizer):
+class EngLowercaseTextNormalizer(BaseFactory):
 
     def __init__(self, name='eng_lowercase'):
         super().__init__(name=name, denormalizable=True)

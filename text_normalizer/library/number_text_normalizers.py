@@ -1,4 +1,4 @@
-from text_normalizer.text_normalizer_factory import NumberTokenTextNormalizer
+from ..factory import NumberTokenTextNormalizer
 
 
 int_text_normalizer = NumberTokenTextNormalizer(token="_int_")

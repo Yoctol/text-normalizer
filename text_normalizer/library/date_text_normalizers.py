@@ -1,4 +1,4 @@
-from text_normalizer.text_normalizer_factory import ReplacePatternWithToken
+from ..factory import ReplacePatternWithToken
 
 
 date_text_normalizer_yymmdd = ReplacePatternWithToken(

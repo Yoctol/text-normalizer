@@ -1,9 +1,9 @@
 from typing import List
 
-from .base_text_normalizer import BaseTextNormalizer
+from .base_factory import BaseFactory
 
 
-class StripTextNormalizer(BaseTextNormalizer):
+class StripTextNormalizer(BaseFactory):
 
     def __init__(
             self,

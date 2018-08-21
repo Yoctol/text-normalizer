@@ -1,7 +1,7 @@
 from typing import List
 
 
-class BaseTextNormalizer(object):
+class BaseFactory(object):
 
     def __init__(
             self,

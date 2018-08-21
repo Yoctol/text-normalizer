@@ -1,7 +1,7 @@
 from typing import List
 import re
 
-from .base_text_normalizer import BaseTextNormalizer
+from .base_factory import BaseFactory
 
 
 INT_PATTERN = re.compile(r"[0-9０１２３４５６７８９]+(?!float|\_|\d)")
@@ -87,7 +87,7 @@ CASES = {
 }
 
 
-class NumberTokenTextNormalizer(BaseTextNormalizer):
+class NumberTokenTextNormalizer(BaseFactory):
 
     def __init__(
             self,

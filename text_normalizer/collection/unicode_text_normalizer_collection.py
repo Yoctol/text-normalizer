@@ -1,5 +1,5 @@
 from .base_text_normalizer_collection import BaseTextNormalizerCollection
-from text_normalizer.text_normalizer_library import (
+from ..library import (
     whitespace_reduction_text_normalizer,
     eng_lowercase_text_normalizer,
     float_text_normalizer,

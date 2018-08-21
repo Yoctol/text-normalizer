@@ -1,10 +1,10 @@
 from typing import List
 import re
 
-from .base_text_normalizer import BaseTextNormalizer
+from .base_factory import BaseFactory
 
 
-class ReplacePatternWithToken(BaseTextNormalizer):
+class ReplacePatternWithToken(BaseFactory):
 
     def __init__(
             self,

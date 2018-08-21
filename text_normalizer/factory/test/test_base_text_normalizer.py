@@ -1,18 +1,18 @@
 from unittest import TestCase
-from ..base_text_normalizer import BaseTextNormalizer
+from ..base_factory import BaseFactory
 
 
-class TestBaseTextNormalizer(TestCase):
+class TestBaseFactory(TestCase):
 
     def setUp(self):
-        self.base_text_normalizer_class = BaseTextNormalizer()
-        self.base_text_normalizer_class_with_name = BaseTextNormalizer(name='123')
+        self.base_text_normalizer_class = BaseFactory()
+        self.base_text_normalizer_class_with_name = BaseFactory(name='123')
 
     def test_attributes(self):
         self.assertEqual(
             {
                 'denormalizable': False,
-                'name': 'BaseTextNormalizer',
+                'name': 'BaseFactory',
             },
             self.base_text_normalizer_class.__dict__,
         )

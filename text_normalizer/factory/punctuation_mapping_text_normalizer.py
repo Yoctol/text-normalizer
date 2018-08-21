@@ -2,7 +2,7 @@ from typing import List, Dict
 import re
 
 import pandas as pd
-from .base_text_normalizer import BaseTextNormalizer
+from .base_factory import BaseFactory
 
 SpecialCases = {
     '\\': '\\\\',
@@ -11,7 +11,7 @@ SpecialCases = {
 RevSpecialCases = {v: k for k, v in SpecialCases.items()}
 
 
-class PunctuationMappingTextNormalizer(BaseTextNormalizer):
+class PunctuationMappingTextNormalizer(BaseFactory):
 
     def __init__(
             self,
