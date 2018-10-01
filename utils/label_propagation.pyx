@@ -110,35 +110,3 @@ cdef unsigned int get_high_freq_label(  # noqa: E999
             max_f = record[l]
             label_f = l
     return label_f
-
-
-# if __name__ == '__main__':
-#     label = list(range(17))
-#     forward_annotations = [(0, 6, ' \n\t\n H'), (8, 17, 'A\t \t \n \n ')]
-#     backward_annotations = [(0, 1, 'H'), (3, 4, 'A')]
-
-#     result = label_propagate(
-#         label=label,
-#         forward_annotations=forward_annotations,
-#         backward_annotations=backward_annotations,
-#     )
-
-#     result_i = label_propagate(
-#         label=[0, 6, 7, 8],
-#         forward_annotations=backward_annotations,
-#         backward_annotations=forward_annotations,
-#     )
-#     import ipdb; ipdb.set_trace()
-# #     [
-# #         {
-# #             'for': [(), (), ()]
-# #             'back': []
-# #         },
-# #         {
-# #             'for':
-# #             'back':
-# #         },
-# #     ]
-
-
-# # def label_backpropagate(label, annotations):
