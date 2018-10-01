@@ -1,13 +1,13 @@
 
 
-def findall_position(input_str, reg_pattern):
-    return findall_position_in_c(
+def search_all(input_str, reg_pattern):
+    return search_all_in_c(
         input_str,
         reg_pattern,
     )
 
 
-cdef list findall_position_in_c(  # noqa: E999
+cdef list search_all_in_c(  # noqa: E999
         str input_str,
         reg_pattern,
     ):
@@ -22,6 +22,8 @@ cdef list findall_position_in_c(  # noqa: E999
         if output is None:
             break
         start, end = output.span()
-        output_list.append((start + i, end + i))
+        output_list.append(
+            (start + i, end + i, input_str[start + i: end + i]),
+        )
         i += end
     return output_list
