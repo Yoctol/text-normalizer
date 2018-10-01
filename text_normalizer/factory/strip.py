@@ -36,7 +36,6 @@ class Strip(BaseFactory):
             denormalizable=True,
         )
 
-
     @staticmethod
     def gen_backward_annotations(
         forward_annotations: List[Tuple[int, int, str]]):
@@ -59,7 +58,6 @@ class Strip(BaseFactory):
             )
             offset = new_end - anno[1]
         return output
-
 
     def normalize(
             self,
