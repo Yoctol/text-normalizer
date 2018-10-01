@@ -9,7 +9,7 @@ class StripTemplate:
             test_case = self.test_cases[i]
             with self.subTest(i=test_case):
                 result = self.normalizer.normalize(
-                    test_case['input']
+                    test_case['input'],
                 )
                 self.assertEqual(
                     test_case['output'],
@@ -25,11 +25,11 @@ class StripTemplate:
             test_case = self.test_cases[i]
             with self.subTest(i=test_case):
                 result = self.normalizer.normalize(
-                    test_case['input']
+                    test_case['input'],
                 )
                 output = self.normalizer.denormalize(
                     result[0],
-                    result[1]
+                    result[1],
                 )
                 self.assertEqual(
                     test_case['input'],
@@ -73,7 +73,7 @@ class StripDefaultTestCase(StripTemplate, TestCase):
                 'meta': {
                     'for': [(0, 8, '\t\t   \n\n我')],
                     'back': [(0, 1, '我')],
-                }
+                },
             },
             {
                 'input': '隼興大大是專業HR',
@@ -81,7 +81,7 @@ class StripDefaultTestCase(StripTemplate, TestCase):
                 'meta': {
                     'for': [],
                     'back': [],
-                }
+                },
             },
         ]
 
@@ -122,7 +122,7 @@ class StripLeftTestCase(StripTemplate, TestCase):
                 'meta': {
                     'for': [(0, 8, '\t\t   \n\n我')],
                     'back': [(0, 1, '我')],
-                }
+                },
             },
             {
                 'input': '隼興大大是專業HR',
@@ -130,7 +130,7 @@ class StripLeftTestCase(StripTemplate, TestCase):
                 'meta': {
                     'for': [],
                     'back': [],
-                }
+                },
             },
         ]
 
@@ -171,7 +171,7 @@ class StripRightTestCase(StripTemplate, TestCase):
                 'meta': {
                     'for': [],
                     'back': [],
-                }
+                },
             },
             {
                 'input': '隼興大大是專業HR',
@@ -179,6 +179,6 @@ class StripRightTestCase(StripTemplate, TestCase):
                 'meta': {
                     'for': [],
                     'back': [],
-                }
+                },
             },
         ]
