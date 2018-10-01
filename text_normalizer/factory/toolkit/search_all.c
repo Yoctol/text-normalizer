@@ -559,8 +559,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__text_normalizer__factory__toolkit__findall_position
-#define __PYX_HAVE_API__text_normalizer__factory__toolkit__findall_position
+#define __PYX_HAVE__text_normalizer__factory__toolkit__search_all
+#define __PYX_HAVE_API__text_normalizer__factory__toolkit__search_all
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -765,7 +765,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "text_normalizer/factory/toolkit/findall_position.pyx",
+  "text_normalizer/factory/toolkit/search_all.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -1019,53 +1019,56 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'text_normalizer.factory.toolkit.findall_position' */
-static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_findall_position_in_c(PyObject *, PyObject *); /*proto*/
-#define __Pyx_MODULE_NAME "text_normalizer.factory.toolkit.findall_position"
-extern int __pyx_module_is_main_text_normalizer__factory__toolkit__findall_position;
-int __pyx_module_is_main_text_normalizer__factory__toolkit__findall_position = 0;
+/* Module declarations from 'text_normalizer.factory.toolkit.search_all' */
+static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_10search_all_search_all_in_c(PyObject *, PyObject *); /*proto*/
+#define __Pyx_MODULE_NAME "text_normalizer.factory.toolkit.search_all"
+extern int __pyx_module_is_main_text_normalizer__factory__toolkit__search_all;
+int __pyx_module_is_main_text_normalizer__factory__toolkit__search_all = 0;
 
-/* Implementation of 'text_normalizer.factory.toolkit.findall_position' */
+/* Implementation of 'text_normalizer.factory.toolkit.search_all' */
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_span[] = "span";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_search[] = "search";
 static const char __pyx_k_input_str[] = "input_str";
+static const char __pyx_k_search_all[] = "search_all";
 static const char __pyx_k_reg_pattern[] = "reg_pattern";
-static const char __pyx_k_findall_position[] = "findall_position";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_text_normalizer_factory_toolkit[] = "text_normalizer/factory/toolkit/findall_position.pyx";
-static const char __pyx_k_text_normalizer_factory_toolkit_2[] = "text_normalizer.factory.toolkit.findall_position";
+static const char __pyx_k_text_normalizer_factory_toolkit[] = "text_normalizer/factory/toolkit/search_all.pyx";
+static const char __pyx_k_text_normalizer_factory_toolkit_2[] = "text_normalizer.factory.toolkit.search_all";
 static PyObject *__pyx_n_s_cline_in_traceback;
-static PyObject *__pyx_n_s_findall_position;
 static PyObject *__pyx_n_s_input_str;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_reg_pattern;
 static PyObject *__pyx_n_s_search;
+static PyObject *__pyx_n_s_search_all;
 static PyObject *__pyx_n_s_span;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_s_text_normalizer_factory_toolkit;
 static PyObject *__pyx_n_s_text_normalizer_factory_toolkit_2;
-static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_16findall_position_findall_position(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern); /* proto */
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_10search_all_search_all(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern); /* proto */
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_codeobj__2;
 /* Late includes */
 
-/* "text_normalizer/factory/toolkit/findall_position.pyx":1
- * def findall_position(input_str, reg_pattern):             # <<<<<<<<<<<<<<
- *     return findall_position_in_c(
+/* "text_normalizer/factory/toolkit/search_all.pyx":3
+ * 
+ * 
+ * def search_all(input_str, reg_pattern):             # <<<<<<<<<<<<<<
+ *     return search_all_in_c(
  *         input_str,
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position = {"findall_position", (PyCFunction)__pyx_pw_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_10search_all_1search_all(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_15text_normalizer_7factory_7toolkit_10search_all_search_all[] = "search_all(input_str, reg_pattern)";
+static PyMethodDef __pyx_mdef_15text_normalizer_7factory_7toolkit_10search_all_1search_all = {"search_all", (PyCFunction)__pyx_pw_15text_normalizer_7factory_7toolkit_10search_all_1search_all, METH_VARARGS|METH_KEYWORDS, __pyx_doc_15text_normalizer_7factory_7toolkit_10search_all_search_all};
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_10search_all_1search_all(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_input_str = 0;
   PyObject *__pyx_v_reg_pattern = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("findall_position (wrapper)", 0);
+  __Pyx_RefNannySetupContext("search_all (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_input_str,&__pyx_n_s_reg_pattern,0};
     PyObject* values[2] = {0,0};
@@ -1089,11 +1092,11 @@ static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_16findall_position
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_reg_pattern)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("findall_position", 1, 2, 2, 1); __PYX_ERR(0, 1, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("search_all", 1, 2, 2, 1); __PYX_ERR(0, 3, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "findall_position") < 0)) __PYX_ERR(0, 1, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "search_all") < 0)) __PYX_ERR(0, 3, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1106,64 +1109,68 @@ static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_16findall_position
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("findall_position", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("search_all", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 3, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("text_normalizer.factory.toolkit.findall_position.findall_position", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.search_all.search_all", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_15text_normalizer_7factory_7toolkit_16findall_position_findall_position(__pyx_self, __pyx_v_input_str, __pyx_v_reg_pattern);
+  __pyx_r = __pyx_pf_15text_normalizer_7factory_7toolkit_10search_all_search_all(__pyx_self, __pyx_v_input_str, __pyx_v_reg_pattern);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_16findall_position_findall_position(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern) {
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_10search_all_search_all(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("findall_position", 0);
+  __Pyx_RefNannySetupContext("search_all", 0);
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":2
- * def findall_position(input_str, reg_pattern):
- *     return findall_position_in_c(             # <<<<<<<<<<<<<<
+  /* "text_normalizer/factory/toolkit/search_all.pyx":4
+ * 
+ * def search_all(input_str, reg_pattern):
+ *     return search_all_in_c(             # <<<<<<<<<<<<<<
  *         input_str,
  *         reg_pattern,
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":3
- * def findall_position(input_str, reg_pattern):
- *     return findall_position_in_c(
+  /* "text_normalizer/factory/toolkit/search_all.pyx":5
+ * def search_all(input_str, reg_pattern):
+ *     return search_all_in_c(
  *         input_str,             # <<<<<<<<<<<<<<
  *         reg_pattern,
  *     )
  */
-  if (!(likely(PyString_CheckExact(__pyx_v_input_str))||((__pyx_v_input_str) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_v_input_str)->tp_name), 0))) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (!(likely(PyString_CheckExact(__pyx_v_input_str))||((__pyx_v_input_str) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_v_input_str)->tp_name), 0))) __PYX_ERR(0, 5, __pyx_L1_error)
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":2
- * def findall_position(input_str, reg_pattern):
- *     return findall_position_in_c(             # <<<<<<<<<<<<<<
+  /* "text_normalizer/factory/toolkit/search_all.pyx":4
+ * 
+ * def search_all(input_str, reg_pattern):
+ *     return search_all_in_c(             # <<<<<<<<<<<<<<
  *         input_str,
  *         reg_pattern,
  */
-  __pyx_t_1 = __pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_findall_position_in_c(((PyObject*)__pyx_v_input_str), __pyx_v_reg_pattern); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_15text_normalizer_7factory_7toolkit_10search_all_search_all_in_c(((PyObject*)__pyx_v_input_str), __pyx_v_reg_pattern); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":1
- * def findall_position(input_str, reg_pattern):             # <<<<<<<<<<<<<<
- *     return findall_position_in_c(
+  /* "text_normalizer/factory/toolkit/search_all.pyx":3
+ * 
+ * 
+ * def search_all(input_str, reg_pattern):             # <<<<<<<<<<<<<<
+ *     return search_all_in_c(
  *         input_str,
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("text_normalizer.factory.toolkit.findall_position.findall_position", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.search_all.search_all", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1171,15 +1178,15 @@ static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_16findall_position
   return __pyx_r;
 }
 
-/* "text_normalizer/factory/toolkit/findall_position.pyx":8
+/* "text_normalizer/factory/toolkit/search_all.pyx":10
  * 
  * 
- * cdef list findall_position_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ * cdef list search_all_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
  *         str input_str,
  *         reg_pattern,
  */
 
-static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_findall_position_in_c(PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern) {
+static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_10search_all_search_all_in_c(PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern) {
   unsigned int __pyx_v_i;
   unsigned int __pyx_v_str_len;
   PyObject *__pyx_v_output_list = 0;
@@ -1197,11 +1204,12 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
   PyObject *__pyx_t_7 = NULL;
   int __pyx_t_8;
   PyObject *(*__pyx_t_9)(PyObject *);
-  int __pyx_t_10;
-  unsigned int __pyx_t_11;
-  __Pyx_RefNannySetupContext("findall_position_in_c", 0);
+  Py_ssize_t __pyx_t_10;
+  int __pyx_t_11;
+  unsigned int __pyx_t_12;
+  __Pyx_RefNannySetupContext("search_all_in_c", 0);
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":15
+  /* "text_normalizer/factory/toolkit/search_all.pyx":17
  *     cdef list output_list
  * 
  *     i = 0             # <<<<<<<<<<<<<<
@@ -1210,29 +1218,29 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
  */
   __pyx_v_i = 0;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":16
+  /* "text_normalizer/factory/toolkit/search_all.pyx":18
  * 
  *     i = 0
  *     str_len = len(input_str)             # <<<<<<<<<<<<<<
  *     output_list = []
  *     while (i < str_len):
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_input_str); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_input_str); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 18, __pyx_L1_error)
   __pyx_v_str_len = __pyx_t_1;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":17
+  /* "text_normalizer/factory/toolkit/search_all.pyx":19
  *     i = 0
  *     str_len = len(input_str)
  *     output_list = []             # <<<<<<<<<<<<<<
  *     while (i < str_len):
  *         output = reg_pattern.search(input_str[i:])
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_output_list = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":18
+  /* "text_normalizer/factory/toolkit/search_all.pyx":20
  *     str_len = len(input_str)
  *     output_list = []
  *     while (i < str_len):             # <<<<<<<<<<<<<<
@@ -1243,20 +1251,20 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
     __pyx_t_3 = ((__pyx_v_i < __pyx_v_str_len) != 0);
     if (!__pyx_t_3) break;
 
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":19
+    /* "text_normalizer/factory/toolkit/search_all.pyx":21
  *     output_list = []
  *     while (i < str_len):
  *         output = reg_pattern.search(input_str[i:])             # <<<<<<<<<<<<<<
  *         if output is None:
  *             break
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_reg_pattern, __pyx_n_s_search); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_reg_pattern, __pyx_n_s_search); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (unlikely(__pyx_v_input_str == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 19, __pyx_L1_error)
+      __PYX_ERR(0, 21, __pyx_L1_error)
     }
-    __pyx_t_5 = PySequence_GetSlice(__pyx_v_input_str, __pyx_v_i, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 19, __pyx_L1_error)
+    __pyx_t_5 = PySequence_GetSlice(__pyx_v_input_str, __pyx_v_i, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -1269,14 +1277,14 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_5};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -1285,20 +1293,20 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_5};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 19, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 21, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
         __pyx_t_5 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
@@ -1307,7 +1315,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
     __Pyx_XDECREF_SET(__pyx_v_output, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":20
+    /* "text_normalizer/factory/toolkit/search_all.pyx":22
  *     while (i < str_len):
  *         output = reg_pattern.search(input_str[i:])
  *         if output is None:             # <<<<<<<<<<<<<<
@@ -1318,16 +1326,16 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
     __pyx_t_8 = (__pyx_t_3 != 0);
     if (__pyx_t_8) {
 
-      /* "text_normalizer/factory/toolkit/findall_position.pyx":21
+      /* "text_normalizer/factory/toolkit/search_all.pyx":23
  *         output = reg_pattern.search(input_str[i:])
  *         if output is None:
  *             break             # <<<<<<<<<<<<<<
  *         start, end = output.span()
- *         output_list.append((start + i, end + i))
+ *         output_list.append(
  */
       goto __pyx_L4_break;
 
-      /* "text_normalizer/factory/toolkit/findall_position.pyx":20
+      /* "text_normalizer/factory/toolkit/search_all.pyx":22
  *     while (i < str_len):
  *         output = reg_pattern.search(input_str[i:])
  *         if output is None:             # <<<<<<<<<<<<<<
@@ -1336,14 +1344,14 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
  */
     }
 
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":22
+    /* "text_normalizer/factory/toolkit/search_all.pyx":24
  *         if output is None:
  *             break
  *         start, end = output.span()             # <<<<<<<<<<<<<<
- *         output_list.append((start + i, end + i))
- *         i += end
+ *         output_list.append(
+ *             (start + i, end + i, input_str[start + i: end + i]),
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_output, __pyx_n_s_span); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_output, __pyx_n_s_span); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -1356,10 +1364,10 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -1369,7 +1377,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 22, __pyx_L1_error)
+        __PYX_ERR(0, 24, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -1382,15 +1390,15 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
       __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(__pyx_t_7);
       #else
-      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 22, __pyx_L1_error)
+      __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 24, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       #endif
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 22, __pyx_L1_error)
+      __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 24, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_9 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -1398,7 +1406,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
       __Pyx_GOTREF(__pyx_t_4);
       index = 1; __pyx_t_7 = __pyx_t_9(__pyx_t_5); if (unlikely(!__pyx_t_7)) goto __pyx_L6_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_7);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_5), 2) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_5), 2) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
       __pyx_t_9 = NULL;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       goto __pyx_L7_unpacking_done;
@@ -1406,7 +1414,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_9 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 22, __pyx_L1_error)
+      __PYX_ERR(0, 24, __pyx_L1_error)
       __pyx_L7_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_start, __pyx_t_4);
@@ -1414,53 +1422,84 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
     __Pyx_XDECREF_SET(__pyx_v_end, __pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":23
- *             break
+    /* "text_normalizer/factory/toolkit/search_all.pyx":26
  *         start, end = output.span()
- *         output_list.append((start + i, end + i))             # <<<<<<<<<<<<<<
+ *         output_list.append(
+ *             (start + i, end + i, input_str[start + i: end + i]),             # <<<<<<<<<<<<<<
+ *         )
  *         i += end
- *     return output_list
  */
-    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = PyNumber_Add(__pyx_v_start, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 23, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_Add(__pyx_v_start, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 26, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyNumber_Add(__pyx_v_end, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 23, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_v_end, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 26, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
+    if (unlikely(__pyx_v_input_str == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 26, __pyx_L1_error)
+    }
+    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = PyNumber_Add(__pyx_v_start, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 26, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_1 = __Pyx_PyIndex_AsSsize_t(__pyx_t_5); if (unlikely((__pyx_t_1 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 26, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 26, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_2 = PyNumber_Add(__pyx_v_end, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_10 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_10 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 26, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PySequence_GetSlice(__pyx_v_input_str, __pyx_t_1, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 26, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_7);
-    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_7);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_t_2);
     __pyx_t_7 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_output_list, __pyx_t_2); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 23, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = 0;
 
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":24
+    /* "text_normalizer/factory/toolkit/search_all.pyx":25
+ *             break
  *         start, end = output.span()
- *         output_list.append((start + i, end + i))
+ *         output_list.append(             # <<<<<<<<<<<<<<
+ *             (start + i, end + i, input_str[start + i: end + i]),
+ *         )
+ */
+    __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_output_list, __pyx_t_5); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 25, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "text_normalizer/factory/toolkit/search_all.pyx":28
+ *             (start + i, end + i, input_str[start + i: end + i]),
+ *         )
  *         i += end             # <<<<<<<<<<<<<<
  *     return output_list
  */
-    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 28, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_v_end); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_v_end); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_12 = __Pyx_PyInt_As_unsigned_int(__pyx_t_2); if (unlikely((__pyx_t_12 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_11 = __Pyx_PyInt_As_unsigned_int(__pyx_t_4); if (unlikely((__pyx_t_11 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_v_i = __pyx_t_11;
+    __pyx_v_i = __pyx_t_12;
   }
   __pyx_L4_break:;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":25
- *         output_list.append((start + i, end + i))
+  /* "text_normalizer/factory/toolkit/search_all.pyx":29
+ *         )
  *         i += end
  *     return output_list             # <<<<<<<<<<<<<<
  */
@@ -1469,10 +1508,10 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
   __pyx_r = __pyx_v_output_list;
   goto __pyx_L0;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":8
+  /* "text_normalizer/factory/toolkit/search_all.pyx":10
  * 
  * 
- * cdef list findall_position_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ * cdef list search_all_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
  *         str input_str,
  *         reg_pattern,
  */
@@ -1484,7 +1523,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("text_normalizer.factory.toolkit.findall_position.findall_position_in_c", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.search_all.search_all_in_c", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_output_list);
@@ -1503,17 +1542,17 @@ static PyMethodDef __pyx_methods[] = {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_findall_position(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_search_all(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_findall_position},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_search_all},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "findall_position",
+    "search_all",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -1534,11 +1573,11 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
-  {&__pyx_n_s_findall_position, __pyx_k_findall_position, sizeof(__pyx_k_findall_position), 0, 0, 1, 1},
   {&__pyx_n_s_input_str, __pyx_k_input_str, sizeof(__pyx_k_input_str), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_reg_pattern, __pyx_k_reg_pattern, sizeof(__pyx_k_reg_pattern), 0, 0, 1, 1},
   {&__pyx_n_s_search, __pyx_k_search, sizeof(__pyx_k_search), 0, 0, 1, 1},
+  {&__pyx_n_s_search_all, __pyx_k_search_all, sizeof(__pyx_k_search_all), 0, 0, 1, 1},
   {&__pyx_n_s_span, __pyx_k_span, sizeof(__pyx_k_span), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_kp_s_text_normalizer_factory_toolkit, __pyx_k_text_normalizer_factory_toolkit, sizeof(__pyx_k_text_normalizer_factory_toolkit), 0, 0, 1, 0},
@@ -1553,15 +1592,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":1
- * def findall_position(input_str, reg_pattern):             # <<<<<<<<<<<<<<
- *     return findall_position_in_c(
+  /* "text_normalizer/factory/toolkit/search_all.pyx":3
+ * 
+ * 
+ * def search_all(input_str, reg_pattern):             # <<<<<<<<<<<<<<
+ *     return search_all_in_c(
  *         input_str,
  */
-  __pyx_tuple_ = PyTuple_Pack(2, __pyx_n_s_input_str, __pyx_n_s_reg_pattern); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(2, __pyx_n_s_input_str, __pyx_n_s_reg_pattern); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_findall_position, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_search_all, 3, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1570,7 +1611,7 @@ static int __Pyx_InitCachedConstants(void) {
 }
 
 static int __Pyx_InitGlobals(void) {
-  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 3, __pyx_L1_error);
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1666,11 +1707,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initfindall_position(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initfindall_position(void)
+__Pyx_PyMODINIT_FUNC initsearch_all(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initsearch_all(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_findall_position(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_findall_position(void)
+__Pyx_PyMODINIT_FUNC PyInit_search_all(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_search_all(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -1710,7 +1751,7 @@ bad:
 }
 
 
-static int __pyx_pymod_exec_findall_position(PyObject *__pyx_pyinit_module)
+static int __pyx_pymod_exec_search_all(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -1730,28 +1771,28 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_findall_position(void)", 0);
-  if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_search_all(void)", 0);
+  if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(0, 3, __pyx_L1_error)
   #ifdef __Pyx_CyFunction_USED
-  if (__pyx_CyFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_CyFunction_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_FusedFunction_USED
-  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Coroutine_USED
-  if (__pyx_Coroutine_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_Coroutine_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Generator_USED
-  if (__pyx_Generator_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_Generator_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_AsyncGen_USED
-  if (__pyx_AsyncGen_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_AsyncGen_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_StopAsyncIteration_USED
-  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   /*--- Library function declarations ---*/
   /*--- Threads initialization code ---*/
@@ -1766,40 +1807,40 @@ if (!__Pyx_RefNanny) {
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("findall_position", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("search_all", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
-  if (unlikely(!__pyx_m)) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (unlikely(!__pyx_m)) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
-  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(0, 3, __pyx_L1_error)
   Py_INCREF(__pyx_d);
-  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_cython_runtime = PyImport_AddModule((char *) "cython_runtime"); if (unlikely(!__pyx_cython_runtime)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_cython_runtime = PyImport_AddModule((char *) "cython_runtime"); if (unlikely(!__pyx_cython_runtime)) __PYX_ERR(0, 3, __pyx_L1_error)
   #if CYTHON_COMPILING_IN_PYPY
   Py_INCREF(__pyx_b);
   #endif
-  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(0, 3, __pyx_L1_error);
   /*--- Initialize various global constants etc. ---*/
-  if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
-  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_text_normalizer__factory__toolkit__findall_position) {
-    if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_module_is_main_text_normalizer__factory__toolkit__search_all) {
+    if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
-    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "text_normalizer.factory.toolkit.findall_position")) {
-      if (unlikely(PyDict_SetItemString(modules, "text_normalizer.factory.toolkit.findall_position", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 3, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "text_normalizer.factory.toolkit.search_all")) {
+      if (unlikely(PyDict_SetItemString(modules, "text_normalizer.factory.toolkit.search_all", __pyx_m) < 0)) __PYX_ERR(0, 3, __pyx_L1_error)
     }
   }
   #endif
   /*--- Builtin init code ---*/
-  if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   /*--- Constants init code ---*/
-  if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   /*--- Global type/function init code ---*/
   (void)__Pyx_modinit_global_init_code();
   (void)__Pyx_modinit_variable_export_code();
@@ -1810,29 +1851,31 @@ if (!__Pyx_RefNanny) {
   (void)__Pyx_modinit_function_import_code();
   /*--- Execution code ---*/
   #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
-  if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":1
- * def findall_position(input_str, reg_pattern):             # <<<<<<<<<<<<<<
- *     return findall_position_in_c(
+  /* "text_normalizer/factory/toolkit/search_all.pyx":3
+ * 
+ * 
+ * def search_all(input_str, reg_pattern):             # <<<<<<<<<<<<<<
+ *     return search_all_in_c(
  *         input_str,
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_10search_all_1search_all, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findall_position, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_search_all, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":8
+  /* "text_normalizer/factory/toolkit/search_all.pyx":10
  * 
  * 
- * cdef list findall_position_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ * cdef list search_all_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
  *         str input_str,
  *         reg_pattern,
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /*--- Wrapped vars code ---*/
@@ -1842,11 +1885,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init text_normalizer.factory.toolkit.findall_position", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init text_normalizer.factory.toolkit.search_all", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init text_normalizer.factory.toolkit.findall_position");
+    PyErr_SetString(PyExc_ImportError, "init text_normalizer.factory.toolkit.search_all");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
