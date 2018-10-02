@@ -30,8 +30,8 @@ cdef list propagate_label_in_c(  # noqa: E999
     for i in range(n_anno):
         label = propagate_label_for_a_pair_of_annotations_in_c(
             label=label,
-            forward_annotations=annotations[i]['for'],
-            backward_annotations=annotations[i]['back'],
+            forward_annotations=annotations[i]['forward'],
+            backward_annotations=annotations[i]['backward'],
         )
     return label
 
@@ -46,8 +46,8 @@ cdef list backpropagate_label_in_c(  # noqa: E999
     for i in range(n_anno - 1, -1, -1):
         label = propagate_label_for_a_pair_of_annotations_in_c(
             label=label,
-            forward_annotations=annotations[i]['back'],
-            backward_annotations=annotations[i]['for'],
+            forward_annotations=annotations[i]['backward'],
+            backward_annotations=annotations[i]['forward'],
         )
     return label
 

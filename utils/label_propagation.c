@@ -1047,13 +1047,13 @@ int __pyx_module_is_main_utils__label_propagation = 0;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_sum;
-static const char __pyx_k_for[] = "for";
 static const char __pyx_k_sum[] = "sum";
-static const char __pyx_k_back[] = "back";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_label[] = "label";
 static const char __pyx_k_range[] = "range";
+static const char __pyx_k_forward[] = "forward";
+static const char __pyx_k_backward[] = "backward";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_annotations[] = "annotations";
 static const char __pyx_k_propagate_label[] = "propagate_label";
@@ -1064,10 +1064,10 @@ static const char __pyx_k_utils_label_propagation_pyx[] = "utils/label_propagati
 static const char __pyx_k_number_of_forward_and_backward_m[] = "number of forward and backward modifications is not the same";
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_annotations;
-static PyObject *__pyx_n_s_back;
 static PyObject *__pyx_n_s_backpropagate_label;
+static PyObject *__pyx_n_s_backward;
 static PyObject *__pyx_n_s_cline_in_traceback;
-static PyObject *__pyx_n_s_for;
+static PyObject *__pyx_n_s_forward;
 static PyObject *__pyx_n_s_label;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_kp_u_number_of_forward_and_backward_m;
@@ -1412,8 +1412,8 @@ static PyObject *__pyx_f_5utils_17label_propagation_propagate_label_in_c(PyObjec
     /* "utils/label_propagation.pyx":33
  *         label = propagate_label_for_a_pair_of_annotations_in_c(
  *             label=label,
- *             forward_annotations=annotations[i]['for'],             # <<<<<<<<<<<<<<
- *             backward_annotations=annotations[i]['back'],
+ *             forward_annotations=annotations[i]['forward'],             # <<<<<<<<<<<<<<
+ *             backward_annotations=annotations[i]['backward'],
  *         )
  */
     if (unlikely(__pyx_v_annotations == Py_None)) {
@@ -1422,15 +1422,15 @@ static PyObject *__pyx_f_5utils_17label_propagation_propagate_label_in_c(PyObjec
     }
     __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_for); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 33, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_forward); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (!(likely(PyList_CheckExact(__pyx_t_6))||((__pyx_t_6) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_6)->tp_name), 0))) __PYX_ERR(0, 33, __pyx_L1_error)
 
     /* "utils/label_propagation.pyx":34
  *             label=label,
- *             forward_annotations=annotations[i]['for'],
- *             backward_annotations=annotations[i]['back'],             # <<<<<<<<<<<<<<
+ *             forward_annotations=annotations[i]['forward'],
+ *             backward_annotations=annotations[i]['backward'],             # <<<<<<<<<<<<<<
  *         )
  *     return label
  */
@@ -1440,7 +1440,7 @@ static PyObject *__pyx_f_5utils_17label_propagation_propagate_label_in_c(PyObjec
     }
     __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_back); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_s_backward); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 34, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (!(likely(PyList_CheckExact(__pyx_t_7))||((__pyx_t_7) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_7)->tp_name), 0))) __PYX_ERR(0, 34, __pyx_L1_error)
@@ -1450,7 +1450,7 @@ static PyObject *__pyx_f_5utils_17label_propagation_propagate_label_in_c(PyObjec
  *     for i in range(n_anno):
  *         label = propagate_label_for_a_pair_of_annotations_in_c(             # <<<<<<<<<<<<<<
  *             label=label,
- *             forward_annotations=annotations[i]['for'],
+ *             forward_annotations=annotations[i]['forward'],
  */
     __pyx_t_5 = __pyx_f_5utils_17label_propagation_propagate_label_for_a_pair_of_annotations_in_c(__pyx_v_label, ((PyObject*)__pyx_t_6), ((PyObject*)__pyx_t_7)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 31, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
@@ -1461,7 +1461,7 @@ static PyObject *__pyx_f_5utils_17label_propagation_propagate_label_in_c(PyObjec
   }
 
   /* "utils/label_propagation.pyx":36
- *             backward_annotations=annotations[i]['back'],
+ *             backward_annotations=annotations[i]['backward'],
  *         )
  *     return label             # <<<<<<<<<<<<<<
  * 
@@ -1542,8 +1542,8 @@ static PyObject *__pyx_f_5utils_17label_propagation_backpropagate_label_in_c(PyO
     /* "utils/label_propagation.pyx":49
  *         label = propagate_label_for_a_pair_of_annotations_in_c(
  *             label=label,
- *             forward_annotations=annotations[i]['back'],             # <<<<<<<<<<<<<<
- *             backward_annotations=annotations[i]['for'],
+ *             forward_annotations=annotations[i]['backward'],             # <<<<<<<<<<<<<<
+ *             backward_annotations=annotations[i]['forward'],
  *         )
  */
     if (unlikely(__pyx_v_annotations == Py_None)) {
@@ -1552,15 +1552,15 @@ static PyObject *__pyx_f_5utils_17label_propagation_backpropagate_label_in_c(PyO
     }
     __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_back); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_backward); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (!(likely(PyList_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 49, __pyx_L1_error)
 
     /* "utils/label_propagation.pyx":50
  *             label=label,
- *             forward_annotations=annotations[i]['back'],
- *             backward_annotations=annotations[i]['for'],             # <<<<<<<<<<<<<<
+ *             forward_annotations=annotations[i]['backward'],
+ *             backward_annotations=annotations[i]['forward'],             # <<<<<<<<<<<<<<
  *         )
  *     return label
  */
@@ -1570,7 +1570,7 @@ static PyObject *__pyx_f_5utils_17label_propagation_backpropagate_label_in_c(PyO
     }
     __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_for); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 50, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_s_forward); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (!(likely(PyList_CheckExact(__pyx_t_5))||((__pyx_t_5) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_5)->tp_name), 0))) __PYX_ERR(0, 50, __pyx_L1_error)
@@ -1580,7 +1580,7 @@ static PyObject *__pyx_f_5utils_17label_propagation_backpropagate_label_in_c(PyO
  *     for i in range(n_anno - 1, -1, -1):
  *         label = propagate_label_for_a_pair_of_annotations_in_c(             # <<<<<<<<<<<<<<
  *             label=label,
- *             forward_annotations=annotations[i]['back'],
+ *             forward_annotations=annotations[i]['backward'],
  */
     __pyx_t_3 = __pyx_f_5utils_17label_propagation_propagate_label_for_a_pair_of_annotations_in_c(__pyx_v_label, ((PyObject*)__pyx_t_4), ((PyObject*)__pyx_t_5)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -1591,7 +1591,7 @@ static PyObject *__pyx_f_5utils_17label_propagation_backpropagate_label_in_c(PyO
   }
 
   /* "utils/label_propagation.pyx":52
- *             backward_annotations=annotations[i]['for'],
+ *             backward_annotations=annotations[i]['forward'],
  *         )
  *     return label             # <<<<<<<<<<<<<<
  * 
@@ -2187,7 +2187,6 @@ static unsigned int __pyx_f_5utils_17label_propagation_get_high_freq_label(PyObj
  *             max_f = record[l]
  *             label_f = l             # <<<<<<<<<<<<<<
  *     return label_f
- * 
  */
       __pyx_t_8 = __Pyx_PyInt_As_unsigned_int(__pyx_v_l); if (unlikely((__pyx_t_8 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 111, __pyx_L1_error)
       __pyx_v_label_f = __pyx_t_8;
@@ -2215,8 +2214,6 @@ static unsigned int __pyx_f_5utils_17label_propagation_get_high_freq_label(PyObj
  *             max_f = record[l]
  *             label_f = l
  *     return label_f             # <<<<<<<<<<<<<<
- * 
- * 
  */
   __pyx_r = __pyx_v_label_f;
   goto __pyx_L0;
@@ -2283,10 +2280,10 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_annotations, __pyx_k_annotations, sizeof(__pyx_k_annotations), 0, 0, 1, 1},
-  {&__pyx_n_s_back, __pyx_k_back, sizeof(__pyx_k_back), 0, 0, 1, 1},
   {&__pyx_n_s_backpropagate_label, __pyx_k_backpropagate_label, sizeof(__pyx_k_backpropagate_label), 0, 0, 1, 1},
+  {&__pyx_n_s_backward, __pyx_k_backward, sizeof(__pyx_k_backward), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
-  {&__pyx_n_s_for, __pyx_k_for, sizeof(__pyx_k_for), 0, 0, 1, 1},
+  {&__pyx_n_s_forward, __pyx_k_forward, sizeof(__pyx_k_forward), 0, 0, 1, 1},
   {&__pyx_n_s_label, __pyx_k_label, sizeof(__pyx_k_label), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_kp_u_number_of_forward_and_backward_m, __pyx_k_number_of_forward_and_backward_m, sizeof(__pyx_k_number_of_forward_and_backward_m), 0, 1, 0, 0},

@@ -15,14 +15,14 @@ class LabelPropagationTestCase(TestCase):
         result of normalization:
         我想買_int_元的_int_c.c.飲料
         meta = {
-            'for': [(3,5, '10'), (7, 10, '100')],
-            'back': [(3,8, '_int_'), (10, 15, '_int_')],
+            'forward': [(3,5, '10'), (7, 10, '100')],
+            'backward': [(3,8, '_int_'), (10, 15, '_int_')],
         }
 
         """
         cls.meta = {
-            'for': [(3, 5, '10'), (7, 10, '100')],
-            'back': [(3, 8, '_int_'), (10, 15, '_int_')],
+            'forward': [(3, 5, '10'), (7, 10, '100')],
+            'backward': [(3, 8, '_int_'), (10, 15, '_int_')],
         }
         cls.label = [0, 0, 0, 1, 1, 1, 1, 1, 1,
                      0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0]
