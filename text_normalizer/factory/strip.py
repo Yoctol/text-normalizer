@@ -23,7 +23,7 @@ class Strip(BaseFactory):
         ):
         if direction not in ['both', 'left', 'right']:
             raise ValueError(
-                'WRONG direction input! '
+                'Not Supported Yet!!'
                 'Direction has three options [both, left, right]',
                 'Your input is {}'.format(direction),
             )
@@ -77,8 +77,8 @@ class Strip(BaseFactory):
             backward_annotations=backward_annotations,
         )
         return output_str, {
-            'for': forward_annotations,
-            'back': backward_annotations,
+            'forward': forward_annotations,
+            'backward': backward_annotations,
         }
 
     def denormalize(
@@ -86,8 +86,8 @@ class Strip(BaseFactory):
             sentence: str,
             meta: dict,
         ) -> str:
-        forward_annotations = meta['for']
-        backward_annotations = meta['back']
+        forward_annotations = meta['forward']
+        backward_annotations = meta['backward']
         output_str = transform(
             input_str=sentence,
             forward_annotations=backward_annotations,
