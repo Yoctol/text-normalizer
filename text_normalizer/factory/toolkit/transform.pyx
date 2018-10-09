@@ -1,3 +1,10 @@
+from checkpoints cimport (  # noqa: E999, E211
+    is_equal_length_in_c,
+    is_input_str_valid_in_c,
+)
+from is_annotations_valid cimport (  # noqa: E999, E211
+    is_annotations_valid_in_c,
+)
 
 
 def transform(
@@ -26,10 +33,50 @@ def transform(
         a string
 
     """
+    check_in_c(
+        input_str=input_str,
+        forward_annotations=forward_annotations,
+        backward_annotations=backward_annotations,
+    )
+
     return transform_in_c(
         input_str=input_str,
         forward_annotations=forward_annotations,
         backward_annotations=backward_annotations,
+    )
+
+
+cdef void check_in_c(  # noqa: E999
+        str input_str,
+        list forward_annotations,
+        list backward_annotations,
+    ) except *:
+
+    cdef bint check
+
+    check = is_equal_length_in_c(
+        forward_annotations=forward_annotations,
+        backward_annotations=backward_annotations,
+    )
+    if check is False:
+        raise ValueError(
+            'forward and backward annotations have different lengths',
+        )
+
+    check = is_input_str_valid_in_c(
+        input_str=input_str,
+        forward_annotations=forward_annotations,
+    )
+    if check is False:
+        raise ValueError(
+            'input string is NOT matched forward annotations.',
+        )
+
+    is_annotations_valid_in_c(
+        annotations=forward_annotations,
+    )
+    is_annotations_valid_in_c(
+        annotations=backward_annotations,
     )
 
 
@@ -42,6 +89,7 @@ cdef str transform_in_c(  # noqa: E999
     cdef unsigned int i, n_modif, current_pt
     cdef list output_list
     cdef str output_str
+    cdef bint check
 
     n_modif = len(forward_annotations)
 

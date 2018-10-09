@@ -862,6 +862,52 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
         __Pyx__ArgTypeTest(obj, type, name, exact))
 static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
 
+/* PyObjectCall.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
+#endif
+
+/* PyThreadStateGet.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
+#define __Pyx_PyThreadState_assign  __pyx_tstate = __Pyx_PyThreadState_Current;
+#define __Pyx_PyErr_Occurred()  __pyx_tstate->curexc_type
+#else
+#define __Pyx_PyThreadState_declare
+#define __Pyx_PyThreadState_assign
+#define __Pyx_PyErr_Occurred()  PyErr_Occurred()
+#endif
+
+/* PyErrFetchRestore.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_PyErr_Clear() __Pyx_ErrRestore(NULL, NULL, NULL)
+#define __Pyx_ErrRestoreWithState(type, value, tb)  __Pyx_ErrRestoreInState(PyThreadState_GET(), type, value, tb)
+#define __Pyx_ErrFetchWithState(type, value, tb)    __Pyx_ErrFetchInState(PyThreadState_GET(), type, value, tb)
+#define __Pyx_ErrRestore(type, value, tb)  __Pyx_ErrRestoreInState(__pyx_tstate, type, value, tb)
+#define __Pyx_ErrFetch(type, value, tb)    __Pyx_ErrFetchInState(__pyx_tstate, type, value, tb)
+static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb);
+static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
+#if CYTHON_COMPILING_IN_CPYTHON
+#define __Pyx_PyErr_SetNone(exc) (Py_INCREF(exc), __Pyx_ErrRestore((exc), NULL, NULL))
+#else
+#define __Pyx_PyErr_SetNone(exc) PyErr_SetNone(exc)
+#endif
+#else
+#define __Pyx_PyErr_Clear() PyErr_Clear()
+#define __Pyx_PyErr_SetNone(exc) PyErr_SetNone(exc)
+#define __Pyx_ErrRestoreWithState(type, value, tb)  PyErr_Restore(type, value, tb)
+#define __Pyx_ErrFetchWithState(type, value, tb)  PyErr_Fetch(type, value, tb)
+#define __Pyx_ErrRestoreInState(tstate, type, value, tb)  PyErr_Restore(type, value, tb)
+#define __Pyx_ErrFetchInState(tstate, type, value, tb)  PyErr_Fetch(type, value, tb)
+#define __Pyx_ErrRestore(type, value, tb)  PyErr_Restore(type, value, tb)
+#define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
+#endif
+
+/* RaiseException.proto */
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+
 /* GetItemInt.proto */
 #define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
     (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
@@ -910,42 +956,6 @@ static CYTHON_INLINE int __Pyx_SetItemInt_Fast(PyObject *o, Py_ssize_t i, PyObje
     #endif
 #else
 static CYTHON_INLINE PyObject* __Pyx_PyBytes_Join(PyObject* sep, PyObject* values);
-#endif
-
-/* PyThreadStateGet.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
-#define __Pyx_PyThreadState_assign  __pyx_tstate = __Pyx_PyThreadState_Current;
-#define __Pyx_PyErr_Occurred()  __pyx_tstate->curexc_type
-#else
-#define __Pyx_PyThreadState_declare
-#define __Pyx_PyThreadState_assign
-#define __Pyx_PyErr_Occurred()  PyErr_Occurred()
-#endif
-
-/* PyErrFetchRestore.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_PyErr_Clear() __Pyx_ErrRestore(NULL, NULL, NULL)
-#define __Pyx_ErrRestoreWithState(type, value, tb)  __Pyx_ErrRestoreInState(PyThreadState_GET(), type, value, tb)
-#define __Pyx_ErrFetchWithState(type, value, tb)    __Pyx_ErrFetchInState(PyThreadState_GET(), type, value, tb)
-#define __Pyx_ErrRestore(type, value, tb)  __Pyx_ErrRestoreInState(__pyx_tstate, type, value, tb)
-#define __Pyx_ErrFetch(type, value, tb)    __Pyx_ErrFetchInState(__pyx_tstate, type, value, tb)
-static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb);
-static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
-#if CYTHON_COMPILING_IN_CPYTHON
-#define __Pyx_PyErr_SetNone(exc) (Py_INCREF(exc), __Pyx_ErrRestore((exc), NULL, NULL))
-#else
-#define __Pyx_PyErr_SetNone(exc) PyErr_SetNone(exc)
-#endif
-#else
-#define __Pyx_PyErr_Clear() PyErr_Clear()
-#define __Pyx_PyErr_SetNone(exc) PyErr_SetNone(exc)
-#define __Pyx_ErrRestoreWithState(type, value, tb)  PyErr_Restore(type, value, tb)
-#define __Pyx_ErrFetchWithState(type, value, tb)  PyErr_Fetch(type, value, tb)
-#define __Pyx_ErrRestoreInState(tstate, type, value, tb)  PyErr_Restore(type, value, tb)
-#define __Pyx_ErrFetchInState(tstate, type, value, tb)  PyErr_Fetch(type, value, tb)
-#define __Pyx_ErrRestore(type, value, tb)  PyErr_Restore(type, value, tb)
-#define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
 #endif
 
 /* CLineInTraceback.proto */
@@ -1005,35 +1015,65 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 /* CheckBinaryVersion.proto */
 static int __Pyx_check_binary_version(void);
 
+/* PyIdentifierFromString.proto */
+#if !defined(__Pyx_PyIdentifier_FromString)
+#if PY_MAJOR_VERSION < 3
+  #define __Pyx_PyIdentifier_FromString(s) PyString_FromString(s)
+#else
+  #define __Pyx_PyIdentifier_FromString(s) PyUnicode_FromString(s)
+#endif
+#endif
+
+/* ModuleImport.proto */
+static PyObject *__Pyx_ImportModule(const char *name);
+
+/* FunctionImport.proto */
+static int __Pyx_ImportFunction(PyObject *module, const char *funcname, void (**f)(void), const char *sig);
+
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
+/* Module declarations from 'text_normalizer.factory.toolkit.checkpoints' */
+static int (*__pyx_f_15text_normalizer_7factory_7toolkit_11checkpoints_is_equal_length_in_c)(PyObject *, PyObject *); /*proto*/
+static int (*__pyx_f_15text_normalizer_7factory_7toolkit_11checkpoints_is_input_str_valid_in_c)(PyObject *, PyObject *); /*proto*/
+
+/* Module declarations from 'text_normalizer.factory.toolkit.is_annotations_valid' */
+static void (*__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid_in_c)(PyObject *); /*proto*/
+
 /* Module declarations from 'text_normalizer.factory.toolkit.transform' */
+static void __pyx_f_15text_normalizer_7factory_7toolkit_9transform_check_in_c(PyObject *, PyObject *, PyObject *); /*proto*/
 static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transform_in_c(PyObject *, PyObject *, PyObject *); /*proto*/
 #define __Pyx_MODULE_NAME "text_normalizer.factory.toolkit.transform"
 extern int __pyx_module_is_main_text_normalizer__factory__toolkit__transform;
 int __pyx_module_is_main_text_normalizer__factory__toolkit__transform = 0;
 
 /* Implementation of 'text_normalizer.factory.toolkit.transform' */
+static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_range;
-static const char __pyx_k_[] = "";
+static const char __pyx_k__3[] = "";
 static const char __pyx_k_join[] = "join";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_input_str[] = "input_str";
 static const char __pyx_k_transform[] = "transform";
+static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_forward_annotations[] = "forward_annotations";
 static const char __pyx_k_backward_annotations[] = "backward_annotations";
 static const char __pyx_k_text_normalizer_factory_toolkit[] = "text_normalizer/factory/toolkit/transform.pyx";
+static const char __pyx_k_forward_and_backward_annotations[] = "forward and backward annotations have different lengths";
+static const char __pyx_k_input_string_is_NOT_matched_forw[] = "input string is NOT matched forward annotations.";
 static const char __pyx_k_text_normalizer_factory_toolkit_2[] = "text_normalizer.factory.toolkit.transform";
-static PyObject *__pyx_kp_s_;
+static PyObject *__pyx_n_s_ValueError;
+static PyObject *__pyx_kp_s__3;
 static PyObject *__pyx_n_s_backward_annotations;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_kp_s_forward_and_backward_annotations;
 static PyObject *__pyx_n_s_forward_annotations;
 static PyObject *__pyx_n_s_input_str;
+static PyObject *__pyx_kp_s_input_string_is_NOT_matched_forw;
 static PyObject *__pyx_n_s_join;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_range;
@@ -1042,11 +1082,13 @@ static PyObject *__pyx_kp_s_text_normalizer_factory_toolkit;
 static PyObject *__pyx_n_s_text_normalizer_factory_toolkit_2;
 static PyObject *__pyx_n_s_transform;
 static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_9transform_transform(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_input_str, PyObject *__pyx_v_forward_annotations, PyObject *__pyx_v_backward_annotations); /* proto */
+static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
-static PyObject *__pyx_codeobj__3;
+static PyObject *__pyx_tuple__4;
+static PyObject *__pyx_codeobj__5;
 /* Late includes */
 
-/* "text_normalizer/factory/toolkit/transform.pyx":3
+/* "text_normalizer/factory/toolkit/transform.pyx":10
  * 
  * 
  * def transform(             # <<<<<<<<<<<<<<
@@ -1090,17 +1132,17 @@ static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_9transform_1transf
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_forward_annotations)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("transform", 1, 3, 3, 1); __PYX_ERR(0, 3, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("transform", 1, 3, 3, 1); __PYX_ERR(0, 10, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_backward_annotations)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("transform", 1, 3, 3, 2); __PYX_ERR(0, 3, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("transform", 1, 3, 3, 2); __PYX_ERR(0, 10, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "transform") < 0)) __PYX_ERR(0, 3, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "transform") < 0)) __PYX_ERR(0, 10, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -1115,13 +1157,13 @@ static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_9transform_1transf
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("transform", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 3, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("transform", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 10, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("text_normalizer.factory.toolkit.transform.transform", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_str), (&PyString_Type), 1, "input_str", 1))) __PYX_ERR(0, 4, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_str), (&PyString_Type), 1, "input_str", 1))) __PYX_ERR(0, 11, __pyx_L1_error)
   __pyx_r = __pyx_pf_15text_normalizer_7factory_7toolkit_9transform_transform(__pyx_self, __pyx_v_input_str, __pyx_v_forward_annotations, __pyx_v_backward_annotations);
 
   /* function exit code */
@@ -1139,47 +1181,74 @@ static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_9transform_transfo
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("transform", 0);
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":29
- * 
- *     """
- *     return transform_in_c(             # <<<<<<<<<<<<<<
- *         input_str=input_str,
- *         forward_annotations=forward_annotations,
- */
-  __Pyx_XDECREF(__pyx_r);
-
-  /* "text_normalizer/factory/toolkit/transform.pyx":31
- *     return transform_in_c(
+  /* "text_normalizer/factory/toolkit/transform.pyx":38
+ *     check_in_c(
  *         input_str=input_str,
  *         forward_annotations=forward_annotations,             # <<<<<<<<<<<<<<
  *         backward_annotations=backward_annotations,
  *     )
  */
-  if (!(likely(PyList_CheckExact(__pyx_v_forward_annotations))||((__pyx_v_forward_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_forward_annotations)->tp_name), 0))) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_forward_annotations))||((__pyx_v_forward_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_forward_annotations)->tp_name), 0))) __PYX_ERR(0, 38, __pyx_L1_error)
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":32
+  /* "text_normalizer/factory/toolkit/transform.pyx":39
  *         input_str=input_str,
  *         forward_annotations=forward_annotations,
  *         backward_annotations=backward_annotations,             # <<<<<<<<<<<<<<
  *     )
  * 
  */
-  if (!(likely(PyList_CheckExact(__pyx_v_backward_annotations))||((__pyx_v_backward_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_backward_annotations)->tp_name), 0))) __PYX_ERR(0, 32, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_backward_annotations))||((__pyx_v_backward_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_backward_annotations)->tp_name), 0))) __PYX_ERR(0, 39, __pyx_L1_error)
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":29
+  /* "text_normalizer/factory/toolkit/transform.pyx":36
  * 
  *     """
+ *     check_in_c(             # <<<<<<<<<<<<<<
+ *         input_str=input_str,
+ *         forward_annotations=forward_annotations,
+ */
+  __pyx_f_15text_normalizer_7factory_7toolkit_9transform_check_in_c(__pyx_v_input_str, ((PyObject*)__pyx_v_forward_annotations), ((PyObject*)__pyx_v_backward_annotations)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 36, __pyx_L1_error)
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":42
+ *     )
+ * 
  *     return transform_in_c(             # <<<<<<<<<<<<<<
  *         input_str=input_str,
  *         forward_annotations=forward_annotations,
  */
-  __pyx_t_1 = __pyx_f_15text_normalizer_7factory_7toolkit_9transform_transform_in_c(__pyx_v_input_str, ((PyObject*)__pyx_v_forward_annotations), ((PyObject*)__pyx_v_backward_annotations)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_XDECREF(__pyx_r);
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":44
+ *     return transform_in_c(
+ *         input_str=input_str,
+ *         forward_annotations=forward_annotations,             # <<<<<<<<<<<<<<
+ *         backward_annotations=backward_annotations,
+ *     )
+ */
+  if (!(likely(PyList_CheckExact(__pyx_v_forward_annotations))||((__pyx_v_forward_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_forward_annotations)->tp_name), 0))) __PYX_ERR(0, 44, __pyx_L1_error)
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":45
+ *         input_str=input_str,
+ *         forward_annotations=forward_annotations,
+ *         backward_annotations=backward_annotations,             # <<<<<<<<<<<<<<
+ *     )
+ * 
+ */
+  if (!(likely(PyList_CheckExact(__pyx_v_backward_annotations))||((__pyx_v_backward_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_backward_annotations)->tp_name), 0))) __PYX_ERR(0, 45, __pyx_L1_error)
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":42
+ *     )
+ * 
+ *     return transform_in_c(             # <<<<<<<<<<<<<<
+ *         input_str=input_str,
+ *         forward_annotations=forward_annotations,
+ */
+  __pyx_t_1 = __pyx_f_15text_normalizer_7factory_7toolkit_9transform_transform_in_c(__pyx_v_input_str, ((PyObject*)__pyx_v_forward_annotations), ((PyObject*)__pyx_v_backward_annotations)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":3
+  /* "text_normalizer/factory/toolkit/transform.pyx":10
  * 
  * 
  * def transform(             # <<<<<<<<<<<<<<
@@ -1198,7 +1267,139 @@ static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_9transform_transfo
   return __pyx_r;
 }
 
-/* "text_normalizer/factory/toolkit/transform.pyx":36
+/* "text_normalizer/factory/toolkit/transform.pyx":49
+ * 
+ * 
+ * cdef void check_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         str input_str,
+ *         list forward_annotations,
+ */
+
+static void __pyx_f_15text_normalizer_7factory_7toolkit_9transform_check_in_c(PyObject *__pyx_v_input_str, PyObject *__pyx_v_forward_annotations, PyObject *__pyx_v_backward_annotations) {
+  int __pyx_v_check;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("check_in_c", 0);
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":57
+ *     cdef bint check
+ * 
+ *     check = is_equal_length_in_c(             # <<<<<<<<<<<<<<
+ *         forward_annotations=forward_annotations,
+ *         backward_annotations=backward_annotations,
+ */
+  __pyx_v_check = __pyx_f_15text_normalizer_7factory_7toolkit_11checkpoints_is_equal_length_in_c(__pyx_v_forward_annotations, __pyx_v_backward_annotations);
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":61
+ *         backward_annotations=backward_annotations,
+ *     )
+ *     if check is False:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'forward and backward annotations have different lengths',
+ */
+  __pyx_t_1 = ((__pyx_v_check == 0) != 0);
+  if (unlikely(__pyx_t_1)) {
+
+    /* "text_normalizer/factory/toolkit/transform.pyx":62
+ *     )
+ *     if check is False:
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             'forward and backward annotations have different lengths',
+ *         )
+ */
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_Raise(__pyx_t_2, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __PYX_ERR(0, 62, __pyx_L1_error)
+
+    /* "text_normalizer/factory/toolkit/transform.pyx":61
+ *         backward_annotations=backward_annotations,
+ *     )
+ *     if check is False:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'forward and backward annotations have different lengths',
+ */
+  }
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":66
+ *         )
+ * 
+ *     check = is_input_str_valid_in_c(             # <<<<<<<<<<<<<<
+ *         input_str=input_str,
+ *         forward_annotations=forward_annotations,
+ */
+  __pyx_v_check = __pyx_f_15text_normalizer_7factory_7toolkit_11checkpoints_is_input_str_valid_in_c(__pyx_v_input_str, __pyx_v_forward_annotations);
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":70
+ *         forward_annotations=forward_annotations,
+ *     )
+ *     if check is False:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'input string is NOT matched forward annotations.',
+ */
+  __pyx_t_1 = ((__pyx_v_check == 0) != 0);
+  if (unlikely(__pyx_t_1)) {
+
+    /* "text_normalizer/factory/toolkit/transform.pyx":71
+ *     )
+ *     if check is False:
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             'input string is NOT matched forward annotations.',
+ *         )
+ */
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_Raise(__pyx_t_2, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __PYX_ERR(0, 71, __pyx_L1_error)
+
+    /* "text_normalizer/factory/toolkit/transform.pyx":70
+ *         forward_annotations=forward_annotations,
+ *     )
+ *     if check is False:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'input string is NOT matched forward annotations.',
+ */
+  }
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":75
+ *         )
+ * 
+ *     is_annotations_valid_in_c(             # <<<<<<<<<<<<<<
+ *         annotations=forward_annotations,
+ *     )
+ */
+  __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid_in_c(__pyx_v_forward_annotations); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 75, __pyx_L1_error)
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":78
+ *         annotations=forward_annotations,
+ *     )
+ *     is_annotations_valid_in_c(             # <<<<<<<<<<<<<<
+ *         annotations=backward_annotations,
+ *     )
+ */
+  __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid_in_c(__pyx_v_backward_annotations); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 78, __pyx_L1_error)
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":49
+ * 
+ * 
+ * cdef void check_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         str input_str,
+ *         list forward_annotations,
+ */
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.transform.check_in_c", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "text_normalizer/factory/toolkit/transform.pyx":83
  * 
  * 
  * cdef str transform_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
@@ -1225,8 +1426,8 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
   unsigned int __pyx_t_9;
   __Pyx_RefNannySetupContext("transform_in_c", 0);
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":46
- *     cdef str output_str
+  /* "text_normalizer/factory/toolkit/transform.pyx":94
+ *     cdef bint check
  * 
  *     n_modif = len(forward_annotations)             # <<<<<<<<<<<<<<
  * 
@@ -1234,12 +1435,12 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
  */
   if (unlikely(__pyx_v_forward_annotations == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 46, __pyx_L1_error)
+    __PYX_ERR(0, 94, __pyx_L1_error)
   }
-  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_forward_annotations); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_forward_annotations); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 94, __pyx_L1_error)
   __pyx_v_n_modif = __pyx_t_1;
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":48
+  /* "text_normalizer/factory/toolkit/transform.pyx":96
  *     n_modif = len(forward_annotations)
  * 
  *     if n_modif == 0:             # <<<<<<<<<<<<<<
@@ -1249,7 +1450,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
   __pyx_t_2 = ((__pyx_v_n_modif == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "text_normalizer/factory/toolkit/transform.pyx":50
+    /* "text_normalizer/factory/toolkit/transform.pyx":98
  *     if n_modif == 0:
  *         # no modification return input str
  *         return input_str             # <<<<<<<<<<<<<<
@@ -1261,7 +1462,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
     __pyx_r = __pyx_v_input_str;
     goto __pyx_L0;
 
-    /* "text_normalizer/factory/toolkit/transform.pyx":48
+    /* "text_normalizer/factory/toolkit/transform.pyx":96
  *     n_modif = len(forward_annotations)
  * 
  *     if n_modif == 0:             # <<<<<<<<<<<<<<
@@ -1270,26 +1471,26 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
  */
   }
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":52
+  /* "text_normalizer/factory/toolkit/transform.pyx":100
  *         return input_str
  * 
  *     output_list = [""] * (2 * n_modif + 1)             # <<<<<<<<<<<<<<
  *     current_pt = 0
  *     for i in range(n_modif):
  */
-  __pyx_t_3 = PyList_New(1 * ((((2 * __pyx_v_n_modif) + 1)<0) ? 0:((2 * __pyx_v_n_modif) + 1))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(1 * ((((2 * __pyx_v_n_modif) + 1)<0) ? 0:((2 * __pyx_v_n_modif) + 1))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   { Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < ((2 * __pyx_v_n_modif) + 1); __pyx_temp++) {
-      __Pyx_INCREF(__pyx_kp_s_);
-      __Pyx_GIVEREF(__pyx_kp_s_);
-      PyList_SET_ITEM(__pyx_t_3, __pyx_temp, __pyx_kp_s_);
+      __Pyx_INCREF(__pyx_kp_s__3);
+      __Pyx_GIVEREF(__pyx_kp_s__3);
+      PyList_SET_ITEM(__pyx_t_3, __pyx_temp, __pyx_kp_s__3);
     }
   }
   __pyx_v_output_list = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":53
+  /* "text_normalizer/factory/toolkit/transform.pyx":101
  * 
  *     output_list = [""] * (2 * n_modif + 1)
  *     current_pt = 0             # <<<<<<<<<<<<<<
@@ -1298,7 +1499,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
  */
   __pyx_v_current_pt = 0;
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":54
+  /* "text_normalizer/factory/toolkit/transform.pyx":102
  *     output_list = [""] * (2 * n_modif + 1)
  *     current_pt = 0
  *     for i in range(n_modif):             # <<<<<<<<<<<<<<
@@ -1310,7 +1511,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_i = __pyx_t_6;
 
-    /* "text_normalizer/factory/toolkit/transform.pyx":55
+    /* "text_normalizer/factory/toolkit/transform.pyx":103
  *     current_pt = 0
  *     for i in range(n_modif):
  *         output_list[2 * i] = input_str[current_pt: forward_annotations[i][0]]             # <<<<<<<<<<<<<<
@@ -1319,26 +1520,26 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
  */
     if (unlikely(__pyx_v_input_str == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 55, __pyx_L1_error)
+      __PYX_ERR(0, 103, __pyx_L1_error)
     }
     if (unlikely(__pyx_v_forward_annotations == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 55, __pyx_L1_error)
+      __PYX_ERR(0, 103, __pyx_L1_error)
     }
-    __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_forward_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_forward_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_1 = __Pyx_PyIndex_AsSsize_t(__pyx_t_7); if (unlikely((__pyx_t_1 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyIndex_AsSsize_t(__pyx_t_7); if (unlikely((__pyx_t_1 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PySequence_GetSlice(__pyx_v_input_str, __pyx_v_current_pt, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_7 = PySequence_GetSlice(__pyx_v_input_str, __pyx_v_current_pt, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = (2 * __pyx_v_i);
-    if (unlikely(__Pyx_SetItemInt(__pyx_v_output_list, __pyx_t_8, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 1, 1, 1) < 0)) __PYX_ERR(0, 55, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(__pyx_v_output_list, __pyx_t_8, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 1, 1, 1) < 0)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "text_normalizer/factory/toolkit/transform.pyx":56
+    /* "text_normalizer/factory/toolkit/transform.pyx":104
  *     for i in range(n_modif):
  *         output_list[2 * i] = input_str[current_pt: forward_annotations[i][0]]
  *         output_list[2 * i + 1] = backward_annotations[i][2]             # <<<<<<<<<<<<<<
@@ -1347,18 +1548,18 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
  */
     if (unlikely(__pyx_v_backward_annotations == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 56, __pyx_L1_error)
+      __PYX_ERR(0, 104, __pyx_L1_error)
     }
-    __pyx_t_7 = __Pyx_GetItemInt_List(__pyx_v_backward_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 56, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt_List(__pyx_v_backward_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 104, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 56, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_8 = ((2 * __pyx_v_i) + 1);
-    if (unlikely(__Pyx_SetItemInt(__pyx_v_output_list, __pyx_t_8, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 1, 1, 1) < 0)) __PYX_ERR(0, 56, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(__pyx_v_output_list, __pyx_t_8, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 1, 1, 1) < 0)) __PYX_ERR(0, 104, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "text_normalizer/factory/toolkit/transform.pyx":57
+    /* "text_normalizer/factory/toolkit/transform.pyx":105
  *         output_list[2 * i] = input_str[current_pt: forward_annotations[i][0]]
  *         output_list[2 * i + 1] = backward_annotations[i][2]
  *         current_pt = forward_annotations[i][1]             # <<<<<<<<<<<<<<
@@ -1367,19 +1568,19 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
  */
     if (unlikely(__pyx_v_forward_annotations == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 57, __pyx_L1_error)
+      __PYX_ERR(0, 105, __pyx_L1_error)
     }
-    __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_forward_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_forward_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 57, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_9 = __Pyx_PyInt_As_unsigned_int(__pyx_t_7); if (unlikely((__pyx_t_9 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 57, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_As_unsigned_int(__pyx_t_7); if (unlikely((__pyx_t_9 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_current_pt = __pyx_t_9;
   }
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":59
+  /* "text_normalizer/factory/toolkit/transform.pyx":107
  *         current_pt = forward_annotations[i][1]
  * 
  *     output_list[-1] = input_str[forward_annotations[-1][1]:]             # <<<<<<<<<<<<<<
@@ -1388,37 +1589,37 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
  */
   if (unlikely(__pyx_v_input_str == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 59, __pyx_L1_error)
+    __PYX_ERR(0, 107, __pyx_L1_error)
   }
   if (unlikely(__pyx_v_forward_annotations == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 59, __pyx_L1_error)
+    __PYX_ERR(0, 107, __pyx_L1_error)
   }
-  __pyx_t_7 = __Pyx_GetItemInt_List(__pyx_v_forward_annotations, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetItemInt_List(__pyx_v_forward_annotations, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_1 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_1 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_1 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PySequence_GetSlice(__pyx_v_input_str, __pyx_t_1, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_3 = PySequence_GetSlice(__pyx_v_input_str, __pyx_t_1, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (unlikely(__Pyx_SetItemInt(__pyx_v_output_list, -1L, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 1, 1, 1) < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(__pyx_v_output_list, -1L, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 1, 1, 1) < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":61
+  /* "text_normalizer/factory/toolkit/transform.pyx":109
  *     output_list[-1] = input_str[forward_annotations[-1][1]:]
  * 
  *     output_str = ''.join(output_list)             # <<<<<<<<<<<<<<
  *     return output_str
  */
-  __pyx_t_3 = __Pyx_PyString_Join(__pyx_kp_s_, __pyx_v_output_list); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyString_Join(__pyx_kp_s__3, __pyx_v_output_list); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (!(likely(PyString_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 61, __pyx_L1_error)
+  if (!(likely(PyString_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 109, __pyx_L1_error)
   __pyx_v_output_str = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":62
+  /* "text_normalizer/factory/toolkit/transform.pyx":110
  * 
  *     output_str = ''.join(output_list)
  *     return output_str             # <<<<<<<<<<<<<<
@@ -1428,7 +1629,7 @@ static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_9transform_transfor
   __pyx_r = __pyx_v_output_str;
   goto __pyx_L0;
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":36
+  /* "text_normalizer/factory/toolkit/transform.pyx":83
  * 
  * 
  * cdef str transform_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
@@ -1487,11 +1688,14 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_kp_s_, __pyx_k_, sizeof(__pyx_k_), 0, 0, 1, 0},
+  {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
+  {&__pyx_kp_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 0},
   {&__pyx_n_s_backward_annotations, __pyx_k_backward_annotations, sizeof(__pyx_k_backward_annotations), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_kp_s_forward_and_backward_annotations, __pyx_k_forward_and_backward_annotations, sizeof(__pyx_k_forward_and_backward_annotations), 0, 0, 1, 0},
   {&__pyx_n_s_forward_annotations, __pyx_k_forward_annotations, sizeof(__pyx_k_forward_annotations), 0, 0, 1, 1},
   {&__pyx_n_s_input_str, __pyx_k_input_str, sizeof(__pyx_k_input_str), 0, 0, 1, 1},
+  {&__pyx_kp_s_input_string_is_NOT_matched_forw, __pyx_k_input_string_is_NOT_matched_forw, sizeof(__pyx_k_input_string_is_NOT_matched_forw), 0, 0, 1, 0},
   {&__pyx_n_s_join, __pyx_k_join, sizeof(__pyx_k_join), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -1502,7 +1706,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 102, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1512,17 +1717,39 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":3
+  /* "text_normalizer/factory/toolkit/transform.pyx":62
+ *     )
+ *     if check is False:
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             'forward and backward annotations have different lengths',
+ *         )
+ */
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_forward_and_backward_annotations); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple_);
+  __Pyx_GIVEREF(__pyx_tuple_);
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":71
+ *     )
+ *     if check is False:
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             'input string is NOT matched forward annotations.',
+ *         )
+ */
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_input_string_is_NOT_matched_forw); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
+
+  /* "text_normalizer/factory/toolkit/transform.pyx":10
  * 
  * 
  * def transform(             # <<<<<<<<<<<<<<
  *         input_str: str,
  *         forward_annotations: list[tuple(int, int, str)],
  */
-  __pyx_tuple__2 = PyTuple_Pack(3, __pyx_n_s_input_str, __pyx_n_s_forward_annotations, __pyx_n_s_backward_annotations); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
-  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_transform, 3, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_n_s_input_str, __pyx_n_s_forward_annotations, __pyx_n_s_backward_annotations); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_transform, 10, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1531,7 +1758,7 @@ static int __Pyx_InitCachedConstants(void) {
 }
 
 static int __Pyx_InitGlobals(void) {
-  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 3, __pyx_L1_error);
+  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1595,10 +1822,24 @@ static int __Pyx_modinit_variable_import_code(void) {
 
 static int __Pyx_modinit_function_import_code(void) {
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_import_code", 0);
   /*--- Function import code ---*/
+  __pyx_t_1 = __Pyx_ImportModule("text_normalizer.factory.toolkit.checkpoints"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportFunction(__pyx_t_1, "is_equal_length_in_c", (void (**)(void))&__pyx_f_15text_normalizer_7factory_7toolkit_11checkpoints_is_equal_length_in_c, "int (PyObject *, PyObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportFunction(__pyx_t_1, "is_input_str_valid_in_c", (void (**)(void))&__pyx_f_15text_normalizer_7factory_7toolkit_11checkpoints_is_input_str_valid_in_c, "int (PyObject *, PyObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_ImportModule("text_normalizer.factory.toolkit.is_annotations_valid"); if (!__pyx_t_2) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportFunction(__pyx_t_2, "is_annotations_valid_in_c", (void (**)(void))&__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid_in_c, "void (PyObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  Py_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_RefNannyFinishContext();
+  return -1;
 }
 
 
@@ -1692,27 +1933,27 @@ if (!__Pyx_RefNanny) {
 }
 #endif
   __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_transform(void)", 0);
-  if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
-  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(0, 1, __pyx_L1_error)
   #ifdef __Pyx_CyFunction_USED
-  if (__pyx_CyFunction_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__pyx_CyFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_FusedFunction_USED
-  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Coroutine_USED
-  if (__pyx_Coroutine_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__pyx_Coroutine_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Generator_USED
-  if (__pyx_Generator_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__pyx_Generator_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_AsyncGen_USED
-  if (__pyx_AsyncGen_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__pyx_AsyncGen_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_StopAsyncIteration_USED
-  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
   /*--- Library function declarations ---*/
   /*--- Threads initialization code ---*/
@@ -1731,36 +1972,36 @@ if (!__Pyx_RefNanny) {
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
-  if (unlikely(!__pyx_m)) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (unlikely(!__pyx_m)) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_INCREF(__pyx_d);
-  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __pyx_cython_runtime = PyImport_AddModule((char *) "cython_runtime"); if (unlikely(!__pyx_cython_runtime)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_cython_runtime = PyImport_AddModule((char *) "cython_runtime"); if (unlikely(!__pyx_cython_runtime)) __PYX_ERR(0, 1, __pyx_L1_error)
   #if CYTHON_COMPILING_IN_PYPY
   Py_INCREF(__pyx_b);
   #endif
-  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(0, 3, __pyx_L1_error);
+  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   /*--- Initialize various global constants etc. ---*/
-  if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
-  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
   if (__pyx_module_is_main_text_normalizer__factory__toolkit__transform) {
-    if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
-    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 3, __pyx_L1_error)
+    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
     if (!PyDict_GetItemString(modules, "text_normalizer.factory.toolkit.transform")) {
-      if (unlikely(PyDict_SetItemString(modules, "text_normalizer.factory.toolkit.transform", __pyx_m) < 0)) __PYX_ERR(0, 3, __pyx_L1_error)
+      if (unlikely(PyDict_SetItemString(modules, "text_normalizer.factory.toolkit.transform", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
   /*--- Builtin init code ---*/
-  if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   /*--- Constants init code ---*/
-  if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   /*--- Global type/function init code ---*/
   (void)__Pyx_modinit_global_init_code();
   (void)__Pyx_modinit_variable_export_code();
@@ -1768,34 +2009,32 @@ if (!__Pyx_RefNanny) {
   (void)__Pyx_modinit_type_init_code();
   (void)__Pyx_modinit_type_import_code();
   (void)__Pyx_modinit_variable_import_code();
-  (void)__Pyx_modinit_function_import_code();
+  if (unlikely(__Pyx_modinit_function_import_code() != 0)) goto __pyx_L1_error;
   /*--- Execution code ---*/
   #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
-  if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":3
+  /* "text_normalizer/factory/toolkit/transform.pyx":10
  * 
  * 
  * def transform(             # <<<<<<<<<<<<<<
  *         input_str: str,
  *         forward_annotations: list[tuple(int, int, str)],
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_9transform_1transform, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_9transform_1transform, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_transform, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_transform, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "text_normalizer/factory/toolkit/transform.pyx":36
- * 
- * 
- * cdef str transform_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
- *         str input_str,
- *         list forward_annotations,
+  /* "text_normalizer/factory/toolkit/transform.pyx":1
+ * from checkpoints cimport (  # noqa: E999, E211             # <<<<<<<<<<<<<<
+ *     is_equal_length_in_c,
+ *     is_input_str_valid_in_c,
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /*--- Wrapped vars code ---*/
@@ -2031,6 +2270,209 @@ static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *nam
     return 0;
 }
 
+/* PyObjectCall */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+/* PyErrFetchRestore */
+#if CYTHON_FAST_THREAD_STATE
+static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    tmp_type = tstate->curexc_type;
+    tmp_value = tstate->curexc_value;
+    tmp_tb = tstate->curexc_traceback;
+    tstate->curexc_type = type;
+    tstate->curexc_value = value;
+    tstate->curexc_traceback = tb;
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+}
+static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
+    *type = tstate->curexc_type;
+    *value = tstate->curexc_value;
+    *tb = tstate->curexc_traceback;
+    tstate->curexc_type = 0;
+    tstate->curexc_value = 0;
+    tstate->curexc_traceback = 0;
+}
+#endif
+
+/* RaiseException */
+#if PY_MAJOR_VERSION < 3
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb,
+                        CYTHON_UNUSED PyObject *cause) {
+    __Pyx_PyThreadState_declare
+    Py_XINCREF(type);
+    if (!value || value == Py_None)
+        value = NULL;
+    else
+        Py_INCREF(value);
+    if (!tb || tb == Py_None)
+        tb = NULL;
+    else {
+        Py_INCREF(tb);
+        if (!PyTraceBack_Check(tb)) {
+            PyErr_SetString(PyExc_TypeError,
+                "raise: arg 3 must be a traceback or None");
+            goto raise_error;
+        }
+    }
+    if (PyType_Check(type)) {
+#if CYTHON_COMPILING_IN_PYPY
+        if (!value) {
+            Py_INCREF(Py_None);
+            value = Py_None;
+        }
+#endif
+        PyErr_NormalizeException(&type, &value, &tb);
+    } else {
+        if (value) {
+            PyErr_SetString(PyExc_TypeError,
+                "instance exception may not have a separate value");
+            goto raise_error;
+        }
+        value = type;
+        type = (PyObject*) Py_TYPE(type);
+        Py_INCREF(type);
+        if (!PyType_IsSubtype((PyTypeObject *)type, (PyTypeObject *)PyExc_BaseException)) {
+            PyErr_SetString(PyExc_TypeError,
+                "raise: exception class must be a subclass of BaseException");
+            goto raise_error;
+        }
+    }
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrRestore(type, value, tb);
+    return;
+raise_error:
+    Py_XDECREF(value);
+    Py_XDECREF(type);
+    Py_XDECREF(tb);
+    return;
+}
+#else
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause) {
+    PyObject* owned_instance = NULL;
+    if (tb == Py_None) {
+        tb = 0;
+    } else if (tb && !PyTraceBack_Check(tb)) {
+        PyErr_SetString(PyExc_TypeError,
+            "raise: arg 3 must be a traceback or None");
+        goto bad;
+    }
+    if (value == Py_None)
+        value = 0;
+    if (PyExceptionInstance_Check(type)) {
+        if (value) {
+            PyErr_SetString(PyExc_TypeError,
+                "instance exception may not have a separate value");
+            goto bad;
+        }
+        value = type;
+        type = (PyObject*) Py_TYPE(value);
+    } else if (PyExceptionClass_Check(type)) {
+        PyObject *instance_class = NULL;
+        if (value && PyExceptionInstance_Check(value)) {
+            instance_class = (PyObject*) Py_TYPE(value);
+            if (instance_class != type) {
+                int is_subclass = PyObject_IsSubclass(instance_class, type);
+                if (!is_subclass) {
+                    instance_class = NULL;
+                } else if (unlikely(is_subclass == -1)) {
+                    goto bad;
+                } else {
+                    type = instance_class;
+                }
+            }
+        }
+        if (!instance_class) {
+            PyObject *args;
+            if (!value)
+                args = PyTuple_New(0);
+            else if (PyTuple_Check(value)) {
+                Py_INCREF(value);
+                args = value;
+            } else
+                args = PyTuple_Pack(1, value);
+            if (!args)
+                goto bad;
+            owned_instance = PyObject_Call(type, args, NULL);
+            Py_DECREF(args);
+            if (!owned_instance)
+                goto bad;
+            value = owned_instance;
+            if (!PyExceptionInstance_Check(value)) {
+                PyErr_Format(PyExc_TypeError,
+                             "calling %R should have returned an instance of "
+                             "BaseException, not %R",
+                             type, Py_TYPE(value));
+                goto bad;
+            }
+        }
+    } else {
+        PyErr_SetString(PyExc_TypeError,
+            "raise: exception class must be a subclass of BaseException");
+        goto bad;
+    }
+    if (cause) {
+        PyObject *fixed_cause;
+        if (cause == Py_None) {
+            fixed_cause = NULL;
+        } else if (PyExceptionClass_Check(cause)) {
+            fixed_cause = PyObject_CallObject(cause, NULL);
+            if (fixed_cause == NULL)
+                goto bad;
+        } else if (PyExceptionInstance_Check(cause)) {
+            fixed_cause = cause;
+            Py_INCREF(fixed_cause);
+        } else {
+            PyErr_SetString(PyExc_TypeError,
+                            "exception causes must derive from "
+                            "BaseException");
+            goto bad;
+        }
+        PyException_SetCause(value, fixed_cause);
+    }
+    PyErr_SetObject(type, value);
+    if (tb) {
+#if CYTHON_COMPILING_IN_PYPY
+        PyObject *tmp_type, *tmp_value, *tmp_tb;
+        PyErr_Fetch(&tmp_type, &tmp_value, &tmp_tb);
+        Py_INCREF(tb);
+        PyErr_Restore(tmp_type, tmp_value, tb);
+        Py_XDECREF(tmp_tb);
+#else
+        PyThreadState *tstate = __Pyx_PyThreadState_Current;
+        PyObject* tmp_tb = tstate->curexc_traceback;
+        if (tb != tmp_tb) {
+            Py_INCREF(tb);
+            tstate->curexc_traceback = tb;
+            Py_XDECREF(tmp_tb);
+        }
+#endif
+    }
+bad:
+    Py_XDECREF(owned_instance);
+    return;
+}
+#endif
+
 /* GetItemInt */
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
     PyObject *r;
@@ -2170,30 +2612,6 @@ static CYTHON_INLINE int __Pyx_SetItemInt_Fast(PyObject *o, Py_ssize_t i, PyObje
   #if !CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyBytes_Join(PyObject* sep, PyObject* values) {
     return PyObject_CallMethodObjArgs(sep, __pyx_n_s_join, values, NULL);
-}
-#endif
-
-/* PyErrFetchRestore */
-  #if CYTHON_FAST_THREAD_STATE
-static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    tmp_type = tstate->curexc_type;
-    tmp_value = tstate->curexc_value;
-    tmp_tb = tstate->curexc_traceback;
-    tstate->curexc_type = type;
-    tstate->curexc_value = value;
-    tstate->curexc_traceback = tb;
-    Py_XDECREF(tmp_type);
-    Py_XDECREF(tmp_value);
-    Py_XDECREF(tmp_tb);
-}
-static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
-    *type = tstate->curexc_type;
-    *value = tstate->curexc_value;
-    *tb = tstate->curexc_traceback;
-    tstate->curexc_type = 0;
-    tstate->curexc_value = 0;
-    tstate->curexc_traceback = 0;
 }
 #endif
 
@@ -3168,6 +3586,78 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
     }
     return 0;
 }
+
+/* ModuleImport */
+  #ifndef __PYX_HAVE_RT_ImportModule
+#define __PYX_HAVE_RT_ImportModule
+static PyObject *__Pyx_ImportModule(const char *name) {
+    PyObject *py_name = 0;
+    PyObject *py_module = 0;
+    py_name = __Pyx_PyIdentifier_FromString(name);
+    if (!py_name)
+        goto bad;
+    py_module = PyImport_Import(py_name);
+    Py_DECREF(py_name);
+    return py_module;
+bad:
+    Py_XDECREF(py_name);
+    return 0;
+}
+#endif
+
+/* FunctionImport */
+  #ifndef __PYX_HAVE_RT_ImportFunction
+#define __PYX_HAVE_RT_ImportFunction
+static int __Pyx_ImportFunction(PyObject *module, const char *funcname, void (**f)(void), const char *sig) {
+    PyObject *d = 0;
+    PyObject *cobj = 0;
+    union {
+        void (*fp)(void);
+        void *p;
+    } tmp;
+    d = PyObject_GetAttrString(module, (char *)"__pyx_capi__");
+    if (!d)
+        goto bad;
+    cobj = PyDict_GetItemString(d, funcname);
+    if (!cobj) {
+        PyErr_Format(PyExc_ImportError,
+            "%.200s does not export expected C function %.200s",
+                PyModule_GetName(module), funcname);
+        goto bad;
+    }
+#if PY_VERSION_HEX >= 0x02070000
+    if (!PyCapsule_IsValid(cobj, sig)) {
+        PyErr_Format(PyExc_TypeError,
+            "C function %.200s.%.200s has wrong signature (expected %.500s, got %.500s)",
+             PyModule_GetName(module), funcname, sig, PyCapsule_GetName(cobj));
+        goto bad;
+    }
+    tmp.p = PyCapsule_GetPointer(cobj, sig);
+#else
+    {const char *desc, *s1, *s2;
+    desc = (const char *)PyCObject_GetDesc(cobj);
+    if (!desc)
+        goto bad;
+    s1 = desc; s2 = sig;
+    while (*s1 != '\0' && *s1 == *s2) { s1++; s2++; }
+    if (*s1 != *s2) {
+        PyErr_Format(PyExc_TypeError,
+            "C function %.200s.%.200s has wrong signature (expected %.500s, got %.500s)",
+             PyModule_GetName(module), funcname, sig, desc);
+        goto bad;
+    }
+    tmp.p = PyCObject_AsVoidPtr(cobj);}
+#endif
+    *f = tmp.fp;
+    if (!(*f))
+        goto bad;
+    Py_DECREF(d);
+    return 0;
+bad:
+    Py_XDECREF(d);
+    return -1;
+}
+#endif
 
 /* InitStrings */
   static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
