@@ -7,7 +7,7 @@ class StripTemplate:
     def test_normalize(self):
         for i in range(len(self.test_cases)):
             test_case = self.test_cases[i]
-            with self.subTest(i=test_case):
+            with self.subTest(i=i):
                 result = self.normalizer.normalize(
                     test_case['input'],
                 )
@@ -47,8 +47,8 @@ class StripDefaultTestCase(StripTemplate, TestCase):
                 'input': ' \n\t\n HAHA\t \t \n \n ',
                 'output': 'HAHA',
                 'meta': {
-                    'forward': [(0, 6, ' \n\t\n H'), (8, 17, 'A\t \t \n \n ')],
-                    'backward': [(0, 1, 'H'), (3, 4, 'A')],
+                    'forward': [(0, 5, ' \n\t\n '), (9, 17, '\t \t \n \n ')],
+                    'backward': [(0, 0, ''), (4, 4, '')],
                 },
             },
             {
@@ -63,16 +63,16 @@ class StripDefaultTestCase(StripTemplate, TestCase):
                 'input': '黃金曼特寧好苦QAQ\t\t\n\n ',
                 'output': '黃金曼特寧好苦QAQ',
                 'meta': {
-                    'forward': [(9, 15, 'Q\t\t\n\n ')],
-                    'backward': [(9, 10, 'Q')],
+                    'forward': [(10, 15, '\t\t\n\n ')],
+                    'backward': [(10, 10, '')],
                 },
             },
             {
                 'input': '\t\t   \n\n我的空白在前面ㄏㄏ',
                 'output': '我的空白在前面ㄏㄏ',
                 'meta': {
-                    'forward': [(0, 8, '\t\t   \n\n我')],
-                    'backward': [(0, 1, '我')],
+                    'forward': [(0, 7, '\t\t   \n\n')],
+                    'backward': [(0, 0, '')],
                 },
             },
             {
@@ -96,8 +96,8 @@ class StripLeftTestCase(StripTemplate, TestCase):
                 'input': ' \n\t\n HAHA\t \t \n \n ',
                 'output': 'HAHA\t \t \n \n ',
                 'meta': {
-                    'forward': [(0, 6, ' \n\t\n H')],
-                    'backward': [(0, 1, 'H')],
+                    'forward': [(0, 5, ' \n\t\n ')],
+                    'backward': [(0, 0, '')],
                 },
             },
             {
@@ -120,8 +120,8 @@ class StripLeftTestCase(StripTemplate, TestCase):
                 'input': '\t\t   \n\n我的空白在前面ㄏㄏ',
                 'output': '我的空白在前面ㄏㄏ',
                 'meta': {
-                    'forward': [(0, 8, '\t\t   \n\n我')],
-                    'backward': [(0, 1, '我')],
+                    'forward': [(0, 7, '\t\t   \n\n')],
+                    'backward': [(0, 0, '')],
                 },
             },
             {
@@ -145,8 +145,8 @@ class StripRightTestCase(StripTemplate, TestCase):
                 'input': ' \n\t\n HAHA\t \t \n \n ',
                 'output': ' \n\t\n HAHA',
                 'meta': {
-                    'forward': [(8, 17, 'A\t \t \n \n ')],
-                    'backward': [(8, 9, 'A')],
+                    'forward': [(9, 17, '\t \t \n \n ')],
+                    'backward': [(9, 9, '')],
                 },
             },
             {
@@ -161,8 +161,8 @@ class StripRightTestCase(StripTemplate, TestCase):
                 'input': '黃金曼特寧好苦QAQ\t\t\n\n ',
                 'output': '黃金曼特寧好苦QAQ',
                 'meta': {
-                    'forward': [(9, 15, 'Q\t\t\n\n ')],
-                    'backward': [(9, 10, 'Q')],
+                    'forward': [(10, 15, '\t\t\n\n ')],
+                    'backward': [(10, 10, '')],
                 },
             },
             {

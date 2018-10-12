@@ -7,10 +7,10 @@ from .base_factory import BaseFactory
 
 
 PATTERNS = {
-    "left": re.compile(r"\A\s+.{0,1}"),
-    "right": re.compile(r".{0,1}\s+\Z"),
-    "both": re.compile(r"\A\s+.{0,1}|.{0,1}\s+\Z"),
-    "rep": re.compile(r"[^\s]+"),
+    "left": re.compile(r"\A\s+"),
+    "right": re.compile(r"\s+\Z"),
+    "both": re.compile(r"\A\s+|\s+\Z"),
+    "rep": '',
 }
 
 
@@ -42,18 +42,18 @@ class Strip(BaseFactory):
         output = []
         offset = 0
         for anno in forward_annotations:
-            rep = PATTERNS["rep"].findall(anno[2])
-            if len(rep) > 0:
-                rep = rep[0]
-            else:
-                rep = ""
+            # rep = PATTERNS["rep"].findall(anno[2])
+            # if len(rep) > 0:
+            #     rep = rep[0]
+            # else:
+            #     rep = ""
             new_start = offset + anno[0]
-            new_end = new_start + len(rep)
+            new_end = new_start + len(PATTERNS["rep"])
             output.append(
                 (
                     new_start,
                     new_end,
-                    rep,
+                    PATTERNS["rep"],
                 ),
             )
             offset = new_end - anno[1]
