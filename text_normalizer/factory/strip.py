@@ -42,11 +42,6 @@ class Strip(BaseFactory):
         output = []
         offset = 0
         for anno in forward_annotations:
-            # rep = PATTERNS["rep"].findall(anno[2])
-            # if len(rep) > 0:
-            #     rep = rep[0]
-            # else:
-            #     rep = ""
             new_start = offset + anno[0]
             new_end = new_start + len(PATTERNS["rep"])
             output.append(
