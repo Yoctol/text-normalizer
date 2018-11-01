@@ -1,2 +1,2 @@
 -e .
-flake8-config-yoctol>=0.0.9
+flake8-config-yoctol>=0.0.11
