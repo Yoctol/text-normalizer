@@ -51,3 +51,8 @@ dev-test:
 docs:
 	make installself
 	make -C docs
+
+.PHONY: distribute
+distribute:
+	make clean
+	python setup.py sdist
