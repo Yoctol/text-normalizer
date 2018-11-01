@@ -22,24 +22,17 @@ else:
     long_description = '-'
 
 
-# get version
-version = ROOT_DIR.joinpath("text_normalizer", "__version__.py")
-about = {}
-with version.open() as f:
-    exec(f.read(), about)
-
-
 # get cython extension
 ext_modules, cmdclass = get_ext_modules_n_cmdclass()
 
 
 setup(
     name="text-normalizer",
-    version=about['__version__'],
+    version="0.1.0",
     description="Yoctol Natural Language Text Normalizer",
     license="MIT",
     author="Solumilken",
-    packages=find_packages(),
+    packages=find_packages(exclude=('utils', 'setup_utils')),
     install_requires=[
         'pandas;python_version>="3.5"',
         'pandas<0.21;python_version<"3.5"',
