@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 from setup_utils.get_ext import get_ext_modules_n_cmdclass
 
 
@@ -32,7 +32,7 @@ setup(
     description="Yoctol Natural Language Text Normalizer",
     license="MIT",
     author="Solumilken",
-    packages=find_packages(exclude=('utils', 'setup_utils')),
+    packages=find_packages(),
     install_requires=[
         'pandas;python_version>="3.5"',
         'pandas<0.21;python_version<"3.5"',
