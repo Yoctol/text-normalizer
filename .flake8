@@ -4,7 +4,9 @@ max-line-length = 100
 ignore =
     E125,E121,E266,
     # print is allowed
-    T001, T003
+    T001, T003,
+    # invalid escape sequence
+    W605
 exclude =
     .git
     # __pycache__
