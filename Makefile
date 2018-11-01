@@ -41,7 +41,7 @@ clean:
 .PHONY: dev-test
 dev-test:
 	rm -rf build
-	python setup_utils/remove_so_files.py
+	python utils/setup_utils/remove_so_files.py
 	python setup.py build_ext
 	pip install -e .
 	make lint

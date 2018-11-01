@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from setuptools import setup, find_packages
-from setup_utils.get_ext import get_ext_modules_n_cmdclass
+from utils.setup_utils.get_ext import get_ext_modules_n_cmdclass
 
 
 ROOT_DIR = Path(__file__).parent
@@ -28,15 +28,18 @@ ext_modules, cmdclass = get_ext_modules_n_cmdclass()
 
 setup(
     name="text-normalizer",
-    version="0.1.0",
+    version="0.1.3",
     description="Yoctol Natural Language Text Normalizer",
     license="MIT",
     author="Solumilken",
+    author_email="yien.tsai@yoctol.com",
+    url="https://github.com/Yoctol/text-normalizer",
     packages=find_packages(),
     install_requires=[
         'pandas;python_version>="3.5"',
         'pandas<0.21;python_version<"3.5"',
     ],
+    python_requires=">=3.5",
     long_description=long_description,
     classifiers=[
         "Programming Language :: Python",
