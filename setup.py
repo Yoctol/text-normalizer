@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from setuptools import setup, find_namespace_packages
+from setuptools import setup, find_packages
 from setup_utils.get_ext import get_ext_modules_n_cmdclass
 
 
