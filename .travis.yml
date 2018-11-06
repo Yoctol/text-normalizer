@@ -1,21 +1,17 @@
 language: python
 python:
-  - "3.5"
-  - "3.6"
-
+- '3.5'
+- '3.6'
 install:
-  - make install
-
+- make install
 script:
-  - make lint
-  - make test
-
+- make lint
+- make test
 deploy:
   provider: pypi
   user: solumilken
   password:
-    secure: dFRASkM+gXpPqqbWL8PS2XAbyutbJnU8z5rk88+J2XJhn5IyXkn6wBycXtkhgkuqT34HfIZrcTFBYgrsGu44hTXHwvQwFFHtHkU8tqLaa2gnvODlWPkG6AjmgzyrR/yAvpHpYEea13xC3biD3TGa1Do9aFbDsdfnni1Cpjd4dbcY6c2IoHp0V047tAIaq9agqeCvONVxbPbfuzvc24QbSzfyr2brJdruFR02baqZXnAmdMomLvsY1jzoUhp4k/qU449lfT1p0ITVdLyrCFxqK1A1DyvKcHRv3Shm+MeNbn3Y/AIVjfN71KQaGdsknUFmPjFbBfJPQuzSwRldGm1DaLm8a5A4WLmRmG2ZkMZWrlNWXsc/GbIFxuwA1llJruHgSf6zzwpWMECiDPh3LGo0K21f2nWSgmaJBMPIeLhxHmQ2uEUUkc7EKukdiF1X4ib024FoLvBkBfII/d1qRi6pPse7lKQRC5nILSynBAMaOwTESZnd9BGShpyH7/VPIzEI58ic/q9c/JgDQVXWp55KetSTXv9xdx4ACZ0KIalQlDJKX7dtuNIZKK9mQ8CM4hgdRxGd4Sb1wX3PTSlQEyeBXRjqu4+hjgfqgBWxNCb+9s99/3UQE1O0us6NBencIxd44exR7T8kkHdiI3Q17dxu43mn/8XDnwkiGQUz0K9GYko=
-    distributions: sdist
+    secure: 0Opwlmv6qK1uyW2u3sE5rbdNiopeFTvG8kKAFZS3b5joRpiCKRdRGPYPIfCf1l8S5SeXq6INt6HIHcxyNDsIB1ejHYYJu33wL9tK1mUekivlEXibdEDaN3/qNfT9dZDWm/4tUFrFvHGhB6krJjIToUYsJvM3tYBSX6uCgfxFrpr6GsLNrxs/nIzy2aCD9MMReQ89iC3IQoWkTuTIbGnuj7eWEQpbhjLmBIrwJwnh5zcjdrR9PAzWakOX4bMeVa89nQiaL16icTaHthCQrLuyCP7lQ2tlh7rO4yT+UF4qLynWFAEYEQL3mvx+I/bNpKaRvHy26ZgkTLsd5mJsntbohDYN0Ydyx6nXTzuAMsElumMdVYizJghh8+/x9CfbF+CqK6qQ/UqL10OjFUinTNcYUi9jzt2hsGnno9eDjzVtlQmo4i+N3MQRciTWbQawWM7VXmjT7rGI18Zc4zp4/Y9qEZG18QZzaDPexXFOpJU7pWt07658jMHwGqmQJiyIWXTKjBq4IWxIw/s7VmE5R0ElqgCL6spwC3ErHzJvvX1XhrU98lDqyk1VWQxtRl/jyA3OLKnInou92jLPH3M0iAriKlttHxEacFEj0rsaaYDYtLwvyIiWFNdaATraIBaH8cQeoMJH4HmNTCAQFFRUW1B1/Ss2XCgEuUpLaPQaGrpNyNo=
   skip_upload_docs: true
   skip_cleanup: true
   on:
