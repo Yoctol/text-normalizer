@@ -559,8 +559,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__text_normalizer__factory__toolkit__findall_position
-#define __PYX_HAVE_API__text_normalizer__factory__toolkit__findall_position
+#define __PYX_HAVE__text_normalizer__factory__toolkit__is_annotations_valid
+#define __PYX_HAVE_API__text_normalizer__factory__toolkit__is_annotations_valid
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -765,7 +765,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "text_normalizer/factory/toolkit/findall_position.pyx",
+  "text_normalizer/factory/toolkit/is_annotations_valid.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -834,24 +834,15 @@ static const char *__pyx_f[] = {
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
 
-/* RaiseArgTupleInvalid.proto */
-static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
-    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
-
-/* RaiseDoubleKeywords.proto */
-static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
-
-/* ParseKeywords.proto */
-static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
-    PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
-    const char* function_name);
-
 /* PyObjectGetAttrStr.proto */
 #if CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name);
 #else
 #define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
 #endif
+
+/* GetBuiltinName.proto */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
 /* PyCFunctionFastCall.proto */
 #if CYTHON_FAST_PYCCALL
@@ -885,42 +876,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 
 /* PyObjectCallOneArg.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
-
-/* PyObjectCallNoArg.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
-#else
-#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
-#endif
-
-/* RaiseTooManyValuesToUnpack.proto */
-static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected);
-
-/* RaiseNeedMoreValuesToUnpack.proto */
-static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index);
-
-/* IterFinish.proto */
-static CYTHON_INLINE int __Pyx_IterFinish(void);
-
-/* UnpackItemEndCheck.proto */
-static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected);
-
-/* ListAppend.proto */
-#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
-static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
-    PyListObject* L = (PyListObject*) list;
-    Py_ssize_t len = Py_SIZE(list);
-    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
-        Py_INCREF(x);
-        PyList_SET_ITEM(list, len, x);
-        Py_SIZE(list) = len+1;
-        return 0;
-    }
-    return PyList_Append(list, x);
-}
-#else
-#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
-#endif
 
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
@@ -958,6 +913,36 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 #define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
 #endif
 
+/* RaiseException.proto */
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+
+/* GetItemInt.proto */
+#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
+               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
+#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
+                                                     int is_list, int wraparound, int boundscheck);
+
+/* WriteUnraisableException.proto */
+static void __Pyx_WriteUnraisable(const char *name, int clineno,
+                                  int lineno, const char *filename,
+                                  int full_traceback, int nogil);
+
 /* CLineInTraceback.proto */
 #ifdef CYTHON_CLINE_IN_TRACEBACK
 #define __Pyx_CLineForTraceback(tstate, c_line)  (((CYTHON_CLINE_IN_TRACEBACK)) ? c_line : 0)
@@ -985,13 +970,16 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
 /* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value);
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
-/* CIntFromPy.proto */
-static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *);
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value);
 
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
+
+/* CIntFromPy.proto */
+static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
@@ -1015,155 +1003,122 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 /* CheckBinaryVersion.proto */
 static int __Pyx_check_binary_version(void);
 
+/* FunctionExport.proto */
+static int __Pyx_ExportFunction(const char *name, void (*f)(void), const char *sig);
+
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'text_normalizer.factory.toolkit.findall_position' */
-static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_findall_position_in_c(PyObject *, PyObject *); /*proto*/
-#define __Pyx_MODULE_NAME "text_normalizer.factory.toolkit.findall_position"
-extern int __pyx_module_is_main_text_normalizer__factory__toolkit__findall_position;
-int __pyx_module_is_main_text_normalizer__factory__toolkit__findall_position = 0;
+/* Module declarations from 'text_normalizer.factory.toolkit.is_annotations_valid' */
+static void __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid_in_c(PyObject *); /*proto*/
+static int __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_position_valid_in_c(PyObject *); /*proto*/
+static int __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_segment_has_correct_length_in_c(PyObject *); /*proto*/
+static int __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_overlapped_in_c(PyObject *); /*proto*/
+#define __Pyx_MODULE_NAME "text_normalizer.factory.toolkit.is_annotations_valid"
+extern int __pyx_module_is_main_text_normalizer__factory__toolkit__is_annotations_valid;
+int __pyx_module_is_main_text_normalizer__factory__toolkit__is_annotations_valid = 0;
 
-/* Implementation of 'text_normalizer.factory.toolkit.findall_position' */
+/* Implementation of 'text_normalizer.factory.toolkit.is_annotations_valid' */
+static PyObject *__pyx_builtin_ValueError;
+static PyObject *__pyx_builtin_range;
 static const char __pyx_k_main[] = "__main__";
-static const char __pyx_k_span[] = "span";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_search[] = "search";
-static const char __pyx_k_input_str[] = "input_str";
-static const char __pyx_k_reg_pattern[] = "reg_pattern";
-static const char __pyx_k_findall_position[] = "findall_position";
+static const char __pyx_k_range[] = "range";
+static const char __pyx_k_format[] = "format";
+static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_annotations[] = "annotations";
+static const char __pyx_k_is_overlapped[] = "is_overlapped";
+static const char __pyx_k_is_position_valid[] = "is_position_valid";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_text_normalizer_factory_toolkit[] = "text_normalizer/factory/toolkit/findall_position.pyx";
-static const char __pyx_k_text_normalizer_factory_toolkit_2[] = "text_normalizer.factory.toolkit.findall_position";
+static const char __pyx_k_is_annotations_valid[] = "is_annotations_valid";
+static const char __pyx_k_segment_has_correct_length[] = "segment_has_correct_length";
+static const char __pyx_k_annotations_is_overlapped_at[] = "annotations is overlapped at [{}]";
+static const char __pyx_k_text_normalizer_factory_toolkit[] = "text_normalizer/factory/toolkit/is_annotations_valid.pyx";
+static const char __pyx_k_len_of_segment_is_not_correct_at[] = "len of segment is not correct at [{}]";
+static const char __pyx_k_start_position_is_bigger_than_en[] = "start position is bigger than end position at [{}]";
+static const char __pyx_k_text_normalizer_factory_toolkit_2[] = "text_normalizer.factory.toolkit.is_annotations_valid";
+static PyObject *__pyx_n_s_ValueError;
+static PyObject *__pyx_n_s_annotations;
+static PyObject *__pyx_kp_s_annotations_is_overlapped_at;
 static PyObject *__pyx_n_s_cline_in_traceback;
-static PyObject *__pyx_n_s_findall_position;
-static PyObject *__pyx_n_s_input_str;
+static PyObject *__pyx_n_s_format;
+static PyObject *__pyx_n_s_is_annotations_valid;
+static PyObject *__pyx_n_s_is_overlapped;
+static PyObject *__pyx_n_s_is_position_valid;
+static PyObject *__pyx_kp_s_len_of_segment_is_not_correct_at;
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_n_s_reg_pattern;
-static PyObject *__pyx_n_s_search;
-static PyObject *__pyx_n_s_span;
+static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_segment_has_correct_length;
+static PyObject *__pyx_kp_s_start_position_is_bigger_than_en;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_s_text_normalizer_factory_toolkit;
 static PyObject *__pyx_n_s_text_normalizer_factory_toolkit_2;
-static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_16findall_position_findall_position(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern); /* proto */
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_annotations); /* proto */
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_2is_position_valid(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_annotations); /* proto */
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_4segment_has_correct_length(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_annotations); /* proto */
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_6is_overlapped(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_annotations); /* proto */
 static PyObject *__pyx_tuple_;
+static PyObject *__pyx_tuple__3;
+static PyObject *__pyx_tuple__5;
+static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_codeobj__2;
+static PyObject *__pyx_codeobj__4;
+static PyObject *__pyx_codeobj__6;
+static PyObject *__pyx_codeobj__8;
 /* Late includes */
 
-/* "text_normalizer/factory/toolkit/findall_position.pyx":1
- * def findall_position(input_str, reg_pattern):             # <<<<<<<<<<<<<<
- *     return findall_position_in_c(
- *         input_str,
+/* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":3
+ * 
+ * 
+ * def is_annotations_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> None:
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position = {"findall_position", (PyCFunction)__pyx_pw_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_input_str = 0;
-  PyObject *__pyx_v_reg_pattern = 0;
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_1is_annotations_valid(PyObject *__pyx_self, PyObject *__pyx_v_annotations); /*proto*/
+static char __pyx_doc_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid[] = "is_annotations_valid(annotations: list[tuple[int, int, str]]) -> None";
+static PyMethodDef __pyx_mdef_15text_normalizer_7factory_7toolkit_20is_annotations_valid_1is_annotations_valid = {"is_annotations_valid", (PyCFunction)__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_1is_annotations_valid, METH_O, __pyx_doc_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid};
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_1is_annotations_valid(PyObject *__pyx_self, PyObject *__pyx_v_annotations) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("findall_position (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_input_str,&__pyx_n_s_reg_pattern,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_input_str)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_reg_pattern)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("findall_position", 1, 2, 2, 1); __PYX_ERR(0, 1, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "findall_position") < 0)) __PYX_ERR(0, 1, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-    }
-    __pyx_v_input_str = values[0];
-    __pyx_v_reg_pattern = values[1];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("findall_position", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("text_normalizer.factory.toolkit.findall_position.findall_position", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_15text_normalizer_7factory_7toolkit_16findall_position_findall_position(__pyx_self, __pyx_v_input_str, __pyx_v_reg_pattern);
+  __Pyx_RefNannySetupContext("is_annotations_valid (wrapper)", 0);
+  __pyx_r = __pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid(__pyx_self, ((PyObject *)__pyx_v_annotations));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_16findall_position_findall_position(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern) {
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_annotations) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("findall_position", 0);
+  __Pyx_RefNannySetupContext("is_annotations_valid", 0);
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":2
- * def findall_position(input_str, reg_pattern):
- *     return findall_position_in_c(             # <<<<<<<<<<<<<<
- *         input_str,
- *         reg_pattern,
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":6
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> None:
+ *     is_annotations_valid_in_c(annotations=annotations)             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
-  __Pyx_XDECREF(__pyx_r);
+  if (!(likely(PyList_CheckExact(__pyx_v_annotations))||((__pyx_v_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_annotations)->tp_name), 0))) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid_in_c(((PyObject*)__pyx_v_annotations)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 6, __pyx_L1_error)
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":3
- * def findall_position(input_str, reg_pattern):
- *     return findall_position_in_c(
- *         input_str,             # <<<<<<<<<<<<<<
- *         reg_pattern,
- *     )
- */
-  if (!(likely(PyString_CheckExact(__pyx_v_input_str))||((__pyx_v_input_str) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_v_input_str)->tp_name), 0))) __PYX_ERR(0, 3, __pyx_L1_error)
-
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":2
- * def findall_position(input_str, reg_pattern):
- *     return findall_position_in_c(             # <<<<<<<<<<<<<<
- *         input_str,
- *         reg_pattern,
- */
-  __pyx_t_1 = __pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_findall_position_in_c(((PyObject*)__pyx_v_input_str), __pyx_v_reg_pattern); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":1
- * def findall_position(input_str, reg_pattern):             # <<<<<<<<<<<<<<
- *     return findall_position_in_c(
- *         input_str,
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":3
+ * 
+ * 
+ * def is_annotations_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> None:
  */
 
   /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("text_normalizer.factory.toolkit.findall_position.findall_position", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.is_annotations_valid.is_annotations_valid", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1171,327 +1126,1066 @@ static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_16findall_position
   return __pyx_r;
 }
 
-/* "text_normalizer/factory/toolkit/findall_position.pyx":8
+/* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":9
  * 
  * 
- * cdef list findall_position_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
- *         str input_str,
- *         reg_pattern,
+ * def is_position_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
  */
 
-static PyObject *__pyx_f_15text_normalizer_7factory_7toolkit_16findall_position_findall_position_in_c(PyObject *__pyx_v_input_str, PyObject *__pyx_v_reg_pattern) {
-  unsigned int __pyx_v_i;
-  unsigned int __pyx_v_str_len;
-  PyObject *__pyx_v_output_list = 0;
-  PyObject *__pyx_v_output = NULL;
-  PyObject *__pyx_v_start = NULL;
-  PyObject *__pyx_v_end = NULL;
+/* Python wrapper */
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_3is_position_valid(PyObject *__pyx_self, PyObject *__pyx_v_annotations); /*proto*/
+static char __pyx_doc_15text_normalizer_7factory_7toolkit_20is_annotations_valid_2is_position_valid[] = "is_position_valid(annotations: list[tuple[int, int, str]]) -> int";
+static PyMethodDef __pyx_mdef_15text_normalizer_7factory_7toolkit_20is_annotations_valid_3is_position_valid = {"is_position_valid", (PyCFunction)__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_3is_position_valid, METH_O, __pyx_doc_15text_normalizer_7factory_7toolkit_20is_annotations_valid_2is_position_valid};
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_3is_position_valid(PyObject *__pyx_self, PyObject *__pyx_v_annotations) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("is_position_valid (wrapper)", 0);
+  __pyx_r = __pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_2is_position_valid(__pyx_self, ((PyObject *)__pyx_v_annotations));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_2is_position_valid(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_annotations) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  Py_ssize_t __pyx_t_1;
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("is_position_valid", 0);
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":12
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ *     return is_position_valid_in_c(annotations=annotations)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  if (!(likely(PyList_CheckExact(__pyx_v_annotations))||((__pyx_v_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_annotations)->tp_name), 0))) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_position_valid_in_c(((PyObject*)__pyx_v_annotations))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":9
+ * 
+ * 
+ * def is_position_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.is_annotations_valid.is_position_valid", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":15
+ * 
+ * 
+ * def segment_has_correct_length(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_5segment_has_correct_length(PyObject *__pyx_self, PyObject *__pyx_v_annotations); /*proto*/
+static char __pyx_doc_15text_normalizer_7factory_7toolkit_20is_annotations_valid_4segment_has_correct_length[] = "segment_has_correct_length(annotations: list[tuple[int, int, str]]) -> int";
+static PyMethodDef __pyx_mdef_15text_normalizer_7factory_7toolkit_20is_annotations_valid_5segment_has_correct_length = {"segment_has_correct_length", (PyCFunction)__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_5segment_has_correct_length, METH_O, __pyx_doc_15text_normalizer_7factory_7toolkit_20is_annotations_valid_4segment_has_correct_length};
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_5segment_has_correct_length(PyObject *__pyx_self, PyObject *__pyx_v_annotations) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("segment_has_correct_length (wrapper)", 0);
+  __pyx_r = __pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_4segment_has_correct_length(__pyx_self, ((PyObject *)__pyx_v_annotations));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_4segment_has_correct_length(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_annotations) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("segment_has_correct_length", 0);
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":18
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ *     return segment_has_correct_length_in_c(annotations=annotations)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  if (!(likely(PyList_CheckExact(__pyx_v_annotations))||((__pyx_v_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_annotations)->tp_name), 0))) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_segment_has_correct_length_in_c(((PyObject*)__pyx_v_annotations))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":15
+ * 
+ * 
+ * def segment_has_correct_length(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.is_annotations_valid.segment_has_correct_length", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":21
+ * 
+ * 
+ * def is_overlapped(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_7is_overlapped(PyObject *__pyx_self, PyObject *__pyx_v_annotations); /*proto*/
+static char __pyx_doc_15text_normalizer_7factory_7toolkit_20is_annotations_valid_6is_overlapped[] = "is_overlapped(annotations: list[tuple[int, int, str]]) -> int";
+static PyMethodDef __pyx_mdef_15text_normalizer_7factory_7toolkit_20is_annotations_valid_7is_overlapped = {"is_overlapped", (PyCFunction)__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_7is_overlapped, METH_O, __pyx_doc_15text_normalizer_7factory_7toolkit_20is_annotations_valid_6is_overlapped};
+static PyObject *__pyx_pw_15text_normalizer_7factory_7toolkit_20is_annotations_valid_7is_overlapped(PyObject *__pyx_self, PyObject *__pyx_v_annotations) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("is_overlapped (wrapper)", 0);
+  __pyx_r = __pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_6is_overlapped(__pyx_self, ((PyObject *)__pyx_v_annotations));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_15text_normalizer_7factory_7toolkit_20is_annotations_valid_6is_overlapped(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_annotations) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("is_overlapped", 0);
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":24
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ *     return is_overlapped_in_c(annotations=annotations)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  if (!(likely(PyList_CheckExact(__pyx_v_annotations))||((__pyx_v_annotations) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_annotations)->tp_name), 0))) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_overlapped_in_c(((PyObject*)__pyx_v_annotations))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":21
+ * 
+ * 
+ * def is_overlapped(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.is_annotations_valid.is_overlapped", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":27
+ * 
+ * 
+ * cdef void is_annotations_valid_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         list annotations,
+ *     ) except *:
+ */
+
+static void __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid_in_c(PyObject *__pyx_v_annotations) {
+  int __pyx_v_check;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
+  PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
-  PyObject *__pyx_t_7 = NULL;
-  int __pyx_t_8;
-  PyObject *(*__pyx_t_9)(PyObject *);
-  int __pyx_t_10;
-  unsigned int __pyx_t_11;
-  __Pyx_RefNannySetupContext("findall_position_in_c", 0);
+  __Pyx_RefNannySetupContext("is_annotations_valid_in_c", 0);
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":15
- *     cdef list output_list
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":33
+ *     cdef int check
  * 
- *     i = 0             # <<<<<<<<<<<<<<
- *     str_len = len(input_str)
- *     output_list = []
+ *     check = is_position_valid_in_c(annotations=annotations)             # <<<<<<<<<<<<<<
+ *     if check > 0:
+ *         raise ValueError(
  */
-  __pyx_v_i = 0;
+  __pyx_v_check = __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_position_valid_in_c(__pyx_v_annotations);
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":16
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":34
  * 
- *     i = 0
- *     str_len = len(input_str)             # <<<<<<<<<<<<<<
- *     output_list = []
- *     while (i < str_len):
+ *     check = is_position_valid_in_c(annotations=annotations)
+ *     if check > 0:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'start position is bigger than end position at [{}]'.format(check),
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_input_str); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 16, __pyx_L1_error)
-  __pyx_v_str_len = __pyx_t_1;
+  __pyx_t_1 = ((__pyx_v_check > 0) != 0);
+  if (unlikely(__pyx_t_1)) {
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":17
- *     i = 0
- *     str_len = len(input_str)
- *     output_list = []             # <<<<<<<<<<<<<<
- *     while (i < str_len):
- *         output = reg_pattern.search(input_str[i:])
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":36
+ *     if check > 0:
+ *         raise ValueError(
+ *             'start position is bigger than end position at [{}]'.format(check),             # <<<<<<<<<<<<<<
+ *         )
+ * 
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_v_output_list = ((PyObject*)__pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":18
- *     str_len = len(input_str)
- *     output_list = []
- *     while (i < str_len):             # <<<<<<<<<<<<<<
- *         output = reg_pattern.search(input_str[i:])
- *         if output is None:
- */
-  while (1) {
-    __pyx_t_3 = ((__pyx_v_i < __pyx_v_str_len) != 0);
-    if (!__pyx_t_3) break;
-
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":19
- *     output_list = []
- *     while (i < str_len):
- *         output = reg_pattern.search(input_str[i:])             # <<<<<<<<<<<<<<
- *         if output is None:
- *             break
- */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_reg_pattern, __pyx_n_s_search); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_start_position_is_bigger_than_en, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_check); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__pyx_v_input_str == Py_None)) {
-      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 19, __pyx_L1_error)
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
+      }
     }
-    __pyx_t_5 = PySequence_GetSlice(__pyx_v_input_str, __pyx_v_i, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 19, __pyx_L1_error)
+    if (!__pyx_t_5) {
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_2);
+    } else {
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_3)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_4};
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_4};
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      } else
+      #endif
+      {
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 36, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
+        __Pyx_GIVEREF(__pyx_t_4);
+        PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_4);
+        __pyx_t_4 = 0;
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      }
+    }
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":35
+ *     check = is_position_valid_in_c(annotations=annotations)
+ *     if check > 0:
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             'start position is bigger than end position at [{}]'.format(check),
+ *         )
+ */
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(0, 35, __pyx_L1_error)
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":34
+ * 
+ *     check = is_position_valid_in_c(annotations=annotations)
+ *     if check > 0:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'start position is bigger than end position at [{}]'.format(check),
+ */
+  }
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":39
+ *         )
+ * 
+ *     check = segment_has_correct_length_in_c(annotations=annotations)             # <<<<<<<<<<<<<<
+ *     if check > 0:
+ *         raise ValueError(
+ */
+  __pyx_v_check = __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_segment_has_correct_length_in_c(__pyx_v_annotations);
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":40
+ * 
+ *     check = segment_has_correct_length_in_c(annotations=annotations)
+ *     if check > 0:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'len of segment is not correct at [{}]'.format(check),
+ */
+  __pyx_t_1 = ((__pyx_v_check > 0) != 0);
+  if (unlikely(__pyx_t_1)) {
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":42
+ *     if check > 0:
+ *         raise ValueError(
+ *             'len of segment is not correct at [{}]'.format(check),             # <<<<<<<<<<<<<<
+ *         )
+ * 
+ */
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_len_of_segment_is_not_correct_at, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_check); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_4 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    if (!__pyx_t_4) {
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_3);
+    } else {
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_2)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_6};
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_6};
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      } else
+      #endif
+      {
+        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
+        __Pyx_GIVEREF(__pyx_t_6);
+        PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_6);
+        __pyx_t_6 = 0;
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      }
+    }
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":41
+ *     check = segment_has_correct_length_in_c(annotations=annotations)
+ *     if check > 0:
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             'len of segment is not correct at [{}]'.format(check),
+ *         )
+ */
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_Raise(__pyx_t_2, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __PYX_ERR(0, 41, __pyx_L1_error)
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":40
+ * 
+ *     check = segment_has_correct_length_in_c(annotations=annotations)
+ *     if check > 0:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'len of segment is not correct at [{}]'.format(check),
+ */
+  }
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":45
+ *         )
+ * 
+ *     check = is_overlapped_in_c(annotations=annotations)             # <<<<<<<<<<<<<<
+ *     if check > 0:
+ *         raise ValueError(
+ */
+  __pyx_v_check = __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_overlapped_in_c(__pyx_v_annotations);
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":46
+ * 
+ *     check = is_overlapped_in_c(annotations=annotations)
+ *     if check > 0:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'annotations is overlapped at [{}]'.format(check),
+ */
+  __pyx_t_1 = ((__pyx_v_check > 0) != 0);
+  if (unlikely(__pyx_t_1)) {
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":48
+ *     if check > 0:
+ *         raise ValueError(
+ *             'annotations is overlapped at [{}]'.format(check),             # <<<<<<<<<<<<<<
+ *         )
+ * 
+ */
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_annotations_is_overlapped_at, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_check); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 48, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
       if (likely(__pyx_t_6)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_6);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_4)) {
+      if (PyFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_5};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_5};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 19, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
+        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 48, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_5);
-        PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
+        PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_5);
         __pyx_t_5 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
     }
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_output, __pyx_t_2);
-    __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":20
- *     while (i < str_len):
- *         output = reg_pattern.search(input_str[i:])
- *         if output is None:             # <<<<<<<<<<<<<<
- *             break
- *         start, end = output.span()
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":47
+ *     check = is_overlapped_in_c(annotations=annotations)
+ *     if check > 0:
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             'annotations is overlapped at [{}]'.format(check),
+ *         )
  */
-    __pyx_t_3 = (__pyx_v_output == Py_None);
-    __pyx_t_8 = (__pyx_t_3 != 0);
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(0, 47, __pyx_L1_error)
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":46
+ * 
+ *     check = is_overlapped_in_c(annotations=annotations)
+ *     if check > 0:             # <<<<<<<<<<<<<<
+ *         raise ValueError(
+ *             'annotations is overlapped at [{}]'.format(check),
+ */
+  }
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":27
+ * 
+ * 
+ * cdef void is_annotations_valid_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         list annotations,
+ *     ) except *:
+ */
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_AddTraceback("text_normalizer.factory.toolkit.is_annotations_valid.is_annotations_valid_in_c", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":52
+ * 
+ * 
+ * cdef int is_position_valid_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         list annotations
+ *     ):
+ */
+
+static int __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_position_valid_in_c(PyObject *__pyx_v_annotations) {
+  unsigned int __pyx_v_n_anno;
+  unsigned int __pyx_v_i;
+  unsigned int __pyx_v_start_pos;
+  unsigned int __pyx_v_end_pos;
+  int __pyx_v_output;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  unsigned int __pyx_t_2;
+  unsigned int __pyx_t_3;
+  unsigned int __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  unsigned int __pyx_t_7;
+  int __pyx_t_8;
+  __Pyx_RefNannySetupContext("is_position_valid_in_c", 0);
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":56
+ *     ):
+ *     cdef unsigned int n_anno, i, start_pos, end_pos
+ *     cdef int output = -1             # <<<<<<<<<<<<<<
+ * 
+ *     n_anno = len(annotations)
+ */
+  __pyx_v_output = -1;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":58
+ *     cdef int output = -1
+ * 
+ *     n_anno = len(annotations)             # <<<<<<<<<<<<<<
+ *     for i in range(n_anno):
+ *         start_pos = annotations[i][0]
+ */
+  if (unlikely(__pyx_v_annotations == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(0, 58, __pyx_L1_error)
+  }
+  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_annotations); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_v_n_anno = __pyx_t_1;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":59
+ * 
+ *     n_anno = len(annotations)
+ *     for i in range(n_anno):             # <<<<<<<<<<<<<<
+ *         start_pos = annotations[i][0]
+ *         end_pos = annotations[i][1]
+ */
+  __pyx_t_2 = __pyx_v_n_anno;
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":60
+ *     n_anno = len(annotations)
+ *     for i in range(n_anno):
+ *         start_pos = annotations[i][0]             # <<<<<<<<<<<<<<
+ *         end_pos = annotations[i][1]
+ *         if start_pos > end_pos:
+ */
+    if (unlikely(__pyx_v_annotations == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 60, __pyx_L1_error)
+    }
+    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_7 = __Pyx_PyInt_As_unsigned_int(__pyx_t_6); if (unlikely((__pyx_t_7 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 60, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_v_start_pos = __pyx_t_7;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":61
+ *     for i in range(n_anno):
+ *         start_pos = annotations[i][0]
+ *         end_pos = annotations[i][1]             # <<<<<<<<<<<<<<
+ *         if start_pos > end_pos:
+ *             output = i
+ */
+    if (unlikely(__pyx_v_annotations == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 61, __pyx_L1_error)
+    }
+    __pyx_t_6 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_7 = __Pyx_PyInt_As_unsigned_int(__pyx_t_5); if (unlikely((__pyx_t_7 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_v_end_pos = __pyx_t_7;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":62
+ *         start_pos = annotations[i][0]
+ *         end_pos = annotations[i][1]
+ *         if start_pos > end_pos:             # <<<<<<<<<<<<<<
+ *             output = i
+ *             break
+ */
+    __pyx_t_8 = ((__pyx_v_start_pos > __pyx_v_end_pos) != 0);
     if (__pyx_t_8) {
 
-      /* "text_normalizer/factory/toolkit/findall_position.pyx":21
- *         output = reg_pattern.search(input_str[i:])
- *         if output is None:
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":63
+ *         end_pos = annotations[i][1]
+ *         if start_pos > end_pos:
+ *             output = i             # <<<<<<<<<<<<<<
+ *             break
+ *     return output
+ */
+      __pyx_v_output = __pyx_v_i;
+
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":64
+ *         if start_pos > end_pos:
+ *             output = i
  *             break             # <<<<<<<<<<<<<<
- *         start, end = output.span()
- *         output_list.append((start + i, end + i))
+ *     return output
+ * 
  */
       goto __pyx_L4_break;
 
-      /* "text_normalizer/factory/toolkit/findall_position.pyx":20
- *     while (i < str_len):
- *         output = reg_pattern.search(input_str[i:])
- *         if output is None:             # <<<<<<<<<<<<<<
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":62
+ *         start_pos = annotations[i][0]
+ *         end_pos = annotations[i][1]
+ *         if start_pos > end_pos:             # <<<<<<<<<<<<<<
+ *             output = i
  *             break
- *         start, end = output.span()
  */
     }
-
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":22
- *         if output is None:
- *             break
- *         start, end = output.span()             # <<<<<<<<<<<<<<
- *         output_list.append((start + i, end + i))
- *         i += end
- */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_output, __pyx_n_s_span); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_7 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_7)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_7);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-      }
-    }
-    if (__pyx_t_7) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
-      PyObject* sequence = __pyx_t_2;
-      Py_ssize_t size = __Pyx_PySequence_SIZE(sequence);
-      if (unlikely(size != 2)) {
-        if (size > 2) __Pyx_RaiseTooManyValuesError(2);
-        else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 22, __pyx_L1_error)
-      }
-      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_7 = PyTuple_GET_ITEM(sequence, 1); 
-      } else {
-        __pyx_t_4 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_7 = PyList_GET_ITEM(sequence, 1); 
-      }
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_7);
-      #else
-      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 22, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      #endif
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    } else {
-      Py_ssize_t index = -1;
-      __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 22, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_9 = Py_TYPE(__pyx_t_5)->tp_iternext;
-      index = 0; __pyx_t_4 = __pyx_t_9(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L6_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_4);
-      index = 1; __pyx_t_7 = __pyx_t_9(__pyx_t_5); if (unlikely(!__pyx_t_7)) goto __pyx_L6_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_7);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_5), 2) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
-      __pyx_t_9 = NULL;
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      goto __pyx_L7_unpacking_done;
-      __pyx_L6_unpacking_failed:;
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_9 = NULL;
-      if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 22, __pyx_L1_error)
-      __pyx_L7_unpacking_done:;
-    }
-    __Pyx_XDECREF_SET(__pyx_v_start, __pyx_t_4);
-    __pyx_t_4 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_end, __pyx_t_7);
-    __pyx_t_7 = 0;
-
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":23
- *             break
- *         start, end = output.span()
- *         output_list.append((start + i, end + i))             # <<<<<<<<<<<<<<
- *         i += end
- *     return output_list
- */
-    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = PyNumber_Add(__pyx_v_start, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 23, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyNumber_Add(__pyx_v_end, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 23, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_GIVEREF(__pyx_t_7);
-    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_7);
-    __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_4);
-    __pyx_t_7 = 0;
-    __pyx_t_4 = 0;
-    __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_output_list, __pyx_t_2); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 23, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "text_normalizer/factory/toolkit/findall_position.pyx":24
- *         start, end = output.span()
- *         output_list.append((start + i, end + i))
- *         i += end             # <<<<<<<<<<<<<<
- *     return output_list
- */
-    __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_v_end); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_11 = __Pyx_PyInt_As_unsigned_int(__pyx_t_4); if (unlikely((__pyx_t_11 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_v_i = __pyx_t_11;
   }
   __pyx_L4_break:;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":25
- *         output_list.append((start + i, end + i))
- *         i += end
- *     return output_list             # <<<<<<<<<<<<<<
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":65
+ *             output = i
+ *             break
+ *     return output             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(__pyx_v_output_list);
-  __pyx_r = __pyx_v_output_list;
+  __pyx_r = __pyx_v_output;
   goto __pyx_L0;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":8
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":52
  * 
  * 
- * cdef list findall_position_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
- *         str input_str,
- *         reg_pattern,
+ * cdef int is_position_valid_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         list annotations
+ *     ):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_WriteUnraisable("text_normalizer.factory.toolkit.is_annotations_valid.is_position_valid_in_c", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":68
+ * 
+ * 
+ * cdef int segment_has_correct_length_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         list annotations,
+ *     ):
+ */
+
+static int __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_segment_has_correct_length_in_c(PyObject *__pyx_v_annotations) {
+  unsigned int __pyx_v_i;
+  unsigned int __pyx_v_n_anno;
+  unsigned int __pyx_v_length;
+  unsigned int __pyx_v_s_len;
+  int __pyx_v_output;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  unsigned int __pyx_t_2;
+  unsigned int __pyx_t_3;
+  unsigned int __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  unsigned int __pyx_t_8;
+  int __pyx_t_9;
+  __Pyx_RefNannySetupContext("segment_has_correct_length_in_c", 0);
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":72
+ *     ):
+ *     cdef unsigned int i, n_anno, length, s_len
+ *     cdef int output = -1             # <<<<<<<<<<<<<<
+ * 
+ *     n_anno = len(annotations)
+ */
+  __pyx_v_output = -1;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":74
+ *     cdef int output = -1
+ * 
+ *     n_anno = len(annotations)             # <<<<<<<<<<<<<<
+ *     for i in range(n_anno):
+ *         length = annotations[i][1] - annotations[i][0]
+ */
+  if (unlikely(__pyx_v_annotations == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(0, 74, __pyx_L1_error)
+  }
+  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_annotations); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_v_n_anno = __pyx_t_1;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":75
+ * 
+ *     n_anno = len(annotations)
+ *     for i in range(n_anno):             # <<<<<<<<<<<<<<
+ *         length = annotations[i][1] - annotations[i][0]
+ *         s_len = len(annotations[i][2])
+ */
+  __pyx_t_2 = __pyx_v_n_anno;
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":76
+ *     n_anno = len(annotations)
+ *     for i in range(n_anno):
+ *         length = annotations[i][1] - annotations[i][0]             # <<<<<<<<<<<<<<
+ *         s_len = len(annotations[i][2])
+ *         if s_len != length:
+ */
+    if (unlikely(__pyx_v_annotations == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 76, __pyx_L1_error)
+    }
+    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_5, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (unlikely(__pyx_v_annotations == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 76, __pyx_L1_error)
+    }
+    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = PyNumber_Subtract(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_8 = __Pyx_PyInt_As_unsigned_int(__pyx_t_5); if (unlikely((__pyx_t_8 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_v_length = __pyx_t_8;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":77
+ *     for i in range(n_anno):
+ *         length = annotations[i][1] - annotations[i][0]
+ *         s_len = len(annotations[i][2])             # <<<<<<<<<<<<<<
+ *         if s_len != length:
+ *             output = i
+ */
+    if (unlikely(__pyx_v_annotations == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 77, __pyx_L1_error)
+    }
+    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 77, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_1 = PyObject_Length(__pyx_t_7); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 77, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_v_s_len = __pyx_t_1;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":78
+ *         length = annotations[i][1] - annotations[i][0]
+ *         s_len = len(annotations[i][2])
+ *         if s_len != length:             # <<<<<<<<<<<<<<
+ *             output = i
+ *             break
+ */
+    __pyx_t_9 = ((__pyx_v_s_len != __pyx_v_length) != 0);
+    if (__pyx_t_9) {
+
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":79
+ *         s_len = len(annotations[i][2])
+ *         if s_len != length:
+ *             output = i             # <<<<<<<<<<<<<<
+ *             break
+ *     return output
+ */
+      __pyx_v_output = __pyx_v_i;
+
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":80
+ *         if s_len != length:
+ *             output = i
+ *             break             # <<<<<<<<<<<<<<
+ *     return output
+ * 
+ */
+      goto __pyx_L4_break;
+
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":78
+ *         length = annotations[i][1] - annotations[i][0]
+ *         s_len = len(annotations[i][2])
+ *         if s_len != length:             # <<<<<<<<<<<<<<
+ *             output = i
+ *             break
+ */
+    }
+  }
+  __pyx_L4_break:;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":81
+ *             output = i
+ *             break
+ *     return output             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_r = __pyx_v_output;
+  goto __pyx_L0;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":68
+ * 
+ * 
+ * cdef int segment_has_correct_length_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         list annotations,
+ *     ):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_WriteUnraisable("text_normalizer.factory.toolkit.is_annotations_valid.segment_has_correct_length_in_c", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":84
+ * 
+ * 
+ * cdef int is_overlapped_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         list annotations,
+ *     ):
+ */
+
+static int __pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_overlapped_in_c(PyObject *__pyx_v_annotations) {
+  unsigned int __pyx_v_i;
+  unsigned int __pyx_v_n_anno;
+  unsigned int __pyx_v_pt;
+  int __pyx_v_output;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  unsigned int __pyx_t_4;
+  unsigned int __pyx_t_5;
+  unsigned int __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
+  int __pyx_t_8;
+  unsigned int __pyx_t_9;
+  __Pyx_RefNannySetupContext("is_overlapped_in_c", 0);
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":88
+ *     ):
+ *     cdef unsigned int i, n_anno, pt
+ *     cdef bint output = -1             # <<<<<<<<<<<<<<
+ * 
+ *     n_anno = len(annotations)
+ */
+  __pyx_v_output = -1;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":90
+ *     cdef bint output = -1
+ * 
+ *     n_anno = len(annotations)             # <<<<<<<<<<<<<<
+ *     pt = annotations[0][1]
+ *     for i in range(1, n_anno):
+ */
+  if (unlikely(__pyx_v_annotations == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(0, 90, __pyx_L1_error)
+  }
+  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_annotations); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_v_n_anno = __pyx_t_1;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":91
+ * 
+ *     n_anno = len(annotations)
+ *     pt = annotations[0][1]             # <<<<<<<<<<<<<<
+ *     for i in range(1, n_anno):
+ *         if pt > annotations[i][0]:
+ */
+  if (unlikely(__pyx_v_annotations == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(0, 91, __pyx_L1_error)
+  }
+  __pyx_t_2 = __Pyx_GetItemInt_List(__pyx_v_annotations, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __Pyx_PyInt_As_unsigned_int(__pyx_t_3); if (unlikely((__pyx_t_4 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_pt = __pyx_t_4;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":92
+ *     n_anno = len(annotations)
+ *     pt = annotations[0][1]
+ *     for i in range(1, n_anno):             # <<<<<<<<<<<<<<
+ *         if pt > annotations[i][0]:
+ *             output = i
+ */
+  __pyx_t_4 = __pyx_v_n_anno;
+  __pyx_t_5 = __pyx_t_4;
+  for (__pyx_t_6 = 1; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
+    __pyx_v_i = __pyx_t_6;
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":93
+ *     pt = annotations[0][1]
+ *     for i in range(1, n_anno):
+ *         if pt > annotations[i][0]:             # <<<<<<<<<<<<<<
+ *             output = i
+ *             break
+ */
+    __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_pt); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (unlikely(__pyx_v_annotations == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 93, __pyx_L1_error)
+    }
+    __pyx_t_2 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_3, __pyx_t_7, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 93, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__pyx_t_8) {
+
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":94
+ *     for i in range(1, n_anno):
+ *         if pt > annotations[i][0]:
+ *             output = i             # <<<<<<<<<<<<<<
+ *             break
+ *         pt = annotations[i][1]
+ */
+      __pyx_v_output = __pyx_v_i;
+
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":95
+ *         if pt > annotations[i][0]:
+ *             output = i
+ *             break             # <<<<<<<<<<<<<<
+ *         pt = annotations[i][1]
+ *     return output
+ */
+      goto __pyx_L4_break;
+
+      /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":93
+ *     pt = annotations[0][1]
+ *     for i in range(1, n_anno):
+ *         if pt > annotations[i][0]:             # <<<<<<<<<<<<<<
+ *             output = i
+ *             break
+ */
+    }
+
+    /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":96
+ *             output = i
+ *             break
+ *         pt = annotations[i][1]             # <<<<<<<<<<<<<<
+ *     return output
+ */
+    if (unlikely(__pyx_v_annotations == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 96, __pyx_L1_error)
+    }
+    __pyx_t_2 = __Pyx_GetItemInt_List(__pyx_v_annotations, __pyx_v_i, unsigned int, 0, __Pyx_PyInt_From_unsigned_int, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 96, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_9 = __Pyx_PyInt_As_unsigned_int(__pyx_t_7); if (unlikely((__pyx_t_9 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_v_pt = __pyx_t_9;
+  }
+  __pyx_L4_break:;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":97
+ *             break
+ *         pt = annotations[i][1]
+ *     return output             # <<<<<<<<<<<<<<
+ */
+  __pyx_r = __pyx_v_output;
+  goto __pyx_L0;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":84
+ * 
+ * 
+ * cdef int is_overlapped_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
+ *         list annotations,
+ *     ):
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("text_normalizer.factory.toolkit.findall_position.findall_position_in_c", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_WriteUnraisable("text_normalizer.factory.toolkit.is_annotations_valid.is_overlapped_in_c", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_output_list);
-  __Pyx_XDECREF(__pyx_v_output);
-  __Pyx_XDECREF(__pyx_v_start);
-  __Pyx_XDECREF(__pyx_v_end);
-  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -1503,17 +2197,17 @@ static PyMethodDef __pyx_methods[] = {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_findall_position(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_is_annotations_valid(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_findall_position},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_is_annotations_valid},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "findall_position",
+    "is_annotations_valid",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -1533,35 +2227,83 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
+  {&__pyx_n_s_annotations, __pyx_k_annotations, sizeof(__pyx_k_annotations), 0, 0, 1, 1},
+  {&__pyx_kp_s_annotations_is_overlapped_at, __pyx_k_annotations_is_overlapped_at, sizeof(__pyx_k_annotations_is_overlapped_at), 0, 0, 1, 0},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
-  {&__pyx_n_s_findall_position, __pyx_k_findall_position, sizeof(__pyx_k_findall_position), 0, 0, 1, 1},
-  {&__pyx_n_s_input_str, __pyx_k_input_str, sizeof(__pyx_k_input_str), 0, 0, 1, 1},
+  {&__pyx_n_s_format, __pyx_k_format, sizeof(__pyx_k_format), 0, 0, 1, 1},
+  {&__pyx_n_s_is_annotations_valid, __pyx_k_is_annotations_valid, sizeof(__pyx_k_is_annotations_valid), 0, 0, 1, 1},
+  {&__pyx_n_s_is_overlapped, __pyx_k_is_overlapped, sizeof(__pyx_k_is_overlapped), 0, 0, 1, 1},
+  {&__pyx_n_s_is_position_valid, __pyx_k_is_position_valid, sizeof(__pyx_k_is_position_valid), 0, 0, 1, 1},
+  {&__pyx_kp_s_len_of_segment_is_not_correct_at, __pyx_k_len_of_segment_is_not_correct_at, sizeof(__pyx_k_len_of_segment_is_not_correct_at), 0, 0, 1, 0},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_n_s_reg_pattern, __pyx_k_reg_pattern, sizeof(__pyx_k_reg_pattern), 0, 0, 1, 1},
-  {&__pyx_n_s_search, __pyx_k_search, sizeof(__pyx_k_search), 0, 0, 1, 1},
-  {&__pyx_n_s_span, __pyx_k_span, sizeof(__pyx_k_span), 0, 0, 1, 1},
+  {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_segment_has_correct_length, __pyx_k_segment_has_correct_length, sizeof(__pyx_k_segment_has_correct_length), 0, 0, 1, 1},
+  {&__pyx_kp_s_start_position_is_bigger_than_en, __pyx_k_start_position_is_bigger_than_en, sizeof(__pyx_k_start_position_is_bigger_than_en), 0, 0, 1, 0},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_kp_s_text_normalizer_factory_toolkit, __pyx_k_text_normalizer_factory_toolkit, sizeof(__pyx_k_text_normalizer_factory_toolkit), 0, 0, 1, 0},
   {&__pyx_n_s_text_normalizer_factory_toolkit_2, __pyx_k_text_normalizer_factory_toolkit_2, sizeof(__pyx_k_text_normalizer_factory_toolkit_2), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 59, __pyx_L1_error)
   return 0;
+  __pyx_L1_error:;
+  return -1;
 }
 
 static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":1
- * def findall_position(input_str, reg_pattern):             # <<<<<<<<<<<<<<
- *     return findall_position_in_c(
- *         input_str,
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":3
+ * 
+ * 
+ * def is_annotations_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> None:
  */
-  __pyx_tuple_ = PyTuple_Pack(2, __pyx_n_s_input_str, __pyx_n_s_reg_pattern); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_annotations); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_findall_position, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_is_annotations_valid, 3, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 3, __pyx_L1_error)
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":9
+ * 
+ * 
+ * def is_position_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_n_s_annotations); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_is_position_valid, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 9, __pyx_L1_error)
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":15
+ * 
+ * 
+ * def segment_has_correct_length(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_annotations); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_segment_has_correct_length, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 15, __pyx_L1_error)
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":21
+ * 
+ * 
+ * def is_overlapped(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_s_annotations); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_text_normalizer_factory_toolkit, __pyx_n_s_is_overlapped, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1570,7 +2312,7 @@ static int __Pyx_InitCachedConstants(void) {
 }
 
 static int __Pyx_InitGlobals(void) {
-  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 3, __pyx_L1_error);
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1604,8 +2346,15 @@ static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
   /*--- Function export code ---*/
+  if (__Pyx_ExportFunction("is_annotations_valid_in_c", (void (*)(void))__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_annotations_valid_in_c, "void (PyObject *)") < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_ExportFunction("is_position_valid_in_c", (void (*)(void))__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_position_valid_in_c, "int (PyObject *)") < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_ExportFunction("segment_has_correct_length_in_c", (void (*)(void))__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_segment_has_correct_length_in_c, "int (PyObject *)") < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (__Pyx_ExportFunction("is_overlapped_in_c", (void (*)(void))__pyx_f_15text_normalizer_7factory_7toolkit_20is_annotations_valid_is_overlapped_in_c, "int (PyObject *)") < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
+  __pyx_L1_error:;
+  __Pyx_RefNannyFinishContext();
+  return -1;
 }
 
 static int __Pyx_modinit_type_init_code(void) {
@@ -1666,11 +2415,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initfindall_position(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initfindall_position(void)
+__Pyx_PyMODINIT_FUNC initis_annotations_valid(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initis_annotations_valid(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_findall_position(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_findall_position(void)
+__Pyx_PyMODINIT_FUNC PyInit_is_annotations_valid(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_is_annotations_valid(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -1710,7 +2459,7 @@ bad:
 }
 
 
-static int __pyx_pymod_exec_findall_position(PyObject *__pyx_pyinit_module)
+static int __pyx_pymod_exec_is_annotations_valid(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -1730,28 +2479,28 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_findall_position(void)", 0);
-  if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_is_annotations_valid(void)", 0);
+  if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(0, 3, __pyx_L1_error)
   #ifdef __Pyx_CyFunction_USED
-  if (__pyx_CyFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_CyFunction_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_FusedFunction_USED
-  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Coroutine_USED
-  if (__pyx_Coroutine_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_Coroutine_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Generator_USED
-  if (__pyx_Generator_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_Generator_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_AsyncGen_USED
-  if (__pyx_AsyncGen_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_AsyncGen_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   #ifdef __Pyx_StopAsyncIteration_USED
-  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
   /*--- Library function declarations ---*/
   /*--- Threads initialization code ---*/
@@ -1766,73 +2515,111 @@ if (!__Pyx_RefNanny) {
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("findall_position", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("is_annotations_valid", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
-  if (unlikely(!__pyx_m)) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (unlikely(!__pyx_m)) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
-  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(0, 3, __pyx_L1_error)
   Py_INCREF(__pyx_d);
-  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_cython_runtime = PyImport_AddModule((char *) "cython_runtime"); if (unlikely(!__pyx_cython_runtime)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_cython_runtime = PyImport_AddModule((char *) "cython_runtime"); if (unlikely(!__pyx_cython_runtime)) __PYX_ERR(0, 3, __pyx_L1_error)
   #if CYTHON_COMPILING_IN_PYPY
   Py_INCREF(__pyx_b);
   #endif
-  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(0, 3, __pyx_L1_error);
   /*--- Initialize various global constants etc. ---*/
-  if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
-  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_text_normalizer__factory__toolkit__findall_position) {
-    if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_module_is_main_text_normalizer__factory__toolkit__is_annotations_valid) {
+    if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
-    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "text_normalizer.factory.toolkit.findall_position")) {
-      if (unlikely(PyDict_SetItemString(modules, "text_normalizer.factory.toolkit.findall_position", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 3, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "text_normalizer.factory.toolkit.is_annotations_valid")) {
+      if (unlikely(PyDict_SetItemString(modules, "text_normalizer.factory.toolkit.is_annotations_valid", __pyx_m) < 0)) __PYX_ERR(0, 3, __pyx_L1_error)
     }
   }
   #endif
   /*--- Builtin init code ---*/
-  if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   /*--- Constants init code ---*/
-  if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   /*--- Global type/function init code ---*/
   (void)__Pyx_modinit_global_init_code();
   (void)__Pyx_modinit_variable_export_code();
-  (void)__Pyx_modinit_function_export_code();
+  if (unlikely(__Pyx_modinit_function_export_code() != 0)) goto __pyx_L1_error;
   (void)__Pyx_modinit_type_init_code();
   (void)__Pyx_modinit_type_import_code();
   (void)__Pyx_modinit_variable_import_code();
   (void)__Pyx_modinit_function_import_code();
   /*--- Execution code ---*/
   #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
-  if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   #endif
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":1
- * def findall_position(input_str, reg_pattern):             # <<<<<<<<<<<<<<
- *     return findall_position_in_c(
- *         input_str,
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":3
+ * 
+ * 
+ * def is_annotations_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> None:
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_16findall_position_1findall_position, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_20is_annotations_valid_1is_annotations_valid, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_findall_position, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_is_annotations_valid, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "text_normalizer/factory/toolkit/findall_position.pyx":8
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":9
  * 
  * 
- * cdef list findall_position_in_c(  # noqa: E999             # <<<<<<<<<<<<<<
- *         str input_str,
- *         reg_pattern,
+ * def is_position_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_20is_annotations_valid_3is_position_valid, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_is_position_valid, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":15
+ * 
+ * 
+ * def segment_has_correct_length(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_20is_annotations_valid_5segment_has_correct_length, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_segment_has_correct_length, __pyx_t_1) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":21
+ * 
+ * 
+ * def is_overlapped(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> int:
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15text_normalizer_7factory_7toolkit_20is_annotations_valid_7is_overlapped, NULL, __pyx_n_s_text_normalizer_factory_toolkit_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_is_overlapped, __pyx_t_1) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "text_normalizer/factory/toolkit/is_annotations_valid.pyx":3
+ * 
+ * 
+ * def is_annotations_valid(             # <<<<<<<<<<<<<<
+ *         annotations: list[tuple[int, int, str]],
+ *     ) -> None:
+ */
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /*--- Wrapped vars code ---*/
@@ -1842,11 +2629,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init text_normalizer.factory.toolkit.findall_position", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init text_normalizer.factory.toolkit.is_annotations_valid", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init text_normalizer.factory.toolkit.findall_position");
+    PyErr_SetString(PyExc_ImportError, "init text_normalizer.factory.toolkit.is_annotations_valid");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -1877,148 +2664,6 @@ end:
 }
 #endif
 
-/* RaiseArgTupleInvalid */
-static void __Pyx_RaiseArgtupleInvalid(
-    const char* func_name,
-    int exact,
-    Py_ssize_t num_min,
-    Py_ssize_t num_max,
-    Py_ssize_t num_found)
-{
-    Py_ssize_t num_expected;
-    const char *more_or_less;
-    if (num_found < num_min) {
-        num_expected = num_min;
-        more_or_less = "at least";
-    } else {
-        num_expected = num_max;
-        more_or_less = "at most";
-    }
-    if (exact) {
-        more_or_less = "exactly";
-    }
-    PyErr_Format(PyExc_TypeError,
-                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                 func_name, more_or_less, num_expected,
-                 (num_expected == 1) ? "" : "s", num_found);
-}
-
-/* RaiseDoubleKeywords */
-static void __Pyx_RaiseDoubleKeywordsError(
-    const char* func_name,
-    PyObject* kw_name)
-{
-    PyErr_Format(PyExc_TypeError,
-        #if PY_MAJOR_VERSION >= 3
-        "%s() got multiple values for keyword argument '%U'", func_name, kw_name);
-        #else
-        "%s() got multiple values for keyword argument '%s'", func_name,
-        PyString_AsString(kw_name));
-        #endif
-}
-
-/* ParseKeywords */
-static int __Pyx_ParseOptionalKeywords(
-    PyObject *kwds,
-    PyObject **argnames[],
-    PyObject *kwds2,
-    PyObject *values[],
-    Py_ssize_t num_pos_args,
-    const char* function_name)
-{
-    PyObject *key = 0, *value = 0;
-    Py_ssize_t pos = 0;
-    PyObject*** name;
-    PyObject*** first_kw_arg = argnames + num_pos_args;
-    while (PyDict_Next(kwds, &pos, &key, &value)) {
-        name = first_kw_arg;
-        while (*name && (**name != key)) name++;
-        if (*name) {
-            values[name-argnames] = value;
-            continue;
-        }
-        name = first_kw_arg;
-        #if PY_MAJOR_VERSION < 3
-        if (likely(PyString_CheckExact(key)) || likely(PyString_Check(key))) {
-            while (*name) {
-                if ((CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**name) == PyString_GET_SIZE(key))
-                        && _PyString_Eq(**name, key)) {
-                    values[name-argnames] = value;
-                    break;
-                }
-                name++;
-            }
-            if (*name) continue;
-            else {
-                PyObject*** argname = argnames;
-                while (argname != first_kw_arg) {
-                    if ((**argname == key) || (
-                            (CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**argname) == PyString_GET_SIZE(key))
-                             && _PyString_Eq(**argname, key))) {
-                        goto arg_passed_twice;
-                    }
-                    argname++;
-                }
-            }
-        } else
-        #endif
-        if (likely(PyUnicode_Check(key))) {
-            while (*name) {
-                int cmp = (**name == key) ? 0 :
-                #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
-                    (PyUnicode_GET_SIZE(**name) != PyUnicode_GET_SIZE(key)) ? 1 :
-                #endif
-                    PyUnicode_Compare(**name, key);
-                if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
-                if (cmp == 0) {
-                    values[name-argnames] = value;
-                    break;
-                }
-                name++;
-            }
-            if (*name) continue;
-            else {
-                PyObject*** argname = argnames;
-                while (argname != first_kw_arg) {
-                    int cmp = (**argname == key) ? 0 :
-                    #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
-                        (PyUnicode_GET_SIZE(**argname) != PyUnicode_GET_SIZE(key)) ? 1 :
-                    #endif
-                        PyUnicode_Compare(**argname, key);
-                    if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
-                    if (cmp == 0) goto arg_passed_twice;
-                    argname++;
-                }
-            }
-        } else
-            goto invalid_keyword_type;
-        if (kwds2) {
-            if (unlikely(PyDict_SetItem(kwds2, key, value))) goto bad;
-        } else {
-            goto invalid_keyword;
-        }
-    }
-    return 0;
-arg_passed_twice:
-    __Pyx_RaiseDoubleKeywordsError(function_name, key);
-    goto bad;
-invalid_keyword_type:
-    PyErr_Format(PyExc_TypeError,
-        "%.200s() keywords must be strings", function_name);
-    goto bad;
-invalid_keyword:
-    PyErr_Format(PyExc_TypeError,
-    #if PY_MAJOR_VERSION < 3
-        "%.200s() got an unexpected keyword argument '%.200s'",
-        function_name, PyString_AsString(key));
-    #else
-        "%s() got an unexpected keyword argument '%U'",
-        function_name, key);
-    #endif
-bad:
-    return -1;
-}
-
 /* PyObjectGetAttrStr */
 #if CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
@@ -2032,6 +2677,20 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
     return PyObject_GetAttr(obj, attr_name);
 }
 #endif
+
+/* GetBuiltinName */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
+    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
+    if (unlikely(!result)) {
+        PyErr_Format(PyExc_NameError,
+#if PY_MAJOR_VERSION >= 3
+            "name '%U' is not defined", name);
+#else
+            "name '%.200s' is not defined", PyString_AS_STRING(name));
+#endif
+    }
+    return result;
+}
 
 /* PyCFunctionFastCall */
 #if CYTHON_FAST_PYCCALL
@@ -2256,89 +2915,8 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 }
 #endif
 
-/* PyObjectCallNoArg */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, NULL, 0);
-    }
-#endif
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || __Pyx_TypeCheck(func, __pyx_CyFunctionType))) {
-#else
-    if (likely(PyCFunction_Check(func))) {
-#endif
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
-            return __Pyx_PyObject_CallMethO(func, NULL);
-        }
-    }
-    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
-}
-#endif
-
-/* RaiseTooManyValuesToUnpack */
-  static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
-    PyErr_Format(PyExc_ValueError,
-                 "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
-}
-
-/* RaiseNeedMoreValuesToUnpack */
-  static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
-    PyErr_Format(PyExc_ValueError,
-                 "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
-                 index, (index == 1) ? "" : "s");
-}
-
-/* IterFinish */
-  static CYTHON_INLINE int __Pyx_IterFinish(void) {
-#if CYTHON_FAST_THREAD_STATE
-    PyThreadState *tstate = __Pyx_PyThreadState_Current;
-    PyObject* exc_type = tstate->curexc_type;
-    if (unlikely(exc_type)) {
-        if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) {
-            PyObject *exc_value, *exc_tb;
-            exc_value = tstate->curexc_value;
-            exc_tb = tstate->curexc_traceback;
-            tstate->curexc_type = 0;
-            tstate->curexc_value = 0;
-            tstate->curexc_traceback = 0;
-            Py_DECREF(exc_type);
-            Py_XDECREF(exc_value);
-            Py_XDECREF(exc_tb);
-            return 0;
-        } else {
-            return -1;
-        }
-    }
-    return 0;
-#else
-    if (unlikely(PyErr_Occurred())) {
-        if (likely(PyErr_ExceptionMatches(PyExc_StopIteration))) {
-            PyErr_Clear();
-            return 0;
-        } else {
-            return -1;
-        }
-    }
-    return 0;
-#endif
-}
-
-/* UnpackItemEndCheck */
-  static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected) {
-    if (unlikely(retval)) {
-        Py_DECREF(retval);
-        __Pyx_RaiseTooManyValuesError(expected);
-        return -1;
-    } else {
-        return __Pyx_IterFinish();
-    }
-    return 0;
-}
-
 /* PyErrFetchRestore */
-  #if CYTHON_FAST_THREAD_STATE
+#if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
     PyObject *tmp_type, *tmp_value, *tmp_tb;
     tmp_type = tstate->curexc_type;
@@ -2361,8 +2939,296 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 }
 #endif
 
+/* RaiseException */
+#if PY_MAJOR_VERSION < 3
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb,
+                        CYTHON_UNUSED PyObject *cause) {
+    __Pyx_PyThreadState_declare
+    Py_XINCREF(type);
+    if (!value || value == Py_None)
+        value = NULL;
+    else
+        Py_INCREF(value);
+    if (!tb || tb == Py_None)
+        tb = NULL;
+    else {
+        Py_INCREF(tb);
+        if (!PyTraceBack_Check(tb)) {
+            PyErr_SetString(PyExc_TypeError,
+                "raise: arg 3 must be a traceback or None");
+            goto raise_error;
+        }
+    }
+    if (PyType_Check(type)) {
+#if CYTHON_COMPILING_IN_PYPY
+        if (!value) {
+            Py_INCREF(Py_None);
+            value = Py_None;
+        }
+#endif
+        PyErr_NormalizeException(&type, &value, &tb);
+    } else {
+        if (value) {
+            PyErr_SetString(PyExc_TypeError,
+                "instance exception may not have a separate value");
+            goto raise_error;
+        }
+        value = type;
+        type = (PyObject*) Py_TYPE(type);
+        Py_INCREF(type);
+        if (!PyType_IsSubtype((PyTypeObject *)type, (PyTypeObject *)PyExc_BaseException)) {
+            PyErr_SetString(PyExc_TypeError,
+                "raise: exception class must be a subclass of BaseException");
+            goto raise_error;
+        }
+    }
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrRestore(type, value, tb);
+    return;
+raise_error:
+    Py_XDECREF(value);
+    Py_XDECREF(type);
+    Py_XDECREF(tb);
+    return;
+}
+#else
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause) {
+    PyObject* owned_instance = NULL;
+    if (tb == Py_None) {
+        tb = 0;
+    } else if (tb && !PyTraceBack_Check(tb)) {
+        PyErr_SetString(PyExc_TypeError,
+            "raise: arg 3 must be a traceback or None");
+        goto bad;
+    }
+    if (value == Py_None)
+        value = 0;
+    if (PyExceptionInstance_Check(type)) {
+        if (value) {
+            PyErr_SetString(PyExc_TypeError,
+                "instance exception may not have a separate value");
+            goto bad;
+        }
+        value = type;
+        type = (PyObject*) Py_TYPE(value);
+    } else if (PyExceptionClass_Check(type)) {
+        PyObject *instance_class = NULL;
+        if (value && PyExceptionInstance_Check(value)) {
+            instance_class = (PyObject*) Py_TYPE(value);
+            if (instance_class != type) {
+                int is_subclass = PyObject_IsSubclass(instance_class, type);
+                if (!is_subclass) {
+                    instance_class = NULL;
+                } else if (unlikely(is_subclass == -1)) {
+                    goto bad;
+                } else {
+                    type = instance_class;
+                }
+            }
+        }
+        if (!instance_class) {
+            PyObject *args;
+            if (!value)
+                args = PyTuple_New(0);
+            else if (PyTuple_Check(value)) {
+                Py_INCREF(value);
+                args = value;
+            } else
+                args = PyTuple_Pack(1, value);
+            if (!args)
+                goto bad;
+            owned_instance = PyObject_Call(type, args, NULL);
+            Py_DECREF(args);
+            if (!owned_instance)
+                goto bad;
+            value = owned_instance;
+            if (!PyExceptionInstance_Check(value)) {
+                PyErr_Format(PyExc_TypeError,
+                             "calling %R should have returned an instance of "
+                             "BaseException, not %R",
+                             type, Py_TYPE(value));
+                goto bad;
+            }
+        }
+    } else {
+        PyErr_SetString(PyExc_TypeError,
+            "raise: exception class must be a subclass of BaseException");
+        goto bad;
+    }
+    if (cause) {
+        PyObject *fixed_cause;
+        if (cause == Py_None) {
+            fixed_cause = NULL;
+        } else if (PyExceptionClass_Check(cause)) {
+            fixed_cause = PyObject_CallObject(cause, NULL);
+            if (fixed_cause == NULL)
+                goto bad;
+        } else if (PyExceptionInstance_Check(cause)) {
+            fixed_cause = cause;
+            Py_INCREF(fixed_cause);
+        } else {
+            PyErr_SetString(PyExc_TypeError,
+                            "exception causes must derive from "
+                            "BaseException");
+            goto bad;
+        }
+        PyException_SetCause(value, fixed_cause);
+    }
+    PyErr_SetObject(type, value);
+    if (tb) {
+#if CYTHON_COMPILING_IN_PYPY
+        PyObject *tmp_type, *tmp_value, *tmp_tb;
+        PyErr_Fetch(&tmp_type, &tmp_value, &tmp_tb);
+        Py_INCREF(tb);
+        PyErr_Restore(tmp_type, tmp_value, tb);
+        Py_XDECREF(tmp_tb);
+#else
+        PyThreadState *tstate = __Pyx_PyThreadState_Current;
+        PyObject* tmp_tb = tstate->curexc_traceback;
+        if (tb != tmp_tb) {
+            Py_INCREF(tb);
+            tstate->curexc_traceback = tb;
+            Py_XDECREF(tmp_tb);
+        }
+#endif
+    }
+bad:
+    Py_XDECREF(owned_instance);
+    return;
+}
+#endif
+
+/* GetItemInt */
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyList_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely((0 <= wrapped_i) & (wrapped_i < PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyTuple_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely((0 <= wrapped_i) & (wrapped_i < PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return NULL;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+}
+
+/* WriteUnraisableException */
+static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
+                                  CYTHON_UNUSED int lineno, CYTHON_UNUSED const char *filename,
+                                  int full_traceback, CYTHON_UNUSED int nogil) {
+    PyObject *old_exc, *old_val, *old_tb;
+    PyObject *ctx;
+    __Pyx_PyThreadState_declare
+#ifdef WITH_THREAD
+    PyGILState_STATE state;
+    if (nogil)
+        state = PyGILState_Ensure();
+#ifdef _MSC_VER
+    else state = (PyGILState_STATE)-1;
+#endif
+#endif
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&old_exc, &old_val, &old_tb);
+    if (full_traceback) {
+        Py_XINCREF(old_exc);
+        Py_XINCREF(old_val);
+        Py_XINCREF(old_tb);
+        __Pyx_ErrRestore(old_exc, old_val, old_tb);
+        PyErr_PrintEx(1);
+    }
+    #if PY_MAJOR_VERSION < 3
+    ctx = PyString_FromString(name);
+    #else
+    ctx = PyUnicode_FromString(name);
+    #endif
+    __Pyx_ErrRestore(old_exc, old_val, old_tb);
+    if (!ctx) {
+        PyErr_WriteUnraisable(Py_None);
+    } else {
+        PyErr_WriteUnraisable(ctx);
+        Py_DECREF(ctx);
+    }
+#ifdef WITH_THREAD
+    if (nogil)
+        PyGILState_Release(state);
+#endif
+}
+
 /* CLineInTraceback */
-  #ifndef CYTHON_CLINE_IN_TRACEBACK
+#ifndef CYTHON_CLINE_IN_TRACEBACK
 static int __Pyx_CLineForTraceback(CYTHON_UNUSED PyThreadState *tstate, int c_line) {
     PyObject *use_cline;
     PyObject *ptype, *pvalue, *ptraceback;
@@ -2402,7 +3268,7 @@ static int __Pyx_CLineForTraceback(CYTHON_UNUSED PyThreadState *tstate, int c_li
 #endif
 
 /* CodeObjectCache */
-  static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
+static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
     if (end >= 0 && code_line > entries[end].code_line) {
         return count;
@@ -2482,7 +3348,7 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object) {
 }
 
 /* AddTraceback */
-  #include "compile.h"
+#include "compile.h"
 #include "frameobject.h"
 #include "traceback.h"
 static PyCodeObject* __Pyx_CreateCodeObjectForTraceback(
@@ -2567,7 +3433,38 @@ bad:
 }
 
 /* CIntToPy */
-  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value) {
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+    const int neg_one = (int) -1, const_zero = (int) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(int) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(int) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(int) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(int),
+                                     little, !is_unsigned);
+    }
+}
+
+/* CIntToPy */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value) {
     const unsigned int neg_one = (unsigned int) -1, const_zero = (unsigned int) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -2598,7 +3495,7 @@ bad:
 }
 
 /* CIntFromPyVerify */
-  #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
+#define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
 #define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
@@ -2619,8 +3516,39 @@ bad:
         return (target_type) value;\
     }
 
+/* CIntToPy */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    const long neg_one = (long) -1, const_zero = (long) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
+                                     little, !is_unsigned);
+    }
+}
+
 /* CIntFromPy */
-  static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *x) {
+static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *x) {
     const unsigned int neg_one = (unsigned int) -1, const_zero = (unsigned int) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -2808,39 +3736,8 @@ raise_neg_overflow:
     return (unsigned int) -1;
 }
 
-/* CIntToPy */
-  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-    const long neg_one = (long) -1, const_zero = (long) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
-}
-
 /* CIntFromPy */
-  static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
+static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -3029,7 +3926,7 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-  static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -3218,7 +4115,7 @@ raise_neg_overflow:
 }
 
 /* FastTypeChecks */
-  #if CYTHON_COMPILING_IN_CPYTHON
+#if CYTHON_COMPILING_IN_CPYTHON
 static int __Pyx_InBases(PyTypeObject *a, PyTypeObject *b) {
     while (a) {
         a = a->tp_base;
@@ -3318,7 +4215,7 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 #endif
 
 /* CheckBinaryVersion */
-  static int __Pyx_check_binary_version(void) {
+static int __Pyx_check_binary_version(void) {
     char ctversion[4], rtversion[4];
     PyOS_snprintf(ctversion, 4, "%d.%d", PY_MAJOR_VERSION, PY_MINOR_VERSION);
     PyOS_snprintf(rtversion, 4, "%s", Py_GetVersion());
@@ -3333,8 +4230,45 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
     return 0;
 }
 
+/* FunctionExport */
+static int __Pyx_ExportFunction(const char *name, void (*f)(void), const char *sig) {
+    PyObject *d = 0;
+    PyObject *cobj = 0;
+    union {
+        void (*fp)(void);
+        void *p;
+    } tmp;
+    d = PyObject_GetAttrString(__pyx_m, (char *)"__pyx_capi__");
+    if (!d) {
+        PyErr_Clear();
+        d = PyDict_New();
+        if (!d)
+            goto bad;
+        Py_INCREF(d);
+        if (PyModule_AddObject(__pyx_m, (char *)"__pyx_capi__", d) < 0)
+            goto bad;
+    }
+    tmp.fp = f;
+#if PY_VERSION_HEX >= 0x02070000
+    cobj = PyCapsule_New(tmp.p, sig, 0);
+#else
+    cobj = PyCObject_FromVoidPtrAndDesc(tmp.p, (void *)sig, 0);
+#endif
+    if (!cobj)
+        goto bad;
+    if (PyDict_SetItemString(d, name, cobj) < 0)
+        goto bad;
+    Py_DECREF(cobj);
+    Py_DECREF(d);
+    return 0;
+bad:
+    Py_XDECREF(cobj);
+    Py_XDECREF(d);
+    return -1;
+}
+
 /* InitStrings */
-  static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
+static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
     while (t->p) {
         #if PY_MAJOR_VERSION < 3
         if (t->is_unicode) {
